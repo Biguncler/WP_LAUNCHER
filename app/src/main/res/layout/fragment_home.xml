@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.biguncler.wp_launcher.fragment.FragmentHome">
+
+
+    <GridView
+        android:id="@+id/view_gv_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:numColumns="3"
+        >
+
+    </GridView>
+
+
+</LinearLayout>
