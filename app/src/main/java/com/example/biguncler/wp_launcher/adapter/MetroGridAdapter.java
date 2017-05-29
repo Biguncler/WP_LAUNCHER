@@ -12,12 +12,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
+import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.hp.hpl.sparta.Text;
 
@@ -27,7 +29,7 @@ import java.util.List;
  * Created by Biguncler on 11/29/16.
  */
 
-public class GridAdapter extends BaseAdapter{
+public class MetroGridAdapter extends BaseAdapter{
     private Context context;
     private int numColumns=3;
 
@@ -66,23 +68,41 @@ public class GridAdapter extends BaseAdapter{
         ImageView ivIcon= (ImageView) layoutMetro.findViewById(R.id.view_iv_item_adapter_icon);
         tvName.setText(list.get(i).getAppName().toUpperCase());
         ivIcon.setImageDrawable(list.get(i).getIcon());
-
-
+        initListener(layoutParent,i);
         return layoutParent;
     }
 
-    public GridAdapter(Context context, List<AppMode> list,int numColumns) {
+    public MetroGridAdapter(Context context, List<AppMode> list, int numColumns) {
         this.context = context;
         this.list = list;
         this.numColumns=numColumns;
     }
 
-    public GridAdapter(Context context) {
+    public MetroGridAdapter(Context context) {
         this.context = context;
     }
 
     public void setList(List<AppMode> list) {
         this.list = list;
+    }
+
+    private void initListener(View view,final int position){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String pk=list.get(position).getPackageName();
+                boolean result= AppUtil.luanchApp(context,pk,view);
+                if(!result){
+                    Toast.makeText(context,"启动失败",Toast.LENGTH_SHORT).show();;
+                }
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                return true;
+            }
+        });
     }
 
 }

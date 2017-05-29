@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<com.example.biguncler.wp_launcher.view.ClickEffectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="50dp"
     android:orientation="horizontal"
     android:padding="4dp"
-    android:background="?attr/selectableItemBackground">
+    android:clickable="true"
+    >
 
     <ImageView
         android:id="@+id/view_iv_item_adapter_icon"
@@ -14,12 +15,11 @@
 
     <TextView
         android:id="@+id/view_tv_item_adapter_name"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:layout_marginLeft="8dp"
         android:maxLines="1"
         android:gravity="center_vertical"
         android:textSize="18sp" />
 
-</LinearLayout>
+</com.example.biguncler.wp_launcher.view.ClickEffectLayout>

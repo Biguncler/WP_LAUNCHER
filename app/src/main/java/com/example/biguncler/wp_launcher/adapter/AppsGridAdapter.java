@@ -10,11 +10,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
+import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 
 import java.util.List;
@@ -60,7 +62,7 @@ public class AppsGridAdapter extends BaseAdapter{
         }
         ivIcon.setImageDrawable(list.get(i).getIcon());
         ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
-
+        initListener(layoutParent,i);
 
         return layoutParent;
     }
@@ -77,5 +79,27 @@ public class AppsGridAdapter extends BaseAdapter{
     public void setList(List<AppMode> list) {
         this.list = list;
     }
+
+    private void initListener(View view,final int position){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String pk=list.get(position).getPackageName();
+                boolean result= AppUtil.luanchApp(context,pk,view);
+                if(!result){
+                    Toast.makeText(context,"启动失败",Toast.LENGTH_SHORT).show();;
+                }
+            }
+        });
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                String pk=list.get(position).getPackageName();
+                boolean result = AppUtil.uninstallApp(context, pk, view);
+                return true;
+            }
+        });
+    }
+
 
 }

@@ -49,25 +49,6 @@ public class AppsLayout extends LinearLayout {
     }
 
     private void initListener() {
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String pk = adapter.getList().get(i).getPackageName();
-                boolean result = AppUtil.luanchApp(context, pk, view);
-                if (!result) {
-                    Toast.makeText(context, "启动失败", Toast.LENGTH_SHORT).show();
-                    ;
-                }
-            }
-        });
-        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String pk = adapter.getList().get(i).getPackageName();
-                boolean result = AppUtil.uninstallApp(context, pk, view);
-                return true;
-            }
-        });
     }
 
     public AppsGridAdapter getAdapter() {

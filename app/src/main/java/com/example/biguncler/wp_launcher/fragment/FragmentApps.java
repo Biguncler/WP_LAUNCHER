@@ -1,5 +1,6 @@
 package com.example.biguncler.wp_launcher.fragment;
 
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -22,7 +25,10 @@ import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.mode.AppMode;
+import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+import com.example.biguncler.wp_launcher.util.PixUtil;
+import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.example.biguncler.wp_launcher.view.AppsLayout;
 import com.example.biguncler.wp_launcher.view.ColorsLayout;
 import com.example.biguncler.wp_launcher.view.InputMethodLayout;
@@ -55,11 +61,11 @@ public class FragmentApps extends BaseFragment {
         if(MyApplication.isLightTheme){
             btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
             btText.setTextColor(Color.BLACK);
-            btText.setHintTextColor(Color.LTGRAY);
+            btText.setHintTextColor(Color.DKGRAY);
         }else{
             btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
             btText.setTextColor(Color.WHITE);
-            btText.setHintTextColor(Color.DKGRAY);
+            btText.setHintTextColor(Color.LTGRAY);
         }
 
         inputLayout.setVisibility(View.GONE);
@@ -120,7 +126,7 @@ public class FragmentApps extends BaseFragment {
         btText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                inputLayout.setVisibility(View.VISIBLE);
+                showInputLayout(null);
             }
         });
 
@@ -131,12 +137,12 @@ public class FragmentApps extends BaseFragment {
                 if(i==2) {// 2 为移动状态
                     isMove=true;
                     if(TextUtils.isEmpty(inputLayout.getText())){
-                        inputLayout.setVisibility(View.GONE);
+                        dismissInputLayout(null);
                     }
                 }
                 if(i==0) {// 0 为从移动到静止状态
                     if (!isMove) {
-                        inputLayout.setVisibility(View.VISIBLE);
+                        showInputLayout(null);
                     }
                 }
             }
@@ -155,7 +161,7 @@ public class FragmentApps extends BaseFragment {
         if(!TextUtils.isEmpty(inputLayout.getText())){
             inputLayout.setText("");
         }
-        inputLayout.setVisibility(View.GONE);
+        dismissInputLayout(null);
 
     }
 
@@ -166,11 +172,11 @@ public class FragmentApps extends BaseFragment {
         if(MyApplication.isLightTheme){
             btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
             btText.setTextColor(Color.BLACK);
-            btText.setHintTextColor(Color.LTGRAY);
+            btText.setHintTextColor(Color.DKGRAY);
         }else{
             btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
             btText.setTextColor(Color.WHITE);
-            btText.setHintTextColor(Color.DKGRAY);
+            btText.setHintTextColor(Color.LTGRAY);
         }
 
         if(MyApplication.isLightTheme){
@@ -212,7 +218,7 @@ public class FragmentApps extends BaseFragment {
             if(!TextUtils.isEmpty(inputLayout.getText())){
                 inputLayout.setText("");
             }
-            inputLayout.setVisibility(View.GONE);
+            dismissInputLayout(null);
         }
     }
 
@@ -222,6 +228,34 @@ public class FragmentApps extends BaseFragment {
         if(!TextUtils.isEmpty(inputLayout.getText())){
             inputLayout.setText("");
         }
-        inputLayout.setVisibility(View.GONE);
+        dismissInputLayout(null);
+    }
+
+    private void showInputLayout(AnimatorListenerAdapter listenerAdapter){
+        if(inputLayout.getVisibility()==View.GONE){
+            inputLayout.setVisibility(View.VISIBLE);
+            int startY2= ScreenUtil.getScreenHeight(getActivity());
+            int endY2=startY2- PixUtil.dip2px(getActivity(),250);
+            int pivotX2=0;
+            int pivotY2=ScreenUtil.getScreenHeight(getActivity());
+            AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
+        }
+
+    }
+
+    private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
+        if (inputLayout.getVisibility() == View.VISIBLE) {
+            int endY2 = ScreenUtil.getScreenHeight(getActivity());
+            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 250);
+            int pivotX2 = 0;
+            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 250);
+            AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
+            inputLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    inputLayout.setVisibility(View.GONE);
+                }
+            },250);
+        }
     }
 }
