@@ -30,4 +30,9 @@
     <color name="metro_color_18">#647687</color>
     <color name="metro_color_19">#76608a</color>
     <color name="metro_color_20">#87794e</color>
+    <color name="metro_color_21">@android:color/black</color>
+    <color name="metro_color_22">#666 </color>
+    <color name="metro_color_23">#ddd</color>
+    <color name="metro_color_24">@android:color/white</color>
+
 </resources>

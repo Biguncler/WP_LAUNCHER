@@ -48,6 +48,10 @@
         <item>@color/metro_color_18</item>
         <item>@color/metro_color_19</item>
         <item>@color/metro_color_20</item>
+        <item>@color/metro_color_21</item>
+        <item>@color/metro_color_22</item>
+        <item>@color/metro_color_23</item>
+        <item>@color/metro_color_24</item>
 
     </integer-array>
 </resources>
