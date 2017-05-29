@@ -2,11 +2,15 @@ package com.example.biguncler.wp_launcher.biz;
 
 import android.content.Context;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.example.biguncler.wp_launcher.R;
+import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.CharUtil;
@@ -67,6 +71,46 @@ public class AppManager {
             Log.i("weijunshu", "$=" + str);
         }
         return apps;
+    }
+
+
+    public List<AppMode> getHomeApps(Context context){
+        List<AppMode> list = new ArrayList<>();
+        AppMode phone=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_phone));
+        AppMode people=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"people", context.getDrawable(R.drawable.icon_white_contact));
+        AppMode message=new AppMode(MyApplication.appMap.get("messages".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_message));
+        AppMode clock=new AppMode(MyApplication.appMap.get("clock".toUpperCase()),"alarm", context.getDrawable(R.drawable.icon_white_clock));
+        AppMode chrome=new AppMode(MyApplication.appMap.get("chrome".toUpperCase()),"chrome", context.getDrawable(R.drawable.icon_white_chrome));
+        AppMode fileManager=new AppMode(MyApplication.appMap.get("file_manager".toUpperCase()),"files", context.getDrawable(R.drawable.icon_white_file_explore));
+        AppMode camera=new AppMode(MyApplication.appMap.get("camera".toUpperCase()),"camera", context.getDrawable(R.drawable.icon_white_camera));
+        AppMode gallery=new AppMode(MyApplication.appMap.get("gallery".toUpperCase()),"gallery", context.getDrawable(R.drawable.icon_white_gallery));
+        AppMode map=new AppMode(MyApplication.appMap.get("amap".toUpperCase()),"map", context.getDrawable(R.drawable.icon_white_map));
+        AppMode music=new AppMode(MyApplication.appMap.get("kgyl".toUpperCase()),"music", context.getDrawable(R.drawable.icon_white_music));
+        AppMode store=new AppMode(MyApplication.appMap.get("wdj".toUpperCase()),"store", context.getDrawable(R.drawable.icon_white_store));
+        AppMode setting=new AppMode(MyApplication.appMap.get("settings".toUpperCase()),"settings", context.getDrawable(R.drawable.icon_white_setting));
+        AppMode qq=new AppMode(MyApplication.appMap.get("qq".toUpperCase()),"qq", context.getDrawable(R.drawable.icon_white_qq));
+        AppMode wechat=new AppMode(MyApplication.appMap.get("wechat".toUpperCase()),"wechat", context.getDrawable(R.drawable.icon_white_wechat));
+        AppMode weather=new AppMode(MyApplication.appMap.get("weather".toUpperCase()),"weather", context.getDrawable(R.drawable.icon_white_weather));
+
+        list.add(phone);
+        list.add(people);
+        list.add(message);
+        list.add(clock);
+        list.add(chrome);
+        list.add(fileManager);
+        list.add(camera);
+        list.add(gallery);
+        list.add(map);
+        list.add(music);
+        list.add(store);
+        list.add(setting);
+        list.add(qq);
+        list.add(wechat);
+        list.add(weather);
+
+
+return list;
+
     }
 
 

@@ -1,27 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context="com.example.biguncler.wp_launcher.fragment.FragmentSearchApp">
-
     <LinearLayout
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-      >
+        android:layout_marginTop="40dp">
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+            <com.example.biguncler.wp_launcher.view.AppsLayout
+                android:id="@+id/layout_apps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"/>
+
+            <com.example.biguncler.wp_launcher.view.ColorsLayout
+                android:id="@+id/layout_colors"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+        <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <RadioGroup
+                android:id="@+id/view_rg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                >
+                <RadioButton
+                    android:id="@+id/view_rbt_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/colorAccent"/>
+                <RadioButton
+                    android:id="@+id/view_rbt_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/colorPrimary"/>
+            </RadioGroup>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <GridView
-        android:id="@+id/view_gv_apps"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:scrollbars="none"
-        android:numColumns="1"
-        >
-    </GridView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/view_bt_search_app"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="SEARCH APPS"
+            android:paddingLeft="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:maxLines="1"
+            />
+        <com.example.biguncler.wp_launcher.view.InputMethodLayout
+            android:id="@+id/layout_ll_input_method"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentBottom="true"
+             />
 
 
 
-</LinearLayout>
+    </RelativeLayout>
+
+
+
+
+
+</FrameLayout>

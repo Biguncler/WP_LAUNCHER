@@ -3,4 +3,31 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--全局的点击时的颜色-->
+    <color name="color_press">#ff00ff00</color>
+
+    <!--自定义软件盘上字母的颜色-->
+    <color name="color_text_input_method">#ffffffff</color>
+
+    <color name="metro_color_1">#a4c400</color>
+    <color name="metro_color_2">#60a917</color>
+    <color name="metro_color_3">#00b700</color>
+    <color name="metro_color_4">#00aba9</color>
+    <color name="metro_color_5">#1ba1e2</color>
+    <color name="metro_color_6">#0050ef</color>
+    <color name="metro_color_7">#6a00ff</color>
+    <color name="metro_color_8">#aa00ff</color>
+    <color name="metro_color_9">#f472d0</color>
+    <color name="metro_color_10">#d80073</color>
+    <color name="metro_color_11">#a20025</color>
+    <color name="metro_color_12">#e41400</color>
+    <color name="metro_color_13">#fa6800</color>
+    <color name="metro_color_14">#f0a3a0</color>
+    <color name="metro_color_15">#e3c800</color>
+    <color name="metro_color_16">#825a2c</color>
+    <color name="metro_color_17">#6d8764</color>
+    <color name="metro_color_18">#647687</color>
+    <color name="metro_color_19">#76608a</color>
+    <color name="metro_color_20">#87794e</color>
 </resources>

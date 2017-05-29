@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal"
-    android:padding="4dp">
+    android:padding="4dp"
+    android:background="?attr/selectableItemBackground">
 
     <ImageView
         android:id="@+id/view_iv_item_adapter_icon"

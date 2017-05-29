@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3">
+    <!--上-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/view_bt_top_Q"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="Q"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_W"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="W"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_E"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="E"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_R"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="R"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_T"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="T"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_Y"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="Y"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_U"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="U"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_I"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="I"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_O"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="O"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_top_P"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="P"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+    </LinearLayout>
+
+    <!--中-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/view_bt_center_A"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="A"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_S"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="S"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_D"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="D"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_F"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="F"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_G"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="G"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_H"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="H"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_J"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="J"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_K"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="K"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_center_L"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="L"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+    </LinearLayout>
+
+    <!--下-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/view_bt_bottom_SPACE"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="GO"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_Z"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="Z"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_X"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="X"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_C"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="C"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_V"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="V"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_B"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="B"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_N"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="N"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_M"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="M"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+        <Button
+            android:id="@+id/view_bt_bottom_DELETE"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="DE"
+            android:textColor="@color/color_text_input_method"
+            android:textSize="@dimen/dimen_text_size_input_method" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

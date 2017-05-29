@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="padding_grid_view_spaceing">1dp</dimen>
+    <dimen name="dimen_text_size_input_method">15sp</dimen>
 
 
 

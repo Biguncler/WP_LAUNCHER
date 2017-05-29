@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--rgb颜色值
+    164/196/0
+    96/169/23
+    0/138/0
+    0/171/169
+    27/161/226
+    0/80/239
+    106/0/255
+    170/0/255
+    244/114/208
+    216/0/115
+    162/0/37
+    228/20/0
+    250/104/0
+    240/163/10
+    227/200/0
+    130/90/44
+    109/135/100
+    100/118/135
+    118/96/138
+    135/121/78
+
+
+
+
+
+    -->
+    <integer-array name="metro_colors">
+        <item>@color/metro_color_1</item>
+        <item>@color/metro_color_2</item>
+        <item>@color/metro_color_3</item>
+        <item>@color/metro_color_4</item>
+        <item>@color/metro_color_5</item>
+        <item>@color/metro_color_6</item>
+        <item>@color/metro_color_7</item>
+        <item>@color/metro_color_8</item>
+        <item>@color/metro_color_9</item>
+        <item>@color/metro_color_10</item>
+        <item>@color/metro_color_11</item>
+        <item>@color/metro_color_12</item>
+        <item>@color/metro_color_13</item>
+        <item>@color/metro_color_14</item>
+        <item>@color/metro_color_15</item>
+        <item>@color/metro_color_16</item>
+        <item>@color/metro_color_17</item>
+        <item>@color/metro_color_18</item>
+        <item>@color/metro_color_19</item>
+        <item>@color/metro_color_20</item>
+
+    </integer-array>
+</resources>

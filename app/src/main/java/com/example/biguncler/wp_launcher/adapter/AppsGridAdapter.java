@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 
@@ -22,7 +23,7 @@ import java.util.List;
  * Created by Biguncler on 11/29/16.
  */
 
-public class GridAdapter2 extends BaseAdapter{
+public class AppsGridAdapter extends BaseAdapter{
     private Context context;
 
     public List<AppMode> getList() {
@@ -58,18 +59,18 @@ public class GridAdapter2 extends BaseAdapter{
             tvName.setTextColor(Color.WHITE);
         }
         ivIcon.setImageDrawable(list.get(i).getIcon());
-        ivIcon.setBackgroundColor(MyApplication.metroColor);
+        ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
 
 
         return layoutParent;
     }
 
-    public GridAdapter2(Context context, List<AppMode> list) {
+    public AppsGridAdapter(Context context, List<AppMode> list) {
         this.context = context;
         this.list = list;
     }
 
-    public GridAdapter2(Context context) {
+    public AppsGridAdapter(Context context) {
         this.context = context;
     }
 

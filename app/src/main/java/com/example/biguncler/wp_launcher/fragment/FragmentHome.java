@@ -1,5 +1,6 @@
 package com.example.biguncler.wp_launcher.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.GridAdapter;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 
 /**
@@ -28,7 +30,7 @@ public class FragmentHome extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout= (LinearLayout) inflater.inflate(R.layout.fragment_home,container,false);
         gridView= (GridView) layout.findViewById(R.id.view_gv_home);
-        gridAdapter=new GridAdapter(getActivity(), MyApplication.apps,3);
+        gridAdapter=new GridAdapter(getActivity(), new AppManager().getHomeApps(getActivity()),3);
         gridView.setAdapter(gridAdapter);
 
         initListener();
@@ -41,7 +43,7 @@ public class FragmentHome extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String pk=gridAdapter.getList().get(i).getPackageName();
-                boolean result= AppUtil.luanchApp(getActivity(),pk);
+                boolean result= AppUtil.luanchApp(getActivity(),pk,view);
                 if(!result){
                     Toast.makeText(getActivity(),"启动失败",Toast.LENGTH_SHORT).show();;
                 }
@@ -60,4 +62,9 @@ public class FragmentHome extends BaseFragment {
     }
 
 
+    @Override
+    public void onMetroColorChanged(Intent intent) {
+        super.onMetroColorChanged(intent);
+        gridAdapter.notifyDataSetChanged();
+    }
 }
