@@ -61,11 +61,9 @@ public class FragmentApps extends BaseFragment {
         if(MyApplication.isLightTheme){
             btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
             btText.setTextColor(Color.BLACK);
-            btText.setHintTextColor(Color.DKGRAY);
         }else{
             btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
             btText.setTextColor(Color.WHITE);
-            btText.setHintTextColor(Color.LTGRAY);
         }
 
         inputLayout.setVisibility(View.GONE);
@@ -149,6 +147,7 @@ public class FragmentApps extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                isMove=true;
 
             }
         });
@@ -172,11 +171,9 @@ public class FragmentApps extends BaseFragment {
         if(MyApplication.isLightTheme){
             btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
             btText.setTextColor(Color.BLACK);
-            btText.setHintTextColor(Color.DKGRAY);
         }else{
             btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
             btText.setTextColor(Color.WHITE);
-            btText.setHintTextColor(Color.LTGRAY);
         }
 
         if(MyApplication.isLightTheme){
@@ -235,7 +232,8 @@ public class FragmentApps extends BaseFragment {
         if(inputLayout.getVisibility()==View.GONE){
             inputLayout.setVisibility(View.VISIBLE);
             int startY2= ScreenUtil.getScreenHeight(getActivity());
-            int endY2=startY2- PixUtil.dip2px(getActivity(),250);
+            // 250+22 22为状态栏高度
+            int endY2=startY2- PixUtil.dip2px(getActivity(),272);
             int pivotX2=0;
             int pivotY2=ScreenUtil.getScreenHeight(getActivity());
             AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
@@ -246,9 +244,9 @@ public class FragmentApps extends BaseFragment {
     private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
         if (inputLayout.getVisibility() == View.VISIBLE) {
             int endY2 = ScreenUtil.getScreenHeight(getActivity());
-            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 250);
+            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 272);
             int pivotX2 = 0;
-            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 250);
+            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 272);
             AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
             inputLayout.postDelayed(new Runnable() {
                 @Override
