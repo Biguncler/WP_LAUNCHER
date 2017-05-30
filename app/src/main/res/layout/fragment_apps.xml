@@ -71,7 +71,9 @@
         <com.example.biguncler.wp_launcher.view.InputMethodLayout
             android:id="@+id/layout_ll_input_method"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="220dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_alignParentBottom="true"
              />
 

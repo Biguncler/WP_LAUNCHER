@@ -51,7 +51,6 @@ public class FragmentApps extends BaseFragment {
     private AppsLayout appsLayout;
     private ColorsLayout colorsLayout;
     private RadioGroup radioGroup;
-    private boolean isMove=true;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FrameLayout layout= (FrameLayout) inflater.inflate(R.layout.fragment_apps,container,false);
@@ -81,10 +80,6 @@ public class FragmentApps extends BaseFragment {
             inputLayout.setBackgroundColor(Color.DKGRAY);
             inputLayout.setTextsColor(Color.WHITE);
         }
-
-
-
-
         return layout;
     }
 
@@ -286,7 +281,7 @@ public class FragmentApps extends BaseFragment {
             inputLayout.setVisibility(View.VISIBLE);
             int startY2= ScreenUtil.getScreenHeight(getActivity());
             // 250+22 22为状态栏高度
-            int endY2=startY2- PixUtil.dip2px(getActivity(),272);
+            int endY2=startY2- PixUtil.dip2px(getActivity(),242);
             int pivotX2=0;
             int pivotY2=ScreenUtil.getScreenHeight(getActivity());
             AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
@@ -297,9 +292,9 @@ public class FragmentApps extends BaseFragment {
     private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
         if (inputLayout.getVisibility() == View.VISIBLE) {
             int endY2 = ScreenUtil.getScreenHeight(getActivity());
-            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 272);
+            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
             int pivotX2 = 0;
-            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 272);
+            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
             AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
             inputLayout.postDelayed(new Runnable() {
                 @Override
