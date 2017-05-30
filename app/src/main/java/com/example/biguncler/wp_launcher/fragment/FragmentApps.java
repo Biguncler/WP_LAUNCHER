@@ -111,10 +111,13 @@ public class FragmentApps extends BaseFragment {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
+                dismissInputLayout(null);
+                btText.setEnabled(false);
                 switch (id){
                     case R.id.view_rbt_apps:
                         appsLayout.setVisibility(View.VISIBLE);
                         colorsLayout.setVisibility(View.GONE);
+                        btText.setEnabled(true);
                         break;
                     case R.id.view_rbt_colors:
                         appsLayout.setVisibility(View.GONE);
