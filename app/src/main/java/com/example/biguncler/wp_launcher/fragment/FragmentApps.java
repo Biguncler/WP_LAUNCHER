@@ -232,6 +232,7 @@ public class FragmentApps extends BaseFragment {
     @Override
     public void onAppUninstalled(Intent intent) {
         super.onAppUninstalled(intent);
+        appsLayout.getAdapter().setList(MyApplication.apps);
         appsLayout.getAdapter().notifyDataSetChanged();
 
     }
@@ -239,6 +240,7 @@ public class FragmentApps extends BaseFragment {
     @Override
     public void onAppInstalled(Intent intent) {
         super.onAppInstalled(intent);
+        appsLayout.getAdapter().setList(MyApplication.apps);
         appsLayout.getAdapter().notifyDataSetChanged();
 
     }

@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity {
 
         viewPager= (ViewPager) findViewById(R.id.view_viewpager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(),fragmentList));
+        viewPager. setOverScrollMode(ViewPager.OVER_SCROLL_NEVER);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
