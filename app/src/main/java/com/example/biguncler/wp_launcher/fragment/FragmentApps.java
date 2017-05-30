@@ -32,6 +32,7 @@ import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.example.biguncler.wp_launcher.view.AppsLayout;
 import com.example.biguncler.wp_launcher.view.ColorsLayout;
 import com.example.biguncler.wp_launcher.view.InputMethodLayout;
+import com.example.biguncler.wp_launcher.view.ReboundGridView;
 
 import java.util.ArrayList;
 
@@ -128,9 +129,10 @@ public class FragmentApps extends BaseFragment {
             }
         });
 
-        appsLayout.getGridView().setOnScrollListener(new AbsListView.OnScrollListener() {
+        /*appsLayout.getGridView().setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
+               // Log.i("weijunshu","i="+i);
                 if(i==1) isMove=false; // 1 为从静止到开始移动的状态
                 if(i==2) {// 2 为移动状态
                     isMove=true;
@@ -147,10 +149,51 @@ public class FragmentApps extends BaseFragment {
 
             @Override
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+               // Log.i("weijunshu","i="+i+"/i1="+i1+"/i2="+i2);
                 isMove=true;
+                if(i==0){
+                    if(appsLayout.getGridView().getChildAt(0)!=null&&appsLayout.getGridView().getChildAt(0).getTop()==0)
+                    Toast.makeText(getActivity(),"already top",Toast.LENGTH_LONG).show();
+                }
+                //Log.i("weijunshu","count="+appsLayout.getGridView().getAdapter().getCount()+"/i="+i+"/size="+appsLayout.getGridView().getChildCount());
+                if(appsLayout.getGridView().getAdapter().getCount()==i+appsLayout.getGridView().getChildCount()){
+                    //Log.i("weijunshu","bottom="+appsLayout.getGridView().getChildAt(appsLayout.getGridView().getChildCount()-1).getBottom()+"/height="+appsLayout.getGridView().getHeight());
+                    if(appsLayout.getGridView().getChildAt(appsLayout.getGridView().getChildCount()-1).getBottom()==appsLayout.getGridView().getHeight())
+                        Toast.makeText(getActivity(),"already bottome",Toast.LENGTH_LONG).show();
+                }
+            }
+        });*/
+
+        ((ReboundGridView)appsLayout.getGridView()).setPullFinishListener(new ReboundGridView.OnPullFinishListener() {
+            @Override
+            public void onPullDownFinish() {
+                showInputLayout(null);
+            }
+
+            @Override
+            public void onPullUpFinish() {
 
             }
         });
+        ((ReboundGridView)appsLayout.getGridView()).setOnScrollBoundListener(new ReboundGridView.OnScrollBoundListener() {
+            @Override
+            public void onScrollTop() {
+
+            }
+
+            @Override
+            public void onScrollBottom() {
+
+            }
+
+            @Override
+            public void onScrolling() {
+                if(TextUtils.isEmpty(inputLayout.getText())){
+                   dismissInputLayout(null);
+                }
+            }
+        });
+
 
     }
 

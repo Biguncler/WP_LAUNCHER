@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <GridView
+    <com.example.biguncler.wp_launcher.view.ReboundGridView
         android:id="@+id/view_gv_apps"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:numColumns="1"
-        android:scrollbars="none"></GridView>
+        android:scrollbars="none"/>
 
 
 </LinearLayout>
