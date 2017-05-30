@@ -78,7 +78,7 @@ public class AppManager {
         List<AppMode> list = new ArrayList<>();
         AppMode phone=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_phone));
         AppMode people=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"people", context.getDrawable(R.drawable.icon_white_contact));
-        AppMode message=new AppMode(MyApplication.appMap.get("messages".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_message));
+        AppMode message=new AppMode(MyApplication.appMap.get("messages".toUpperCase()),"messages", context.getDrawable(R.drawable.icon_white_message));
         AppMode clock=new AppMode(MyApplication.appMap.get("clock".toUpperCase()),"alarm", context.getDrawable(R.drawable.icon_white_clock));
         AppMode chrome=new AppMode(MyApplication.appMap.get("chrome".toUpperCase()),"chrome", context.getDrawable(R.drawable.icon_white_chrome));
         AppMode fileManager=new AppMode(MyApplication.appMap.get("file_manager".toUpperCase()),"files", context.getDrawable(R.drawable.icon_white_file_explore));

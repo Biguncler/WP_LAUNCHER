@@ -1,6 +1,8 @@
 package com.example.biguncler.wp_launcher.view;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -320,7 +322,9 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
         }else if(text.equals("U")){
 
         }else if(text.equals("V")){
-
+            Intent intent=new Intent().setComponent(new ComponentName(MyApplication.appMap.get("CORTANA"),"com.microsoft.bing.dss.widget.CortanaWidgetActivity"));
+            intent.setFlags(335593472);
+            context.startActivity(intent);
         }else if(text.equals("W")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("WECHAT"),view);
         }else if(text.equals("X")){
