@@ -3,9 +3,14 @@ package com.example.biguncler.wp_launcher.fragment;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,6 +63,7 @@ public class FragmentApps extends BaseFragment {
         initListener();
 
         radioGroup.check(R.id.view_rbt_apps);
+        setRadioGroupButtonBG();
 
         if(MyApplication.isLightTheme){
             btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
@@ -227,6 +233,8 @@ public class FragmentApps extends BaseFragment {
             inputLayout.setTextsColor(Color.WHITE);
         }
 
+        setRadioGroupButtonBG();
+
     }
 
     @Override
@@ -299,6 +307,24 @@ public class FragmentApps extends BaseFragment {
                     inputLayout.setVisibility(View.GONE);
                 }
             },250);
+        }
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void setRadioGroupButtonBG(){
+        // 设置radioButton的背景
+        for(int i=0;i<radioGroup.getChildCount();i++){
+            RadioButton radioButton= (RadioButton) radioGroup.getChildAt(i);
+            Drawable drawable=radioButton.getButtonDrawable();
+            if(drawable!=null){
+                if (!MyApplication.isLightTheme) {
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.white));
+                } else {
+                    DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.black));
+                }
+                radioButton.setButtonDrawable(drawable);
+            }
         }
     }
 }

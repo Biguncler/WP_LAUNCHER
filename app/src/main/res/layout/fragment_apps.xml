@@ -40,15 +40,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@color/colorAccent"/>
+                    android:layout_marginBottom="10dp" />
                 <RadioButton
                     android:id="@+id/view_rbt_colors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:background="@color/colorPrimary"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp" />
             </RadioGroup>
 
         </LinearLayout>
