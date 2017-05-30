@@ -51,14 +51,6 @@ public class ColorsLayout extends LinearLayout {
     }
 
     private void initListener(){
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                SharedPreferenceDB.save(context,SharedPreferenceDB.METRO_COLOR,String.valueOf(adapter.getItem(i)));
-                Intent intent = new Intent(BaseActivity.ACTION_METRO_COLOR_CHANGED);
-                context.sendBroadcast(intent);
-            }
-        });
     }
 
     private List<Integer> arrayToList(int[] intArray){

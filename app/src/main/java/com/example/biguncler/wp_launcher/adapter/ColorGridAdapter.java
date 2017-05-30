@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.biguncler.wp_launcher.R;
+import com.example.biguncler.wp_launcher.activity.BaseActivity;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 
@@ -52,6 +54,7 @@ public class ColorGridAdapter extends BaseAdapter{
         LinearLayout layoutParent = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.item_adapter_colors,null);
         ImageView imageView= (ImageView) layoutParent.findViewById(R.id.view_iv_color);
         imageView.setBackgroundColor(list.get(i));
+        initListener(layoutParent,i);
         return layoutParent;
     }
 
@@ -67,5 +70,17 @@ public class ColorGridAdapter extends BaseAdapter{
     public void setList(List<Integer> list) {
         this.list = list;
     }
+
+    private void initListener(View view,final int position){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferenceDB.save(context,SharedPreferenceDB.METRO_COLOR,String.valueOf(list.get(position)));
+                Intent intent = new Intent(BaseActivity.ACTION_METRO_COLOR_CHANGED);
+                context.sendBroadcast(intent);
+            }
+        });
+    }
+
 
 }
