@@ -56,6 +56,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.example.biguncler.wp_launcher.view.ClickEffectLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true">
         <Button
             android:id="@+id/view_bt_search_app"
             android:layout_width="match_parent"
@@ -68,6 +72,7 @@
             android:background="?attr/selectableItemBackground"
             android:maxLines="1"
             />
+        </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
         <com.example.biguncler.wp_launcher.view.InputMethodLayout
             android:id="@+id/layout_ll_input_method"
             android:layout_width="match_parent"
