@@ -51,7 +51,7 @@ public class FragmentApps extends BaseFragment {
     private InputMethodLayout inputLayout;
     private AppsLayout appsLayout;
     private ColorsLayout colorsLayout;
-    private RadioGroup radioGroup;
+    private RadioGroup radioGroupMetro;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FrameLayout layout= (FrameLayout) inflater.inflate(R.layout.fragment_apps,container,false);
@@ -59,30 +59,15 @@ public class FragmentApps extends BaseFragment {
         inputLayout= (InputMethodLayout) layout.findViewById(R.id.layout_ll_input_method);
         appsLayout= (AppsLayout) layout.findViewById(R.id.layout_apps);
         colorsLayout= (ColorsLayout) layout.findViewById(R.id.layout_colors);
-        radioGroup= (RadioGroup) layout.findViewById(R.id.view_rg);
+        radioGroupMetro= (RadioGroup) layout.findViewById(R.id.view_rg);
         initListener();
 
-        radioGroup.check(R.id.view_rbt_apps);
-        setRadioGroupButtonBG();
+        radioGroupMetro.check(R.id.view_rbt_apps);
+        setRadioGroupButtonBG(radioGroupMetro);
 
-        if(MyApplication.isLightTheme){
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
-            btText.setTextColor(Color.BLACK);
-        }else{
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
-            btText.setTextColor(Color.WHITE);
-        }
-
+        setBtTextTheme();
         inputLayout.setVisibility(View.GONE);
-        if(MyApplication.isLightTheme){
-            inputLayout.setBtsBackground(Color.LTGRAY);
-            inputLayout.setTextsColor(Color.BLACK);
-            inputLayout.setBackgroundColor(Color.rgb(170,170,170));
-        }else{
-            inputLayout.setBtsBackground(Color.DKGRAY);
-            inputLayout.setTextsColor(Color.WHITE);
-            inputLayout.setBackgroundColor(Color.rgb(100,100,100));
-        }
+        setInputLayoutTheme();
 
         return layout;
     }
@@ -112,11 +97,12 @@ public class FragmentApps extends BaseFragment {
                 }
             }
         });
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        radioGroupMetro.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
                 dismissInputLayout(null);
                 btText.setEnabled(false);
+                inputLayout.setText("");
                 switch (id){
                     case R.id.view_rbt_apps:
                         appsLayout.setVisibility(View.VISIBLE);
@@ -177,6 +163,7 @@ public class FragmentApps extends BaseFragment {
             inputLayout.setText("");
         }
         dismissInputLayout(null);
+        appsLayout.getGridView().smoothScrollToPosition(0);
 
     }
 
@@ -184,26 +171,9 @@ public class FragmentApps extends BaseFragment {
     public void onWallpaperChanged(Intent intent) {
         super.onWallpaperChanged(intent);
         appsLayout.getAdapter().notifyDataSetChanged();
-        if(MyApplication.isLightTheme){
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
-            btText.setTextColor(Color.BLACK);
-        }else{
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
-            btText.setTextColor(Color.WHITE);
-        }
-
-        if(MyApplication.isLightTheme){
-            inputLayout.setBtsBackground(Color.LTGRAY);
-            inputLayout.setTextsColor(Color.BLACK);
-            inputLayout.setBackgroundColor(Color.rgb(170,170,170));
-        }else{
-            inputLayout.setBtsBackground(Color.DKGRAY);
-            inputLayout.setTextsColor(Color.WHITE);
-            inputLayout.setBackgroundColor(Color.rgb(100,100,100));
-        }
-
-        setRadioGroupButtonBG();
-
+        setBtTextTheme();
+        setInputLayoutTheme();
+        setRadioGroupButtonBG(radioGroupMetro);
     }
 
     @Override
@@ -226,7 +196,7 @@ public class FragmentApps extends BaseFragment {
     public void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         appsLayout.getAdapter().notifyDataSetChanged();
-        radioGroup.check(R.id.view_rbt_apps);
+        radioGroupMetro.check(R.id.view_rbt_apps);
 
     }
 
@@ -239,6 +209,7 @@ public class FragmentApps extends BaseFragment {
                 inputLayout.setText("");
             }
             dismissInputLayout(null);
+            appsLayout.getGridView().smoothScrollToPosition(0);
         }
     }
 
@@ -281,20 +252,44 @@ public class FragmentApps extends BaseFragment {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void setRadioGroupButtonBG(){
+    public void setRadioGroupButtonBG(RadioGroup radioGroup){
         // 设置radioButton的背景
-        for(int i=0;i<radioGroup.getChildCount();i++){
-            RadioButton radioButton= (RadioButton) radioGroup.getChildAt(i);
-            Drawable drawable=radioButton.getButtonDrawable();
-            if(drawable!=null){
-                if (!MyApplication.isLightTheme) {
-                    DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.white));
-                } else {
-                    DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.black));
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            for(int i=0;i<radioGroup.getChildCount();i++){
+                RadioButton radioButton= (RadioButton) radioGroup.getChildAt(i);
+                Drawable drawable=radioButton.getButtonDrawable();
+                if(drawable!=null){
+                    if (!MyApplication.isLightTheme) {
+                        DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.white));
+                    } else {
+                        DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.black));
+                    }
+                    radioButton.setButtonDrawable(drawable);
                 }
-                radioButton.setButtonDrawable(drawable);
             }
+        }
+    }
+
+
+    private void setBtTextTheme(){
+        if(MyApplication.isLightTheme){
+            btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
+            btText.setTextColor(Color.BLACK);
+        }else{
+            btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
+            btText.setTextColor(Color.WHITE);
+        }
+    }
+
+    private void setInputLayoutTheme(){
+        if(MyApplication.isLightTheme){
+            inputLayout.setBtsBackground(Color.LTGRAY);
+            inputLayout.setTextsColor(Color.BLACK);
+            inputLayout.setBackgroundColor(Color.rgb(170,170,170));
+        }else{
+            inputLayout.setBtsBackground(Color.DKGRAY);
+            inputLayout.setTextsColor(Color.WHITE);
+            inputLayout.setBackgroundColor(Color.rgb(100,100,100));
         }
     }
 }
