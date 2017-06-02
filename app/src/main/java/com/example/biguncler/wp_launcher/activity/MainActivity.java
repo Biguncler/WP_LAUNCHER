@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.fragment.FragmentApps;
 import com.example.biguncler.wp_launcher.fragment.FragmentHome;
@@ -129,6 +130,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
+        MyApplication.metroColor= Integer.valueOf(SharedPreferenceDB.get(this,SharedPreferenceDB.METRO_COLOR));
         try{
             List<Fragment> fragments=getSupportFragmentManager().getFragments();
             for(Fragment fragment:fragments){

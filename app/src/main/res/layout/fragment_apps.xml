@@ -77,8 +77,8 @@
             android:id="@+id/layout_ll_input_method"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
             android:layout_alignParentBottom="true"
              />
 

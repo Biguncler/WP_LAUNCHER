@@ -3,17 +3,25 @@ package com.example.biguncler.wp_launcher.view;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -22,19 +30,20 @@ import com.example.biguncler.wp_launcher.util.AppUtil;
 
 public class InputMethodLayout extends LinearLayout  implements View.OnClickListener ,View.OnLongClickListener{
     private Context context;
-    private LinearLayout layoutParent;
     private String text="";
-
-
     private TextWatcher textWatcher;
 
+    private static String[] topKeys=new String[]{"Q","W","E","R","T","Y","U","I","O","P"};
+    private static String[] midKeys=new String[]{"A","S","D","F","G","H","J","K","L"};
+    private static String[] bottomKeys=new String[]{"GO","Z","X","C","V","B","N","M","DE"};
+    private static Map<Integer,String[]> map=new HashMap<>();
 
 
 
 
 
 
-    private Button btA,btB,btC,btD,btE,btF,btG,btH,btI,btJ,btK,btL,btM,btN,btO,btP,btQ,btR,btS,btT,btU,btV,btW,btX,btY,btZ,btSPACE,btDELETE;
+
     public InputMethodLayout(Context context) {
         super(context);
         init(context);
@@ -54,125 +63,72 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
 
     private void init(Context context){
         this.context=context;
-        layoutParent= (LinearLayout) LayoutInflater.from(context).inflate(R.layout.input_method_layout,this);
+        setOrientation(LinearLayout.VERTICAL);
+        setWeightSum(3);
+        map.put(0,topKeys);
+        map.put(1,midKeys);
+        map.put(2,bottomKeys);
+        // 添加上中下布局
+        for(int i=0;i<getWeightSum();i++){
+            LayoutInflater.from(context).inflate(R.layout.item_keyboard_layout,this);
+        }
+        // 为上中下三布局添加键
+        for(int i=0;i<getChildCount();i++) {
+            ViewGroup child = (ViewGroup) getChildAt(i);
+            for (int j = 0; j < map.get(i).length; j++) {
+                LayoutInflater.from(context).inflate(R.layout.item_keyboard_bt, child);
+            }
+        }
 
-        btA= (Button) layoutParent.findViewById(R.id.view_bt_center_A);
-        btB= (Button) layoutParent.findViewById(R.id.view_bt_bottom_B);
-        btC= (Button) layoutParent.findViewById(R.id.view_bt_bottom_C);
-        btD= (Button) layoutParent.findViewById(R.id.view_bt_center_D);
-        btE= (Button) layoutParent.findViewById(R.id.view_bt_top_E);
-        btF= (Button) layoutParent.findViewById(R.id.view_bt_center_F);
-        btG= (Button) layoutParent.findViewById(R.id.view_bt_center_G);
-        btH= (Button) layoutParent.findViewById(R.id.view_bt_center_H);
-        btI= (Button) layoutParent.findViewById(R.id.view_bt_top_I);
-        btJ= (Button) layoutParent.findViewById(R.id.view_bt_center_J);
-        btK= (Button) layoutParent.findViewById(R.id.view_bt_center_K);
-        btL= (Button) layoutParent.findViewById(R.id.view_bt_center_L);
-        btM= (Button) layoutParent.findViewById(R.id.view_bt_bottom_M);
-        btN= (Button) layoutParent.findViewById(R.id.view_bt_bottom_N);
-        btO= (Button) layoutParent.findViewById(R.id.view_bt_top_O);
-        btP= (Button) layoutParent.findViewById(R.id.view_bt_top_P);
-        btQ= (Button) layoutParent.findViewById(R.id.view_bt_top_Q);
-        btR= (Button) layoutParent.findViewById(R.id.view_bt_top_R);
-        btS= (Button) layoutParent.findViewById(R.id.view_bt_center_S);
-        btT= (Button) layoutParent.findViewById(R.id.view_bt_top_T);
-        btU= (Button) layoutParent.findViewById(R.id.view_bt_top_U);
-        btV= (Button) layoutParent.findViewById(R.id.view_bt_bottom_V);
-        btW= (Button) layoutParent.findViewById(R.id.view_bt_top_W);
-        btX= (Button) layoutParent.findViewById(R.id.view_bt_bottom_X);
-        btY= (Button) layoutParent.findViewById(R.id.view_bt_top_Y);
-        btZ= (Button) layoutParent.findViewById(R.id.view_bt_bottom_Z);
-        btSPACE= (Button) layoutParent.findViewById(R.id.view_bt_bottom_SPACE);
-        btDELETE= (Button) layoutParent.findViewById(R.id.view_bt_bottom_DELETE);
+        // 为key添加字母及监听
+        for(int i=0;i<getChildCount();i++){
+            ViewGroup child= (ViewGroup) getChildAt(i);
+            String[] keys=map.get(i);
+            for(int j=0;j<child.getChildCount();j++){
+                Button button= (Button) child.getChildAt(j);
+                button.setTag(keys[j]);
+                button.setText(keys[j]);
+                button.setOnClickListener(this);
+                button.setOnLongClickListener(this);
+            }
+        }
 
+        // 对删除按钮和GO按钮做特殊处理
 
-        btA.setOnClickListener(this);
-        btB.setOnClickListener(this);
-        btC.setOnClickListener(this);
-        btD.setOnClickListener(this);
-        btE.setOnClickListener(this);
-        btF.setOnClickListener(this);
-        btG.setOnClickListener(this);
-        btH.setOnClickListener(this);
-        btI.setOnClickListener(this);
-        btJ.setOnClickListener(this);
-        btK.setOnClickListener(this);
-        btL.setOnClickListener(this);
-        btM.setOnClickListener(this);
-        btN.setOnClickListener(this);
-        btO.setOnClickListener(this);
-        btP.setOnClickListener(this);
-        btQ.setOnClickListener(this);
-        btR.setOnClickListener(this);
-        btS.setOnClickListener(this);
-        btT.setOnClickListener(this);
-        btU.setOnClickListener(this);
-        btV.setOnClickListener(this);
-        btW.setOnClickListener(this);
-        btX.setOnClickListener(this);
-        btY.setOnClickListener(this);
-        btZ.setOnClickListener(this);
-        btSPACE.setOnClickListener(this);
-        btDELETE.setOnClickListener(this);
-
-        btA.setOnLongClickListener(this);
-        btB.setOnLongClickListener(this);
-        btC.setOnLongClickListener(this);
-        btD.setOnLongClickListener(this);
-        btE.setOnLongClickListener(this);
-        btF.setOnLongClickListener(this);
-        btG.setOnLongClickListener(this);
-        btH.setOnLongClickListener(this);
-        btI.setOnLongClickListener(this);
-        btJ.setOnLongClickListener(this);
-        btK.setOnLongClickListener(this);
-        btL.setOnLongClickListener(this);
-        btM.setOnLongClickListener(this);
-        btN.setOnLongClickListener(this);
-        btO.setOnLongClickListener(this);
-        btP.setOnLongClickListener(this);
-        btQ.setOnLongClickListener(this);
-        btR.setOnLongClickListener(this);
-        btS.setOnLongClickListener(this);
-        btT.setOnLongClickListener(this);
-        btU.setOnLongClickListener(this);
-        btV.setOnLongClickListener(this);
-        btW.setOnLongClickListener(this);
-        btX.setOnLongClickListener(this);
-        btY.setOnLongClickListener(this);
-        btZ.setOnLongClickListener(this);
-
-        btDELETE.setOnLongClickListener(new OnLongClickListener() {
+        Button goBt= (Button) findViewWithTag("GO");
+        LayoutParams params= (LayoutParams) goBt.getLayoutParams();
+        params.weight=1.5f;
+        goBt.setLayoutParams(params);
+        goBt.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                text=text+" ";
+                textWatcher.onTextChangedListener(text);
+                return true;
+            }
+        });
+        Button deBt= (Button) findViewWithTag("DE");
+        LayoutParams params2= (LayoutParams) deBt.getLayoutParams();
+        params2.weight=1.5f;
+        deBt.setLayoutParams(params2);
+        deBt.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 setText("");
                 return true;
             }
         });
-
-        btSPACE.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                text=text+" ";
-                textWatcher.onTextChangedListener(text);
-                startVibrate();
-                return true;
-            }
-        });
-
-
-
     }
 
     @Override
     public void onClick(View view) {
         if(textWatcher==null) return;
 
-        if(view.getId()==R.id.view_bt_bottom_DELETE){
+        if(view.getTag().equals("DE")){
             if(!TextUtils.isEmpty(text)){
                 text=text.substring(0,text.length()-1);
             }
-        }else if(view.getId()==R.id.view_bt_bottom_SPACE){
+        }else if(view.getTag().equals("GO")){
               textWatcher.onGOClickListener();
             return;
         }else{
@@ -213,65 +169,27 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
     }
 
     public void setTextsColor(int color){
-        btA.setTextColor(color);
-        btB.setTextColor(color);
-        btC.setTextColor(color);
-        btD.setTextColor(color);
-        btE.setTextColor(color);
-        btF.setTextColor(color);
-        btG.setTextColor(color);
-        btH.setTextColor(color);
-        btI.setTextColor(color);
-        btJ.setTextColor(color);
-        btK.setTextColor(color);
-        btL.setTextColor(color);
-        btM.setTextColor(color);
-        btN.setTextColor(color);
-        btO.setTextColor(color);
-        btP.setTextColor(color);
-        btQ.setTextColor(color);
-        btR.setTextColor(color);
-        btS.setTextColor(color);
-        btT.setTextColor(color);
-        btU.setTextColor(color);
-        btV.setTextColor(color);
-        btW.setTextColor(color);
-        btX.setTextColor(color);
-        btY.setTextColor(color);
-        btZ.setTextColor(color);
-        btSPACE.setTextColor(color);
-        btDELETE.setTextColor(color);
+        for(int i=0;i<getChildCount();i++){
+            ViewGroup child= (ViewGroup) getChildAt(i);
+            for(int j=0;j<child.getChildCount();j++){
+                Button button= (Button) child.getChildAt(j);
+                button.setTextColor(color);
+            }
+        }
     }
 
-    public void setBtsBackground(int idres){
-        btA.setBackgroundResource(idres);
-        btB.setBackgroundResource(idres);
-        btC.setBackgroundResource(idres);
-        btD.setBackgroundResource(idres);
-        btE.setBackgroundResource(idres);
-        btF.setBackgroundResource(idres);
-        btG.setBackgroundResource(idres);
-        btH.setBackgroundResource(idres);
-        btI.setBackgroundResource(idres);
-        btJ.setBackgroundResource(idres);
-        btK.setBackgroundResource(idres);
-        btL.setBackgroundResource(idres);
-        btM.setBackgroundResource(idres);
-        btN.setBackgroundResource(idres);
-        btO.setBackgroundResource(idres);
-        btP.setBackgroundResource(idres);
-        btQ.setBackgroundResource(idres);
-        btR.setBackgroundResource(idres);
-        btS.setBackgroundResource(idres);
-        btT.setBackgroundResource(idres);
-        btU.setBackgroundResource(idres);
-        btV.setBackgroundResource(idres);
-        btW.setBackgroundResource(idres);
-        btX.setBackgroundResource(idres);
-        btY.setBackgroundResource(idres);
-        btZ.setBackgroundResource(idres);
-        btSPACE.setBackgroundResource(idres);
-        btDELETE.setBackgroundResource(idres);
+    public void setBtsBackground(int color){
+        try {
+            for(int i=0;i<getChildCount();i++){
+                ViewGroup child= (ViewGroup) getChildAt(i);
+                for(int j=0;j<child.getChildCount();j++){
+                    Button button= (Button) child.getChildAt(j);
+                    button.setBackgroundColor(color);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -337,5 +255,8 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
         return true;
     }
 
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
+    }
 }

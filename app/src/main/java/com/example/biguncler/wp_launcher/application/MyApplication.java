@@ -30,6 +30,7 @@ public class MyApplication extends Application {
     public static boolean  isLightTheme;
     public static List<AppMode> apps;
     public static Map<String,String> appMap;
+    public static int metroColor;
 
 
     @Override
@@ -44,6 +45,9 @@ public class MyApplication extends Application {
         String color=SharedPreferenceDB.get(this,SharedPreferenceDB.METRO_COLOR);
         if(TextUtils.isEmpty(color)){
             SharedPreferenceDB.save(this,SharedPreferenceDB.METRO_COLOR,String.valueOf(getResources().getColor(R.color.metro_color_1)));
+            metroColor=getResources().getColor(R.color.metro_color_1);
+        }else{
+            metroColor=Integer.valueOf(color);
         }
     }
 

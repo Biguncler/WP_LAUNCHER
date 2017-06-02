@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.AppManager;
+import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 import com.example.biguncler.wp_launcher.util.AppUtil;
@@ -74,12 +75,15 @@ public class FragmentApps extends BaseFragment {
 
         inputLayout.setVisibility(View.GONE);
         if(MyApplication.isLightTheme){
-            inputLayout.setBackgroundColor(Color.LTGRAY);
+            inputLayout.setBtsBackground(Color.LTGRAY);
             inputLayout.setTextsColor(Color.BLACK);
+            inputLayout.setBackgroundColor(Color.rgb(170,170,170));
         }else{
-            inputLayout.setBackgroundColor(Color.DKGRAY);
+            inputLayout.setBtsBackground(Color.DKGRAY);
             inputLayout.setTextsColor(Color.WHITE);
+            inputLayout.setBackgroundColor(Color.rgb(100,100,100));
         }
+
         return layout;
     }
 
@@ -132,41 +136,6 @@ public class FragmentApps extends BaseFragment {
                 showInputLayout(null);
             }
         });
-
-        /*appsLayout.getGridView().setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-               // Log.i("weijunshu","i="+i);
-                if(i==1) isMove=false; // 1 为从静止到开始移动的状态
-                if(i==2) {// 2 为移动状态
-                    isMove=true;
-                    if(TextUtils.isEmpty(inputLayout.getText())){
-                        dismissInputLayout(null);
-                    }
-                }
-                if(i==0) {// 0 为从移动到静止状态
-                    if (!isMove) {
-                        showInputLayout(null);
-                    }
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-               // Log.i("weijunshu","i="+i+"/i1="+i1+"/i2="+i2);
-                isMove=true;
-                if(i==0){
-                    if(appsLayout.getGridView().getChildAt(0)!=null&&appsLayout.getGridView().getChildAt(0).getTop()==0)
-                    Toast.makeText(getActivity(),"already top",Toast.LENGTH_LONG).show();
-                }
-                //Log.i("weijunshu","count="+appsLayout.getGridView().getAdapter().getCount()+"/i="+i+"/size="+appsLayout.getGridView().getChildCount());
-                if(appsLayout.getGridView().getAdapter().getCount()==i+appsLayout.getGridView().getChildCount()){
-                    //Log.i("weijunshu","bottom="+appsLayout.getGridView().getChildAt(appsLayout.getGridView().getChildCount()-1).getBottom()+"/height="+appsLayout.getGridView().getHeight());
-                    if(appsLayout.getGridView().getChildAt(appsLayout.getGridView().getChildCount()-1).getBottom()==appsLayout.getGridView().getHeight())
-                        Toast.makeText(getActivity(),"already bottome",Toast.LENGTH_LONG).show();
-                }
-            }
-        });*/
 
         ((ReboundGridView)appsLayout.getGridView()).setPullFinishListener(new ReboundGridView.OnPullFinishListener() {
             @Override
@@ -224,11 +193,13 @@ public class FragmentApps extends BaseFragment {
         }
 
         if(MyApplication.isLightTheme){
-            inputLayout.setBackgroundColor(Color.LTGRAY);
+            inputLayout.setBtsBackground(Color.LTGRAY);
             inputLayout.setTextsColor(Color.BLACK);
+            inputLayout.setBackgroundColor(Color.rgb(170,170,170));
         }else{
-            inputLayout.setBackgroundColor(Color.DKGRAY);
+            inputLayout.setBtsBackground(Color.DKGRAY);
             inputLayout.setTextsColor(Color.WHITE);
+            inputLayout.setBackgroundColor(Color.rgb(100,100,100));
         }
 
         setRadioGroupButtonBG();
@@ -256,6 +227,7 @@ public class FragmentApps extends BaseFragment {
         super.onMetroColorChanged(intent);
         appsLayout.getAdapter().notifyDataSetChanged();
         radioGroup.check(R.id.view_rbt_apps);
+
     }
 
     @Override
