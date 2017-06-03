@@ -7,18 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnticipateInterpolator;
-import android.view.animation.OvershootInterpolator;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -29,18 +23,15 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.AppManager;
-import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
-import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.PixUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.example.biguncler.wp_launcher.view.AppsLayout;
-import com.example.biguncler.wp_launcher.view.ColorsLayout;
+import com.example.biguncler.wp_launcher.view.MetroColorsLayout;
 import com.example.biguncler.wp_launcher.view.InputMethodLayout;
 import com.example.biguncler.wp_launcher.view.ReboundGridView;
-
-import java.util.ArrayList;
+import com.example.biguncler.wp_launcher.view.ThemeColorsLayout;
 
 /**
  * Created by Biguncler on 06/03/2017.
@@ -50,7 +41,9 @@ public class FragmentApps extends BaseFragment {
     private Button btText;
     private InputMethodLayout inputLayout;
     private AppsLayout appsLayout;
-    private ColorsLayout colorsLayout;
+    private LinearLayout colorsLayout;
+    private MetroColorsLayout metroColorsLayout;
+    private ThemeColorsLayout themeColorsLayout;
     private RadioGroup radioGroupMetro;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +51,9 @@ public class FragmentApps extends BaseFragment {
         btText= (Button) layout.findViewById(R.id.view_bt_search_app);
         inputLayout= (InputMethodLayout) layout.findViewById(R.id.layout_ll_input_method);
         appsLayout= (AppsLayout) layout.findViewById(R.id.layout_apps);
-        colorsLayout= (ColorsLayout) layout.findViewById(R.id.layout_colors);
+        colorsLayout= (LinearLayout) layout.findViewById(R.id.layout_colors);
+        themeColorsLayout= (ThemeColorsLayout) layout.findViewById(R.id.layout_theme_colors);
+        metroColorsLayout = (MetroColorsLayout) layout.findViewById(R.id.layout_metro_colors);
         radioGroupMetro= (RadioGroup) layout.findViewById(R.id.view_rg);
         initListener();
 
@@ -174,6 +169,7 @@ public class FragmentApps extends BaseFragment {
         setBtTextTheme();
         setInputLayoutTheme();
         setRadioGroupButtonBG(radioGroupMetro);
+        radioGroupMetro.check(R.id.view_rbt_apps);
     }
 
     @Override

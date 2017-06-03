@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Biguncler on 11/29/16.
  */
 
-public class ColorGridAdapter extends BaseAdapter{
+public class MetroColorsGridAdapter extends BaseAdapter{
     private Context context;
 
 
@@ -58,12 +58,12 @@ public class ColorGridAdapter extends BaseAdapter{
         return layoutParent;
     }
 
-    public ColorGridAdapter(Context context, List<Integer> list) {
+    public MetroColorsGridAdapter(Context context, List<Integer> list) {
         this.context = context;
         this.list = list;
     }
 
-    public ColorGridAdapter(Context context) {
+    public MetroColorsGridAdapter(Context context) {
         this.context = context;
     }
 

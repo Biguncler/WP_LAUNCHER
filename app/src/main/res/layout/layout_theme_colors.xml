@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical">
+    <com.example.biguncler.wp_launcher.view.ReboundGridView
+        android:id="@+id/view_gv_colors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:numColumns="4">
+    </com.example.biguncler.wp_launcher.view.ReboundGridView>
+</LinearLayout>

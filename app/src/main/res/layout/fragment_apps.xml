@@ -19,11 +19,22 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="7dp"
                 android:paddingTop="7dp"/>
-
-            <com.example.biguncler.wp_launcher.view.ColorsLayout
+            <LinearLayout
                 android:id="@+id/layout_colors"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <com.example.biguncler.wp_launcher.view.MetroColorsLayout
+                    android:id="@+id/layout_metro_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.example.biguncler.wp_launcher.view.ThemeColorsLayout
+                    android:layout_marginTop="30dp"
+                    android:id="@+id/layout_theme_colors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
         </FrameLayout>
         <LinearLayout
             android:layout_width="50dp"
