@@ -2,6 +2,8 @@ package com.example.biguncler.wp_launcher.util;
 
 import android.graphics.Bitmap;
 
+import net.qiujuer.genius.blur.StackBlur;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -243,7 +245,12 @@ public class BitmapUtil {
         return Bitmap.createBitmap(bitmap,startX,startY,width,height);
     }
 
-
+    public static Bitmap getBlurBitmap(Bitmap bitmap ,int radius,boolean canReuseInBitmap){
+        //StackBlur.blur() 此方法为Java代码  28ms 模糊速度
+        //StackBlur.blurNatively()         9ms
+        // StackBlur.blurNativelyPixels()  3ms
+       return StackBlur.blurNativelyPixels(bitmap,radius,canReuseInBitmap);
+    }
 
 
 

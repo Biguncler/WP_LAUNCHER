@@ -10,6 +10,9 @@
     <!--自定义软件盘上字母的颜色-->
     <color name="color_text_input_method">#ffffffff</color>
 
+    <color name="color_light_tint">#22ffffff</color>
+    <color name="color_dark_tint">#22000000</color>
+
     <color name="metro_color_1">#a4c400</color>
     <color name="metro_color_2">#60a917</color>
     <color name="metro_color_3">#00b700</color>
