@@ -176,6 +176,7 @@ public class FragmentApps extends BaseFragment {
         appsLayout.getAdapter().notifyDataSetChanged();
         setBtTextTheme();
         setInputLayoutTheme();
+        setRadioGroupButtonBG(radioGroupMetro);
         radioGroupMetro.check(R.id.view_rbt_apps);
     }
 
