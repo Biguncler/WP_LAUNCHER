@@ -20,7 +20,7 @@ public class ReboundGridView extends GridView {
     private static final float MOVE_FACTOR = 0.5f;
 
     //松开手指后, 界面回到正常位置需要的动画时间
-    private static final int ANIM_TIME = 300;
+    private static final int ANIM_TIME = 150;
     //手指按下时的Y值, 用于在移动时计算移动距离
     //如果按下时不能上拉和下拉， 会在手指移动时更新为当前手指的Y值
     private float startY;
