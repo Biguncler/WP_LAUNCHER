@@ -48,6 +48,7 @@ import com.example.biguncler.wp_launcher.view.ThemeColorsLayout;
 public class FragmentApps extends BaseFragment {
     private Button btText;
     private InputMethodLayout inputLayout;
+    private LinearLayout inputLayoutParent;
     private AppsLayout appsLayout;
     private LinearLayout colorsLayout;
     private MetroColorsLayout metroColorsLayout;
@@ -57,6 +58,7 @@ public class FragmentApps extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FrameLayout layout= (FrameLayout) inflater.inflate(R.layout.fragment_apps,container,false);
         btText= (Button) layout.findViewById(R.id.view_bt_search_app);
+        inputLayoutParent= (LinearLayout) layout.findViewById(R.id.layout_ll_input_method_parent);
         inputLayout= (InputMethodLayout) layout.findViewById(R.id.layout_ll_input_method);
         appsLayout= (AppsLayout) layout.findViewById(R.id.layout_apps);
         colorsLayout= (LinearLayout) layout.findViewById(R.id.layout_colors);
@@ -69,7 +71,7 @@ public class FragmentApps extends BaseFragment {
         setRadioGroupButtonBG(radioGroupMetro);
 
         setBtTextTheme();
-        inputLayout.setVisibility(View.GONE);
+        inputLayoutParent.setVisibility(View.GONE);
         setInputLayoutTheme();
 
         return layout;
@@ -227,33 +229,32 @@ public class FragmentApps extends BaseFragment {
     }
 
     private void showInputLayout(AnimatorListenerAdapter listenerAdapter){
-        if(inputLayout.getVisibility()==View.GONE){
-            inputLayout.setVisibility(View.VISIBLE);
-            ((View)btText.getParent()).setVisibility(View.VISIBLE);
+        if(inputLayoutParent.getVisibility()==View.GONE){
+            inputLayoutParent.setVisibility(View.VISIBLE);
             int startY2= ScreenUtil.getScreenHeight(getActivity());
             // 250+22 22为状态栏高度
             int endY2=startY2- PixUtil.dip2px(getActivity(),242);
             int pivotX2=0;
             int pivotY2=ScreenUtil.getScreenHeight(getActivity());
-            AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
+            AnimatorUtil.getInstance().startAnimator(inputLayoutParent,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
         }
 
     }
 
     private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
-        if (inputLayout.getVisibility() == View.VISIBLE) {
+        if (inputLayoutParent.getVisibility() == View.VISIBLE) {
             int endY2 = ScreenUtil.getScreenHeight(getActivity());
             int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
             int pivotX2 = 0;
             int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
-            AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
-            inputLayout.postDelayed(new Runnable() {
+            AnimatorUtil.getInstance().startAnimator(inputLayoutParent, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
+            inputLayoutParent.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    inputLayout.setVisibility(View.GONE);
+                    inputLayoutParent.setVisibility(View.GONE);
                 }
             },250);
-            ((View)btText.getParent()).setVisibility(View.GONE);
+
         }
     }
 
@@ -296,7 +297,7 @@ public class FragmentApps extends BaseFragment {
             inputLayout.setTextsColor(Color.WHITE);
         }
         try{
-            inputLayout.setBackground(new BitmapDrawable(getInputMethodBG()));
+            inputLayoutParent.setBackground(new BitmapDrawable(getInputMethodBG()));
         }catch (Exception e){
             e.printStackTrace();
             if(MyApplication.isLightTheme){
