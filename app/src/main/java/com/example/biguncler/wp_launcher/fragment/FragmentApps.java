@@ -316,7 +316,7 @@ public class FragmentApps extends BaseFragment {
             int screenHeight=ScreenUtil.getScreenHeight(getActivity());
             int height=PixUtil.dip2px(getActivity(),220);
             Bitmap bitmap=BitmapUtil.cropBitmap(WallpaperUtil.getWallpaper(getActivity()),0,screenHeight-height,screenWidth,height);
-            return BitmapUtil.getBlurBitmap(bitmap,100,false);
+            return BitmapUtil.getBlurBitmap(bitmap,150,false);
         }catch (Exception e){
             e.printStackTrace();
         }
