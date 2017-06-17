@@ -229,6 +229,7 @@ public class FragmentApps extends BaseFragment {
     private void showInputLayout(AnimatorListenerAdapter listenerAdapter){
         if(inputLayout.getVisibility()==View.GONE){
             inputLayout.setVisibility(View.VISIBLE);
+            ((View)btText.getParent()).setVisibility(View.VISIBLE);
             int startY2= ScreenUtil.getScreenHeight(getActivity());
             // 250+22 22为状态栏高度
             int endY2=startY2- PixUtil.dip2px(getActivity(),242);
@@ -252,6 +253,7 @@ public class FragmentApps extends BaseFragment {
                     inputLayout.setVisibility(View.GONE);
                 }
             },250);
+            ((View)btText.getParent()).setVisibility(View.GONE);
         }
     }
 
