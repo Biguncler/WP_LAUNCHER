@@ -125,6 +125,13 @@ public class FragmentApps extends BaseFragment {
                 showInputLayout(null);
             }
         });
+        btText.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AppUtil.luanchApp(getActivity(),MyApplication.appMap.get("BAIDU"),btText);
+                return true;
+            }
+        });
 
         ((ReboundGridView)appsLayout.getGridView()).setPullFinishListener(new ReboundGridView.OnPullFinishListener() {
             @Override
@@ -230,8 +237,8 @@ public class FragmentApps extends BaseFragment {
         if(inputLayout.getVisibility()==View.GONE){
             inputLayout.setVisibility(View.VISIBLE);
             int startY2= ScreenUtil.getScreenHeight(getActivity());
-            // 250+22 22为状态栏高度
-            int endY2=startY2- PixUtil.dip2px(getActivity(),242);
+            // 200+22 22为状态栏高度
+            int endY2=startY2- PixUtil.dip2px(getActivity(),222);
             int pivotX2=0;
             int pivotY2=ScreenUtil.getScreenHeight(getActivity());
             AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
@@ -242,9 +249,9 @@ public class FragmentApps extends BaseFragment {
     private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
         if (inputLayout.getVisibility() == View.VISIBLE) {
             int endY2 = ScreenUtil.getScreenHeight(getActivity());
-            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
+            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 222);
             int pivotX2 = 0;
-            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 242);
+            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 222);
             AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
             inputLayout.postDelayed(new Runnable() {
                 @Override
@@ -311,9 +318,9 @@ public class FragmentApps extends BaseFragment {
         try{
             int screenWidth=ScreenUtil.getScreenWidth(getActivity());
             int screenHeight=ScreenUtil.getScreenHeight(getActivity());
-            int height=PixUtil.dip2px(getActivity(),220);
+            int height=PixUtil.dip2px(getActivity(),200);
             Bitmap bitmap=BitmapUtil.cropBitmap(WallpaperUtil.getWallpaper(getActivity()),0,screenHeight-height,screenWidth,height);
-            return BitmapUtil.getBlurBitmap(bitmap,100,false);
+            return BitmapUtil.getBlurBitmap(bitmap,150,false);
         }catch (Exception e){
             e.printStackTrace();
         }
