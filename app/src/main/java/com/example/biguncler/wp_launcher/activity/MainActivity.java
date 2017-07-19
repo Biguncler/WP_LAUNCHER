@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity {
         layoutParent= (LinearLayout) findViewById(R.id.activity_main);
 
         fragmentList=new ArrayList<>();
-        fragmentList.add(new FragmentHome());
+        //fragmentList.add(new FragmentHome());
         fragmentList.add(new FragmentApps() );
 
         viewPager= (ViewPager) findViewById(R.id.view_viewpager);
