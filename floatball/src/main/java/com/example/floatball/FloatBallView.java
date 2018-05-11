@@ -62,8 +62,7 @@ public class FloatBallView extends LinearLayout {
     private int mOffsetToParent;
     private int mOffsetToParentY;
     private Vibrator mVibrator;
-    private long[] mPattern = {0, 100};
-
+    private long[] mPattern = {100, 30};
 
     public FloatBallView(Context context) {
         super(context);
@@ -245,15 +244,19 @@ public class FloatBallView extends LinearLayout {
         switch (mCurrentMode) {
             case MODE_LEFT:
                 AccessibilityUtil.doBack(mService);
+                mVibrator.vibrate(mPattern, -1);
                 break;
             case MODE_RIGHT:
                 //AccessibilityUtil.doLeftOrRight(mService);
+                mVibrator.vibrate(mPattern, -1);
                 break;
             case MODE_DOWN:
                 AccessibilityUtil.doPullUp(mService);
+                mVibrator.vibrate(mPattern, -1);
                 break;
             case MODE_UP:
                 AccessibilityUtil.doLeftOrRight(mService);
+                mVibrator.vibrate(mPattern, -1);
                 break;
 
         }
