@@ -40,6 +40,7 @@ import com.example.biguncler.wp_launcher.view.MetroColorsLayout;
 import com.example.biguncler.wp_launcher.view.InputMethodLayout;
 import com.example.biguncler.wp_launcher.view.ReboundGridView;
 import com.example.biguncler.wp_launcher.view.ThemeColorsLayout;
+import com.example.floatball.FloatBallManager;
 
 /**
  * Created by Biguncler on 06/03/2017.
@@ -71,6 +72,8 @@ public class FragmentApps extends BaseFragment {
         setBtTextTheme();
         inputLayout.setVisibility(View.GONE);
         setInputLayoutTheme();
+
+        new FloatBallManager(getActivity()).showFloatBall();
 
         return layout;
     }

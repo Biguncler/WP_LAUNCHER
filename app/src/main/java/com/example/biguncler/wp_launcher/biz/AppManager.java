@@ -54,13 +54,21 @@ public class AppManager {
             // 设置应用程序的包名
             String pakageName = resolveInfo.activityInfo.packageName;
             // 设置应用程序名字
-            String appName = resolveInfo.activityInfo.loadLabel(context.getPackageManager()).toString().toUpperCase();
-            if (CharUtil.isChinese(appName)) {
-                appName = CharUtil.getPinYinHeadChar(appName).toUpperCase();
+            String appName="";
+            String simpleAppName="";
+            String rawAppName = resolveInfo.activityInfo.loadLabel(context.getPackageManager()).toString();
+            if (CharUtil.isChinese(rawAppName)) {
+                simpleAppName = CharUtil.getPinYinHeadChar(rawAppName).toUpperCase();
+            }
+            if(!TextUtils.isEmpty(simpleAppName)){
+                appName=simpleAppName+MyApplication.SPLIT_STRING+rawAppName;
+            }else{
+                appName=rawAppName;
             }
             if (appName.contains(" ")) {
                 appName = appName.replace(" ", "_");
             }
+            appName=appName.toUpperCase();
             // 设置图片
             Drawable icon =icon = resolveInfo.activityInfo.loadIcon(context.getPackageManager());
 

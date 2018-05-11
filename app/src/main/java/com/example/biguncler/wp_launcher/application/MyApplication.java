@@ -25,6 +25,7 @@ import java.util.Map;
  */
 
 public class MyApplication extends Application {
+    public static String SPLIT_STRING="@@@";
     private BroadcastReceiver receiver, wallpaperReceiver;
     public static String ACTION_EMULATE_WALLPAPER_CHANGED="action_emulate_wallpaper_changed";
     public static boolean  isLightTheme;
@@ -133,7 +134,11 @@ public class MyApplication extends Application {
     private void setMap(){
         appMap=new HashMap<>();
         for(AppMode appMode:apps){
-            appMap.put(appMode.getAppName().toUpperCase(),appMode.getPackageName());
+            String appName=appMode.getPackageName();
+            if(!TextUtils.isEmpty(appName) &&appName.contains(SPLIT_STRING)){
+                appName=appName.split(SPLIT_STRING)[0];
+            }
+            appMap.put(appMode.getAppName().toUpperCase(),appName);
         }
     }
 

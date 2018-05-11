@@ -2,6 +2,7 @@ package com.example.biguncler.wp_launcher.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,12 @@ public class AppsGridAdapter extends BaseAdapter{
         // 设置app名称及图标
         TextView tvName= (TextView) layoutParent.findViewById(R.id.view_tv_item_adapter_name);
         ImageView ivIcon= (ImageView) layoutParent.findViewById(R.id.view_iv_item_adapter_icon);
-        tvName.setText(list.get(i).getAppName().toUpperCase());
+        String appName=list.get(i).getAppName().toUpperCase();
+        if(!TextUtils.isEmpty(appName)&&appName.contains(MyApplication.SPLIT_STRING)){
+            String[] str=appName.split(MyApplication.SPLIT_STRING);
+            appName=str[str.length-1];
+        }
+        tvName.setText(appName);
         if(MyApplication.isLightTheme){
             tvName.setTextColor(Color.BLACK);
         }else{
