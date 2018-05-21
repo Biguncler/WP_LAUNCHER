@@ -17,11 +17,13 @@ import android.widget.LinearLayout;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.fragment.FragmentApps;
 import com.example.biguncler.wp_launcher.fragment.FragmentHome;
 import com.example.biguncler.wp_launcher.fragment.FragmentSearchApp;
+import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.StatusBarUtil;
 import com.example.biguncler.wp_launcher.util.WallpaperUtil;
 
@@ -150,5 +152,11 @@ public class MainActivity extends BaseActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onFloatGestureDown(Intent intent) {
+        super.onFloatGestureDown(intent);
+        AppUtil.luanchApp(this,MyApplication.appMap.get(new VoiceTextManager(this).transfer("小爱同学")));
     }
 }

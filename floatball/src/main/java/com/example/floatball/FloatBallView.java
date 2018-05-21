@@ -3,7 +3,9 @@ package com.example.floatball;
 
 import android.accessibilityservice.AccessibilityService;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Vibrator;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.lang.reflect.Field;
+import java.util.Timer;
 
 /**
  * Created by wangxiandeng on 2016/11/25.
@@ -37,7 +40,7 @@ public class FloatBallView extends LinearLayout {
 
     private float mTouchSlop;
     private final static long LONG_CLICK_LIMIT = 300;
-    private final static long REMOVE_LIMIT = 1000*10;
+    private final static long REMOVE_LIMIT = 800;
     private final static long CLICK_LIMIT = 200;
 
     private int mStatusBarHeight;
@@ -142,6 +145,7 @@ public class FloatBallView extends LinearLayout {
                         mImgBall.setVisibility(VISIBLE);
                         mImgBigBall.setVisibility(INVISIBLE);
                         mCurrentMode = MODE_NONE;
+                        TimerHelper.getInstance().stop();
                         break;
                 }
                 return true;
@@ -200,6 +204,15 @@ public class FloatBallView extends LinearLayout {
                 mCurrentMode = MODE_RIGHT;
                 mImgBigBall.setX(mBigBallX + OFFSET);
                 mImgBigBall.setY(mBigBallY);
+                // 右拉悬停
+                TimerHelper.getInstance().start(REMOVE_LIMIT, new TimerHelper.OnTimeListener() {
+                    @Override
+                    public void onTime() {
+                        if (mCurrentMode == MODE_RIGHT && mIsTouching) {
+                            sentBroadcast(Constant.ACTION_GESTURE_FLOAT_RIGHT);
+                        }
+                    }
+                });
             } else {
                 if (mCurrentMode == MODE_LEFT) {
                     return;
@@ -207,25 +220,34 @@ public class FloatBallView extends LinearLayout {
                 mCurrentMode = MODE_LEFT;
                 mImgBigBall.setX(mBigBallX - OFFSET);
                 mImgBigBall.setY(mBigBallY);
+                // 左拉悬停
+                TimerHelper.getInstance().start(REMOVE_LIMIT, new TimerHelper.OnTimeListener() {
+                    @Override
+                    public void onTime() {
+                        if (mCurrentMode == MODE_LEFT && mIsTouching) {
+                            sentBroadcast(Constant.ACTION_GESTURE_FLOAT_LEFT);
+                        }
+                    }
+                });
             }
         } else {
             if (offsetY > 0) {
-                if (mCurrentMode == MODE_DOWN || mCurrentMode == MODE_GONE) {
+
+                if (mCurrentMode == MODE_DOWN) {
                     return;
                 }
                 mCurrentMode = MODE_DOWN;
                 mImgBigBall.setX(mBigBallX);
                 mImgBigBall.setY(mBigBallY + OFFSET);
-                //如果长时间保持下拉状态，将会触发移除悬浮球功能
-                postDelayed(new Runnable() {
+                // 下拉悬停
+                TimerHelper.getInstance().start(REMOVE_LIMIT, new TimerHelper.OnTimeListener() {
                     @Override
-                    public void run() {
+                    public void onTime() {
                         if (mCurrentMode == MODE_DOWN && mIsTouching) {
-                            //toRemove();
-                            mCurrentMode = MODE_GONE;
+                            sentBroadcast(Constant.ACTION_GESTURE_FLOAT_DOWN);
                         }
                     }
-                }, REMOVE_LIMIT);
+                });
             } else {
                 if (mCurrentMode == MODE_UP) {
                     return;
@@ -233,6 +255,15 @@ public class FloatBallView extends LinearLayout {
                 mCurrentMode = MODE_UP;
                 mImgBigBall.setX(mBigBallX);
                 mImgBigBall.setY(mBigBallY - OFFSET);
+                // 上拉悬停
+                TimerHelper.getInstance().start(REMOVE_LIMIT, new TimerHelper.OnTimeListener() {
+                    @Override
+                    public void onTime() {
+                        if (mCurrentMode == MODE_UP && mIsTouching) {
+                            sentBroadcast(Constant.ACTION_GESTURE_FLOAT_UP);
+                        }
+                    }
+                });
             }
         }
     }
@@ -310,6 +341,11 @@ public class FloatBallView extends LinearLayout {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dip, getContext().getResources().getDisplayMetrics()
         );
+    }
+
+    private void sentBroadcast(String action){
+        Intent intent=new Intent(action);
+        getContext().sendBroadcast(intent);
     }
 
 }

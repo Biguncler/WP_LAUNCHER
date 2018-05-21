@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.util.StatusBarUtil;
+import com.example.floatball.Constant;
 
 import java.util.List;
 
@@ -101,6 +102,20 @@ public class BaseActivity extends FragmentActivity {
 
     }
 
+    protected void onFloatGestureRight(Intent intent){
+
+    }
+
+    protected void onFloatGestureLeft(Intent intent){
+
+    }
+    protected void onFloatGestureUp(Intent intent){
+
+    }
+    protected void onFloatGestureDown(Intent intent){
+
+    }
+
 
 
 
@@ -115,6 +130,10 @@ public class BaseActivity extends FragmentActivity {
         intentFilter.addAction(ACTION_WALLPEPER_UPDATED);
         intentFilter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         intentFilter.addAction(ACTION_METRO_COLOR_CHANGED);
+        intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_RIGHT);
+        intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_LEFT);
+        intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_UP);
+        intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_DOWN);
       //  intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
        // intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
        // intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
@@ -171,7 +190,7 @@ public class BaseActivity extends FragmentActivity {
             }else if(action.equals(Intent.ACTION_TIME_TICK)){
                 onTimeTick(intent);
             }else if(action.equals(ACTION_ADD_SHORTCUT)){
-                Toast.makeText(BaseActivity.this,"aaaa",Toast.LENGTH_SHORT).show();
+                /*Toast.makeText(BaseActivity.this,"aaaa",Toast.LENGTH_SHORT).show();
                 Intent shortcut_intent = intent.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT);
 
                 ComponentName componentName=shortcut_intent.getComponent();
@@ -180,9 +199,17 @@ public class BaseActivity extends FragmentActivity {
 
 
                 // startActivity(new Intent().setComponent(new ComponentName(b,a)));
-                startActivity(shortcut_intent);
+                startActivity(shortcut_intent);*/
             }else if(action.equals(ACTION_METRO_COLOR_CHANGED)){
                 onMetroColorChanged(intent);
+            }else if(action.equals(Constant.ACTION_GESTURE_FLOAT_DOWN)){
+                onFloatGestureDown(intent);
+            }else if(action.equals(Constant.ACTION_GESTURE_FLOAT_UP)){
+                onFloatGestureUp(intent);
+            }else if(action.equals(Constant.ACTION_GESTURE_FLOAT_LEFT)){
+                onFloatGestureLeft(intent);
+            }else if(action.equals(Constant.ACTION_GESTURE_FLOAT_RIGHT)){
+                onFloatGestureRight(intent);
             }
         }
     }
