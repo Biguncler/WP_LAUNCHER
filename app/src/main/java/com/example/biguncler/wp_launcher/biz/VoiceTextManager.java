@@ -36,9 +36,9 @@ public class VoiceTextManager {
         map.put("天气", "WEATHER");
         map.put("微信", "WECHAT");
         map.put("摩拜", "MOBIKE");
-        map.put("摩拜", "MOBIKE");
         map.put("微博", "WEIBO");
         map.put("为知笔记", "WIZNOTE");
+        map.put("小爱同学", "MI_AI");
     }
 
     public VoiceTextManager(Context context) {

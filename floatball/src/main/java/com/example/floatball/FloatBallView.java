@@ -221,7 +221,7 @@ public class FloatBallView extends LinearLayout {
                     @Override
                     public void run() {
                         if (mCurrentMode == MODE_DOWN && mIsTouching) {
-                            toRemove();
+                            //toRemove();
                             mCurrentMode = MODE_GONE;
                         }
                     }

@@ -134,11 +134,12 @@ public class MyApplication extends Application {
     private void setMap(){
         appMap=new HashMap<>();
         for(AppMode appMode:apps){
-            String appName=appMode.getPackageName();
+            String packageName=appMode.getPackageName();
+            String appName=appMode.getAppName();
             if(!TextUtils.isEmpty(appName) &&appName.contains(SPLIT_STRING)){
                 appName=appName.split(SPLIT_STRING)[0];
             }
-            appMap.put(appMode.getAppName().toUpperCase(),appName);
+            appMap.put(appName.toUpperCase(),packageName);
         }
     }
 

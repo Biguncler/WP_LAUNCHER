@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
+import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 
 import java.util.HashMap;
@@ -197,12 +198,13 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
     @Override
     public boolean onLongClick(View view) {
         String text= (String) ((Button)view).getText();
+        VoiceTextManager voiceTextManager=new VoiceTextManager(getContext());
         String appName="";if(text.equals("A")){
             AppUtil.luanchApp(context, MyApplication.appMap.get("WDJ"),view);
         }else if(text.equals("B")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("ABZ"),view);
         }else if(text.equals("C")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("CLOCK"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("闹钟")),view);
         }else if(text.equals("D")){
 
         }else if(text.equals("E")){
@@ -210,7 +212,7 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
         }else if(text.equals("F")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("QTFM"),view);
         }else if(text.equals("G")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("GALLERY"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("相册")),view);
         }else if(text.equals("H")){
 
         }else if(text.equals("I")){
@@ -222,29 +224,27 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
         }else if(text.equals("L")){
 
         }else if(text.equals("M")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("AMAP"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("高德地图")),view);
         }else if(text.equals("N")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("IFENG_NEWS"),view);
         }else if(text.equals("O")){
 
         }else if(text.equals("P")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("ALIPAY"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("支付宝")),view);
         }else if(text.equals("Q")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("QQ"),view);
         }else if(text.equals("R")){
 
         }else if(text.equals("S")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("SETTINGS"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("设置")),view);
         }else if(text.equals("T")){
             AppUtil.luanchApp(context,MyApplication.appMap.get("SJTB"),view);
         }else if(text.equals("U")){
 
         }else if(text.equals("V")){
-            Intent intent=new Intent().setComponent(new ComponentName(MyApplication.appMap.get("CORTANA"),"com.microsoft.bing.dss.widget.CortanaWidgetActivity"));
-            intent.setFlags(335593472);
-            context.startActivity(intent);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("小爱同学")),view);
         }else if(text.equals("W")){
-            AppUtil.luanchApp(context,MyApplication.appMap.get("WECHAT"),view);
+            AppUtil.luanchApp(context,MyApplication.appMap.get(voiceTextManager.transfer("微信")),view);
         }else if(text.equals("X")){
 
         }else if(text.equals("Y")){
