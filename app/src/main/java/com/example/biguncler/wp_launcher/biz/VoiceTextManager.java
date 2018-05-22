@@ -69,7 +69,7 @@ public class VoiceTextManager {
             if (curLocale.equals(Locale.SIMPLIFIED_CHINESE)) {
                 //中文
                 return chineseEnv(text);
-            } else if (curLocale.equals(Locale.ENGLISH)) {
+            } else {
                 //英文
                 return englishEnv(text);
             }
