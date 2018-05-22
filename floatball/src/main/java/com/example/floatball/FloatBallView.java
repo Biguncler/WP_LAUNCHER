@@ -40,7 +40,7 @@ public class FloatBallView extends LinearLayout {
 
     private float mTouchSlop;
     private final static long LONG_CLICK_LIMIT = 300;
-    private final static long REMOVE_LIMIT = 800;
+    private final static long REMOVE_LIMIT = 500;
     private final static long CLICK_LIMIT = 200;
 
     private int mStatusBarHeight;
@@ -55,7 +55,7 @@ public class FloatBallView extends LinearLayout {
     private final static int MODE_LEFT = 0x003;
     private final static int MODE_RIGHT = 0x004;
     private final static int MODE_MOVE = 0x005;
-    private final static int MODE_GONE = 0x006;
+    private final static int MODE_FLOAT = 0x006;
 
     private final static int OFFSET = 30;
 
@@ -198,7 +198,7 @@ public class FloatBallView extends LinearLayout {
         }
         if (Math.abs(offsetX) > Math.abs(offsetY)) {
             if (offsetX > 0) {
-                if (mCurrentMode == MODE_RIGHT) {
+                if (mCurrentMode == MODE_RIGHT || mCurrentMode == MODE_FLOAT) {
                     return;
                 }
                 mCurrentMode = MODE_RIGHT;
@@ -210,11 +210,13 @@ public class FloatBallView extends LinearLayout {
                     public void onTime() {
                         if (mCurrentMode == MODE_RIGHT && mIsTouching) {
                             sentBroadcast(Constant.ACTION_GESTURE_FLOAT_RIGHT);
+                            mCurrentMode =MODE_FLOAT;
+                            mVibrator.vibrate(mPattern, -1);
                         }
                     }
                 });
             } else {
-                if (mCurrentMode == MODE_LEFT) {
+                if (mCurrentMode == MODE_LEFT || mCurrentMode == MODE_FLOAT) {
                     return;
                 }
                 mCurrentMode = MODE_LEFT;
@@ -226,6 +228,8 @@ public class FloatBallView extends LinearLayout {
                     public void onTime() {
                         if (mCurrentMode == MODE_LEFT && mIsTouching) {
                             sentBroadcast(Constant.ACTION_GESTURE_FLOAT_LEFT);
+                            mCurrentMode =MODE_FLOAT;
+                            mVibrator.vibrate(mPattern, -1);
                         }
                     }
                 });
@@ -233,7 +237,7 @@ public class FloatBallView extends LinearLayout {
         } else {
             if (offsetY > 0) {
 
-                if (mCurrentMode == MODE_DOWN) {
+                if (mCurrentMode == MODE_DOWN || mCurrentMode == MODE_FLOAT) {
                     return;
                 }
                 mCurrentMode = MODE_DOWN;
@@ -245,11 +249,13 @@ public class FloatBallView extends LinearLayout {
                     public void onTime() {
                         if (mCurrentMode == MODE_DOWN && mIsTouching) {
                             sentBroadcast(Constant.ACTION_GESTURE_FLOAT_DOWN);
+                            mCurrentMode =MODE_FLOAT;
+                            mVibrator.vibrate(mPattern, -1);
                         }
                     }
                 });
             } else {
-                if (mCurrentMode == MODE_UP) {
+                if (mCurrentMode == MODE_UP || mCurrentMode == MODE_FLOAT) {
                     return;
                 }
                 mCurrentMode = MODE_UP;
@@ -261,6 +267,8 @@ public class FloatBallView extends LinearLayout {
                     public void onTime() {
                         if (mCurrentMode == MODE_UP && mIsTouching) {
                             sentBroadcast(Constant.ACTION_GESTURE_FLOAT_UP);
+                            mCurrentMode =MODE_FLOAT;
+                            mVibrator.vibrate(mPattern, -1);
                         }
                     }
                 });
