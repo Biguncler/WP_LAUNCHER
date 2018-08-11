@@ -197,6 +197,7 @@ public class InputMethodLayout extends LinearLayout  implements View.OnClickList
 
     @Override
     public boolean onLongClick(View view) {
+        startVibrate();
         String text= (String) ((Button)view).getText();
         VoiceTextManager voiceTextManager=new VoiceTextManager(getContext());
         String appName="";if(text.equals("A")){
