@@ -20,13 +20,15 @@ import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.fragment.FragmentApps;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.LockScreenUtil;
+import com.example.biguncler.wp_launcher.util.PlayMusicUtils;
 import com.example.biguncler.wp_launcher.util.WallpaperUtil;
+import com.example.biguncler.wp_launcher.view.ScreenStateLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
-    private LinearLayout layoutParent;
+public class MainActivity extends BaseActivity implements ScreenStateLayout.OnScreenStateChangedListener{
+    private ScreenStateLayout layoutParent;
     private ViewPager viewPager;
     private List<Fragment> fragmentList;
 
@@ -41,7 +43,7 @@ public class MainActivity extends BaseActivity {
     private void initView() {
         getWindow().getDecorView().setBackground(new BitmapDrawable(WallpaperUtil.getWallpaper(this)));
 
-        layoutParent = (LinearLayout) findViewById(R.id.activity_main);
+        layoutParent = (ScreenStateLayout) findViewById(R.id.activity_main);
 
         fragmentList = new ArrayList<>();
         //fragmentList.add(new FragmentHome());
@@ -50,6 +52,8 @@ public class MainActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);
         viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList));
         viewPager.setOverScrollMode(ViewPager.OVER_SCROLL_NEVER);
+
+        layoutParent.setOnScreenStateChangedListener(this);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -163,5 +167,21 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onFloatGestureLeft(Intent intent) {
         super.onFloatGestureLeft(intent);
+    }
+
+    @Override
+    public void onScreenTurnOn() {
+
+    }
+
+    @Override
+    public void onScreenTurnOff() {
+        PlayMusicUtils.playSound(this,R.raw.lock);
+    }
+
+    @Override
+    protected void onUnlock(Intent intent) {
+        super.onUnlock(intent);
+        PlayMusicUtils.playSound(this,R.raw.unlock);
     }
 }

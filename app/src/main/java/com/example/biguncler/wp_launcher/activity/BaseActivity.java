@@ -116,6 +116,10 @@ public class BaseActivity extends FragmentActivity {
 
     }
 
+    protected void onUnlock(Intent intent){
+
+    }
+
 
 
 
@@ -134,6 +138,7 @@ public class BaseActivity extends FragmentActivity {
         intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_LEFT);
         intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_UP);
         intentFilter.addAction(Constant.ACTION_GESTURE_FLOAT_DOWN);
+        intentFilter.addAction(Intent.ACTION_USER_PRESENT);
       //  intentFilter.addAction(Intent.ACTION_BATTERY_CHANGED);
        // intentFilter.addAction(Intent.ACTION_SCREEN_OFF);
        // intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
@@ -210,6 +215,8 @@ public class BaseActivity extends FragmentActivity {
                 onFloatGestureLeft(intent);
             }else if(action.equals(Constant.ACTION_GESTURE_FLOAT_RIGHT)){
                 onFloatGestureRight(intent);
+            }else if(action.equals(Intent.ACTION_USER_PRESENT)){
+                onUnlock(intent);
             }
         }
     }
