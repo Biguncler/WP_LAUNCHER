@@ -1,5 +1,6 @@
 package com.example.biguncler.wp_launcher.fragment;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -73,7 +74,7 @@ public class FragmentApps extends BaseFragment {
         inputLayout.setVisibility(View.GONE);
         setInputLayoutTheme();
 
-        new FloatBallManager(getActivity()).showFloatBall();
+        //new FloatBallManager(getActivity()).showFloatBall();
 
         return layout;
     }
@@ -111,13 +112,28 @@ public class FragmentApps extends BaseFragment {
                 inputLayout.setText("");
                 switch (id){
                     case R.id.view_rbt_apps:
-                        appsLayout.setVisibility(View.VISIBLE);
-                        colorsLayout.setVisibility(View.GONE);
+                        AnimatorUtil.getInstance().startAnimator(colorsLayout, AnimatorUtil.ALPHA, 1f, 0f, 0, 0, 200, null, new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                colorsLayout.setVisibility(View.GONE);
+                                appsLayout.setVisibility(View.VISIBLE);
+                                AnimatorUtil.getInstance().startAnimator(appsLayout, AnimatorUtil.ALPHA, 0f, 1f, 0, 0, 400, null, null);
+                            }
+                        });
                         btText.setEnabled(true);
                         break;
                     case R.id.view_rbt_colors:
-                        appsLayout.setVisibility(View.GONE);
-                        colorsLayout.setVisibility(View.VISIBLE);
+                        AnimatorUtil.getInstance().startAnimator(appsLayout, AnimatorUtil.ALPHA, 1f, 0f, 0, 0, 200, null, new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                appsLayout.setVisibility(View.GONE);
+                                colorsLayout.setVisibility(View.VISIBLE);
+                                AnimatorUtil.getInstance().startAnimator(colorsLayout, AnimatorUtil.ALPHA, 0f, 1f, 0, 0, 400, null, null);
+
+                            }
+                        });
                         break;
                 }
             }
@@ -128,13 +144,13 @@ public class FragmentApps extends BaseFragment {
                 showInputLayout(null);
             }
         });
-        btText.setOnLongClickListener(new View.OnLongClickListener() {
+        /*btText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 AppUtil.luanchApp(getActivity(),MyApplication.appMap.get("BAIDU"),btText);
                 return true;
             }
-        });
+        });*/
 
         ((ReboundGridView)appsLayout.getGridView()).setPullFinishListener(new ReboundGridView.OnPullFinishListener() {
             @Override
