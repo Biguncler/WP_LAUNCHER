@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,10 +20,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.util.StatusBarUtil;
 import com.example.floatball.Constant;
+import com.example.libtheme.ThemeHelper;
 
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class BaseActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setDecorView();
-        StatusBarUtil.setStatusTextColor(this, MyApplication.isLightTheme);
+        ThemeHelper.setTheme(this);
         registerReceiver();
 
     }
@@ -64,7 +67,7 @@ public class BaseActivity extends FragmentActivity {
     }
 
     protected  void onWallpaperChanged(Intent intent){
-        StatusBarUtil.setStatusTextColor(this, MyApplication.isLightTheme);
+        recreate();
     }
 
     protected void onAppInstalled(Intent intent){

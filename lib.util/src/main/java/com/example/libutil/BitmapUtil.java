@@ -1,4 +1,4 @@
-package com.example.biguncler.wp_launcher.util;
+package com.example.libutil;
 
 import android.graphics.Bitmap;
 
@@ -251,10 +251,5 @@ public class BitmapUtil {
         // StackBlur.blurNativelyPixels()  3ms
        return StackBlur.blurNativelyPixels(bitmap,radius,canReuseInBitmap);
     }
-
-
-
-
-
 
 }

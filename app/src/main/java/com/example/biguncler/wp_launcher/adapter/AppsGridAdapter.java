@@ -61,11 +61,6 @@ public class AppsGridAdapter extends BaseAdapter{
             appName=str[str.length-1];
         }
         tvName.setText(appName);
-        if(MyApplication.isLightTheme){
-            tvName.setTextColor(Color.BLACK);
-        }else{
-            tvName.setTextColor(Color.WHITE);
-        }
         ivIcon.setImageDrawable(list.get(i).getIcon());
         ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
         initListener(layoutParent,i);

@@ -1,4 +1,4 @@
-package com.example.biguncler.wp_launcher.util;
+package com.example.libutil;
 
 import android.app.WallpaperManager;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+
+import com.example.libutil.BitmapUtil;
 
 import java.io.IOException;
 

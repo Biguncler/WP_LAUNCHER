@@ -1,4 +1,4 @@
-package com.example.biguncler.wp_launcher.util;
+package com.example.libutil;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

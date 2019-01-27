@@ -1,0 +1,16 @@
+<resources>
+
+
+<style name="th_theme_dark" parent="Theme.AppCompat.NoActionBar">
+    <item name="th_text_color">@color/th_dark_text</item>
+    <item name="th_tint_bg_color">@color/th_dark_tint_bg</item>
+    <item name="th_tint_ic_color">@color/th_dark_tint_ic</item>
+</style>
+
+
+<style name="th_theme_light" parent="Theme.AppCompat.NoActionBar">
+    <item name="th_text_color">@color/th_light_text</item>
+    <item name="th_tint_bg_color">@color/th_light_tint_bg</item>
+    <item name="th_tint_ic_color">@color/th_light_tint_ic</item>
+</style>
+</resources>

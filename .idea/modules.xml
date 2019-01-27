@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/WP_LAUNCHER.iml" filepath="$PROJECT_DIR$/WP_LAUNCHER.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/floatball/floatball.iml" filepath="$PROJECT_DIR$/floatball/floatball.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.theme/lib.theme.iml" filepath="$PROJECT_DIR$/lib.theme/lib.theme.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.util/lib.util.iml" filepath="$PROJECT_DIR$/lib.util/lib.util.iml" />
     </modules>
   </component>
 </project>

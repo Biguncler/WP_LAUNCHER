@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.example.biguncler.wp_launcher.R;
@@ -13,8 +12,7 @@ import com.example.biguncler.wp_launcher.activity.BaseActivity;
 import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
-import com.example.biguncler.wp_launcher.util.BitmapUtil;
-import com.example.biguncler.wp_launcher.util.WallpaperUtil;
+import com.example.libtheme.ThemeHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +26,6 @@ public class MyApplication extends Application {
     public static String SPLIT_STRING="@@@";
     private BroadcastReceiver receiver, wallpaperReceiver;
     public static String ACTION_EMULATE_WALLPAPER_CHANGED="action_emulate_wallpaper_changed";
-    public static boolean  isLightTheme;
     public static List<AppMode> apps;
     public static Map<String,String> appMap;
     public static int metroColor;
@@ -37,7 +34,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        isLightTheme=WallpaperUtil.isWallpaperHightLight(this);
         AppManager appManager = new AppManager();
         apps = appManager.getInstalledApp(this);
         setMap();
@@ -113,7 +109,6 @@ public class MyApplication extends Application {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action.equals(Intent.ACTION_WALLPAPER_CHANGED)) {
-                isLightTheme=WallpaperUtil.isWallpaperHightLight(MyApplication.this);
                 sendBroadcast(BaseActivity.ACTION_WALLPEPER_UPDATED);
             }else if(action.equals(ACTION_EMULATE_WALLPAPER_CHANGED)){
 

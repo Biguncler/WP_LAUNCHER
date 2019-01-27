@@ -20,6 +20,7 @@
         android:layout_marginLeft="8dp"
         android:maxLines="1"
         android:gravity="center_vertical"
+        android:textColor="?attr/th_text_color"
         android:textSize="18sp" />
 
 </com.example.biguncler.wp_launcher.view.ClickEffectLayout>

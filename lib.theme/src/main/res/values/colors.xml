@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="th_dark_text">#000000</color>
+    <color name="th_light_text">#ffffff</color>
+
+    <color name="th_dark_tint_bg">#22000000</color>
+    <color name="th_light_tint_bg">#22ffffff</color>
+
+    <color name="th_dark_tint_ic">#000000</color>
+    <color name="th_light_tint_ic">#ffffff</color>
+
+
+
+
+</resources>

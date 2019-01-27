@@ -79,7 +79,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:paddingLeft="10dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="@drawable/shape_bt_bg_dark"
+            android:textColor="?attr/th_text_color"
             android:maxLines="1"
             />
         </com.example.biguncler.wp_launcher.view.ClickEffectLayout>

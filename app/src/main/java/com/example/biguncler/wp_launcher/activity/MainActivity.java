@@ -1,27 +1,22 @@
 package com.example.biguncler.wp_launcher.activity;
 
-import android.app.admin.DevicePolicyManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.widget.LinearLayout;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
-import com.example.biguncler.wp_launcher.broadcastReceiver.MyDeviceAdminReceiver;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.fragment.FragmentApps;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.LockScreenUtil;
 import com.example.biguncler.wp_launcher.util.PlayMusicUtils;
-import com.example.biguncler.wp_launcher.util.WallpaperUtil;
+import com.example.libutil.WallpaperUtil;
 import com.example.biguncler.wp_launcher.view.ScreenStateLayout;
 
 import java.util.ArrayList;

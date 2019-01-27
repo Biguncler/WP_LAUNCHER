@@ -5,11 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,19 +26,18 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.AppManager;
-import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 import com.example.biguncler.wp_launcher.util.AppUtil;
-import com.example.biguncler.wp_launcher.util.BitmapUtil;
 import com.example.biguncler.wp_launcher.util.PixUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
-import com.example.biguncler.wp_launcher.util.WallpaperUtil;
+import com.example.libtheme.ThemeHelper;
+import com.example.libutil.BitmapUtil;
+import com.example.libutil.WallpaperUtil;
 import com.example.biguncler.wp_launcher.view.AppsLayout;
 import com.example.biguncler.wp_launcher.view.MetroColorsLayout;
 import com.example.biguncler.wp_launcher.view.InputMethodLayout;
 import com.example.biguncler.wp_launcher.view.ReboundGridView;
 import com.example.biguncler.wp_launcher.view.ThemeColorsLayout;
-import com.example.floatball.FloatBallManager;
 
 /**
  * Created by Biguncler on 06/03/2017.
@@ -199,10 +195,10 @@ public class FragmentApps extends BaseFragment {
     @Override
     public void onWallpaperChanged(Intent intent) {
         super.onWallpaperChanged(intent);
-        appsLayout.getAdapter().notifyDataSetChanged();
-        setBtTextTheme();
-        setInputLayoutTheme();
-        setRadioGroupButtonBG(radioGroupMetro);
+        //appsLayout.getAdapter().notifyDataSetChanged();
+        //setBtTextTheme();
+        //setInputLayoutTheme();
+        //setRadioGroupButtonBG(radioGroupMetro);
         radioGroupMetro.check(R.id.view_rbt_apps);
     }
 
@@ -289,11 +285,7 @@ public class FragmentApps extends BaseFragment {
                 RadioButton radioButton= (RadioButton) radioGroup.getChildAt(i);
                 Drawable drawable=radioButton.getButtonDrawable();
                 if(drawable!=null){
-                    if (!MyApplication.isLightTheme) {
-                        DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.white));
-                    } else {
-                        DrawableCompat.setTint(drawable, ContextCompat.getColor(getActivity(), android.R.color.black));
-                    }
+                    DrawableCompat.setTint(drawable, ThemeHelper.getTintIcColor(getActivity()));
                     radioButton.setButtonDrawable(drawable);
                 }
             }
@@ -302,32 +294,20 @@ public class FragmentApps extends BaseFragment {
 
 
     private void setBtTextTheme(){
-        if(MyApplication.isLightTheme){
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_dark);
-            btText.setTextColor(Color.BLACK);
-        }else{
-            btText.setBackgroundResource(R.drawable.shape_bt_bg_light);
-            btText.setTextColor(Color.WHITE);
+       Drawable drawable= btText.getBackground();
+        if(drawable!=null){
+            DrawableCompat.setTint(drawable, ThemeHelper.getTintIcColor(getActivity()));
+            btText.setBackground(drawable);
         }
     }
 
     private void setInputLayoutTheme(){
-        if(MyApplication.isLightTheme){
-            inputLayout.setBtsBackground(getResources().getColor(R.color.color_dark_tint));
-            inputLayout.setTextsColor(Color.BLACK);
-        }else{
-            inputLayout.setBtsBackground(getResources().getColor(R.color.color_light_tint));
-            inputLayout.setTextsColor(Color.WHITE);
-        }
+        inputLayout.setBtsBackground(ThemeHelper.getTintBgColor(getActivity()));
+        inputLayout.setTextsColor(ThemeHelper.getTextColor(getActivity()));
         try{
             inputLayout.setBackground(new BitmapDrawable(getInputMethodBG()));
         }catch (Exception e){
             e.printStackTrace();
-            if(MyApplication.isLightTheme){
-                inputLayout.setBackgroundColor(Color.rgb(170,170,170));
-            }else{
-                inputLayout.setBackgroundColor(Color.rgb(100,100,100));
-            }
         }
 
     }

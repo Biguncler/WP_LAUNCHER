@@ -1,9 +1,7 @@
 package com.example.biguncler.wp_launcher.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.biguncler.wp_launcher.R;
-import com.example.biguncler.wp_launcher.activity.BaseActivity;
-import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
-import com.example.biguncler.wp_launcher.util.WallpaperUtil;
+import com.example.libutil.WallpaperUtil;
 
 import java.util.List;
 

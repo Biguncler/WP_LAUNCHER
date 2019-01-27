@@ -1,16 +1,19 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion "26.0.2"
+
     defaultConfig {
-        applicationId "com.example.biguncler.wp_launcher"
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+    resourcePrefix 'th_'
     buildTypes {
         release {
             minifyEnabled false
@@ -24,17 +27,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
-    compile files('libs/pinyin4j-2.5.0.jar')
-    compile 'com.github.bumptech.glide:glide:3.5.2'
-    compile project(':floatball')
-    compile project(':lib.theme')
     compile project(':lib.util')
-}
-repositories {
-    flatDir {
-        dirs 'libs' //this way we can find the .aar file in libs folder
-    }
 }
