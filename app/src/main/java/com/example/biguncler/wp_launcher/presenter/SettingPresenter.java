@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import com.example.biguncler.wp_launcher.activity.MainActivity;
 import com.example.biguncler.wp_launcher.activity.MetroColorActivity;
+import com.example.biguncler.wp_launcher.activity.TileSettingActivity;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mvpview.IBaseView;
 import com.example.biguncler.wp_launcher.mvpview.ISettingView;
@@ -36,6 +37,12 @@ public class SettingPresenter implements ISettingPrestenter {
     public void forwardMetroColorPage() {
         Intent intent=new Intent();
         view.startActivity(intent, MetroColorActivity.class,0);
+    }
+
+    @Override
+    public void forwardToTileSetting() {
+        Intent intent=new Intent();
+        view.startActivity(intent, TileSettingActivity.class,0);
     }
 
     @Override

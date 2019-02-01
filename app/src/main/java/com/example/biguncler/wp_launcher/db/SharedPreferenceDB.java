@@ -13,6 +13,7 @@ public class SharedPreferenceDB {
     public static final String METRO_COLOR="METRO_COLOR";
     public static final String SWITCH_LOCK="switch_lock";
     public static final String SWITCH_HOME="switch_home";
+    public static final String TILE_TRANSPARENCY = "tile_transparency";
 
 
 
@@ -43,5 +44,17 @@ public class SharedPreferenceDB {
     public static  boolean getBoolean(Context context, String key){
         SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
         return sp.getBoolean(key, false);
+    }
+
+    public static void saveInt(Context context, String key, int data){
+        SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putInt(key,data);
+        editor.commit();
+    }
+
+    public static  int getInt(Context context, String key){
+        SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
+        return sp.getInt(key, 0);
     }
 }

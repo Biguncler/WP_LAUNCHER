@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/th_bg_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Tile Setting"
+        android:textColor="?attr/th_text_color"
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
+    <com.example.biguncler.wp_launcher.view.ReboundScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transparency  "
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_transparency_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/sb_transparency"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:max="100"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:progressDrawable="@drawable/layter_list_seekbar"
+                android:thumb="@drawable/shape_thumb" />
+        </LinearLayout>
+
+    </com.example.biguncler.wp_launcher.view.ReboundScrollView>
+
+</LinearLayout>

@@ -2,52 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/th_bg_color">
+    android:background="?attr/th_bg_color"
+    android:orientation="vertical">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Setting"
         android:textColor="?attr/th_text_color"
-        android:text="Setting"/>
+        android:textSize="35sp"
+        android:textStyle="bold" />
+
     <com.example.biguncler.wp_launcher.view.ReboundScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <com.example.biguncler.wp_launcher.view.ClickEffectLayout
                 android:id="@+id/layout_item_metro_color"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="23sp"
-                    android:textColor="?attr/th_text_color"
                     android:text="Metro color"
-                    />
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="23sp" />
+
                 <ImageView
                     android:id="@+id/iv_metro_color"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:padding="2dp"
-                    android:background="?attr/th_tint_ic_color"/>
+                    android:background="?attr/th_tint_ic_color"
+                    android:padding="2dp" />
             </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
-            <View android:layout_width="match_parent"
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/th_tint_bg_color"/>
+                android:background="?attr/th_tint_bg_color" />
+
+            <com.example.biguncler.wp_launcher.view.ClickEffectLayout
+                android:id="@+id/layout_item_tile_setting"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Title setting"
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="23sp" />
+            </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/th_tint_bg_color" />
 
             <com.example.biguncler.wp_launcher.view.ClickEffectLayout
                 android:id="@+id/layout_item_lock_switch"
@@ -55,45 +83,51 @@
                 android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="23sp"
-                    android:textColor="?attr/th_text_color"
                     android:text="Lock sound"
-                    />
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="23sp" />
+
                 <com.example.biguncler.wp_launcher.view.SwitchView
                     android:id="@+id/iv_switch_lock"
                     android:layout_width="50dp"
                     android:layout_height="22dp" />
             </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
-            <View android:layout_width="match_parent"
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/th_tint_bg_color"/>
+                android:background="?attr/th_tint_bg_color" />
+
             <com.example.biguncler.wp_launcher.view.ClickEffectLayout
                 android:id="@+id/layout_item_home_switch"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="23sp"
-                    android:textColor="?attr/th_text_color"
                     android:text="Show Home"
-                    />
+                    android:textColor="?attr/th_text_color"
+                    android:textSize="23sp" />
+
                 <com.example.biguncler.wp_launcher.view.SwitchView
                     android:id="@+id/iv_switch_home"
                     android:layout_width="50dp"
                     android:layout_height="22dp" />
             </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
-            <View android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?attr/th_tint_bg_color"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/th_tint_bg_color" />
 
 
         </LinearLayout>

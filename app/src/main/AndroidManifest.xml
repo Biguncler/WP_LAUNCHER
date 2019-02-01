@@ -39,6 +39,9 @@
         <activity
             android:name=".activity.MetroColorActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.TileSettingActivity"
+            android:launchMode="singleTop" />
     </application>
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />

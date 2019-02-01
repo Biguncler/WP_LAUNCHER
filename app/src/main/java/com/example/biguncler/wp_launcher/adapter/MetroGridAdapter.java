@@ -17,6 +17,7 @@ import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
+import com.example.libutil.ColorUtil;
 
 import java.util.List;
 
@@ -57,7 +58,9 @@ public class MetroGridAdapter extends BaseAdapter{
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(size,size);
         layoutMetro.setLayoutParams(params);
         // 设置磁贴的颜色
-        layoutMetro.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
+        int color= Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR));
+        int transparency= 255-(int)(255*SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_TRANSPARENCY)/100f);
+        layoutMetro.setBackgroundColor(ColorUtil.setColorAlpha(color,transparency));
         // 设置app名称及图标
         TextView tvName= (TextView) layoutMetro.findViewById(R.id.view_tv_item_adapter_name);
         ImageView ivIcon= (ImageView) layoutMetro.findViewById(R.id.view_iv_item_adapter_icon);

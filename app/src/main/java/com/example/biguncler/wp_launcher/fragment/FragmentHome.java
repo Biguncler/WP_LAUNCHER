@@ -1,6 +1,9 @@
 package com.example.biguncler.wp_launcher.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -21,8 +24,17 @@ import com.example.biguncler.wp_launcher.util.AppUtil;
  */
 
 public class FragmentHome extends BaseFragment {
+    public static final String ACTION_UPDATE_TILE_TRANSPARENCY="action_update_tile_transparency";
     private GridView gridView;
     private MetroGridAdapter gridAdapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
+        getActivity().registerReceiver(receiver,intentFilter);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,10 +51,25 @@ public class FragmentHome extends BaseFragment {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(receiver);
+    }
 
     @Override
     public void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         gridAdapter.notifyDataSetChanged();
     }
+
+    private BroadcastReceiver receiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(ACTION_UPDATE_TILE_TRANSPARENCY.equals(action)){
+                gridAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }

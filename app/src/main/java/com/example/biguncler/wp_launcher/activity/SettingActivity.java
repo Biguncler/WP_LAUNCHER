@@ -23,7 +23,7 @@ import com.example.biguncler.wp_launcher.view.SwitchView;
 
 public class SettingActivity extends BaseActivity implements ISettingView ,View.OnClickListener{
     private ISettingPrestenter prestenter;
-    private LinearLayout itemMetroColor ,itemLockSwitch ,homeSwitch;
+    private LinearLayout itemMetroColor ,itemLockSwitch ,homeSwitch ,itemTileSetting;
     private ImageView ivMetroColor;
     private SwitchView switchLock ,switchHome;
     @Override
@@ -40,6 +40,10 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         itemMetroColor.setOnClickListener(this);
         ivMetroColor = (ImageView) findViewById(R.id.iv_metro_color);
         ivMetroColor.setImageDrawable(new ColorDrawable(prestenter.getMetroColor()));
+
+        itemTileSetting = (LinearLayout) findViewById(R.id.layout_item_tile_setting);
+        itemTileSetting.setOnClickListener(this);
+
 
         itemLockSwitch = (LinearLayout) findViewById(R.id.layout_item_lock_switch);
         itemLockSwitch.setOnClickListener(this);
@@ -64,6 +68,9 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         switch (view.getId()){
             case R.id.layout_item_metro_color:
                 prestenter.forwardMetroColorPage();
+                break;
+            case R.id.layout_item_tile_setting:
+                prestenter.forwardToTileSetting();
                 break;
             case R.id.layout_item_lock_switch:
                 prestenter.updateSwitch(SharedPreferenceDB.SWITCH_LOCK);
