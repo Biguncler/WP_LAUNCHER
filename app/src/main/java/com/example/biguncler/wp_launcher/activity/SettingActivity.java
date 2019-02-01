@@ -35,7 +35,7 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
     }
 
     private void initView() {
-        getWindow().getDecorView().setBackground(prestenter.getBackgroudDrawable());
+       // getWindow().getDecorView().setBackground(prestenter.getBackgroudDrawable());
         itemMetroColor = (LinearLayout) findViewById(R.id.layout_item_metro_color);
         ivMetroColor = (ImageView) findViewById(R.id.iv_metro_color);
         ivMetroColor.setBackgroundColor(prestenter.getMetroColor());

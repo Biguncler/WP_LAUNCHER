@@ -3,4 +3,5 @@
     <attr name="th_text_color" format="color" />
     <attr name="th_tint_bg_color" format="color" />
     <attr name="th_tint_ic_color" format="color" />
+    <attr name="th_bg_color" format="color" />
 </resources>
