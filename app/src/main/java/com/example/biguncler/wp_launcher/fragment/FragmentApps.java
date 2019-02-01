@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -51,6 +52,7 @@ public class FragmentApps extends BaseFragment {
     private MetroColorsLayout metroColorsLayout;
     private ThemeColorsLayout themeColorsLayout;
     private RadioGroup radioGroupMetro;
+    private ImageView ivSetting;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FrameLayout layout= (FrameLayout) inflater.inflate(R.layout.fragment_apps,container,false);
@@ -61,6 +63,7 @@ public class FragmentApps extends BaseFragment {
         themeColorsLayout= (ThemeColorsLayout) layout.findViewById(R.id.layout_theme_colors);
         metroColorsLayout = (MetroColorsLayout) layout.findViewById(R.id.layout_metro_colors);
         radioGroupMetro= (RadioGroup) layout.findViewById(R.id.view_rg);
+        ivSetting = (ImageView) layout.findViewById(R.id.iv_setting);
         initListener();
 
         radioGroupMetro.check(R.id.view_rbt_apps);
@@ -69,6 +72,7 @@ public class FragmentApps extends BaseFragment {
         setBtTextTheme();
         inputLayout.setVisibility(View.GONE);
         setInputLayoutTheme();
+        setViewBG(ivSetting);
 
         //new FloatBallManager(getActivity()).showFloatBall();
 
@@ -175,6 +179,12 @@ public class FragmentApps extends BaseFragment {
                 if(TextUtils.isEmpty(inputLayout.getText())){
                    dismissInputLayout(null);
                 }
+            }
+        });
+        ivSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -289,6 +299,14 @@ public class FragmentApps extends BaseFragment {
                     radioButton.setButtonDrawable(drawable);
                 }
             }
+        }
+    }
+
+    private void setViewBG(View view){
+        Drawable drawable =view.getBackground();
+        if(drawable!=null){
+            DrawableCompat.setTint(drawable, ThemeHelper.getTintIcColor(getActivity()));
+            view.setBackground(drawable);
         }
     }
 
