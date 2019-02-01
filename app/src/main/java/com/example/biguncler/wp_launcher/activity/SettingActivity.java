@@ -23,9 +23,9 @@ import com.example.biguncler.wp_launcher.view.SwitchView;
 
 public class SettingActivity extends BaseActivity implements ISettingView ,View.OnClickListener{
     private ISettingPrestenter prestenter;
-    private LinearLayout itemMetroColor ,itemLockSwitch;
+    private LinearLayout itemMetroColor ,itemLockSwitch ,homeSwitch;
     private ImageView ivMetroColor;
-    private SwitchView switchLock;
+    private SwitchView switchLock ,switchHome;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +46,11 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         switchLock = (SwitchView) findViewById(R.id.iv_switch_lock);
         switchLock.setSwitchState(prestenter.getSwitchState(SharedPreferenceDB.SWITCH_LOCK));
 
+        homeSwitch = (LinearLayout) findViewById(R.id.layout_item_home_switch);
+        homeSwitch.setOnClickListener(this);
+        switchHome = (SwitchView) findViewById(R.id.iv_switch_home);
+        switchHome.setSwitchState(prestenter.getSwitchState(SharedPreferenceDB.SWITCH_HOME));
+
     }
 
     @Override
@@ -62,6 +67,9 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
                 break;
             case R.id.layout_item_lock_switch:
                 prestenter.updateSwitch(SharedPreferenceDB.SWITCH_LOCK);
+                break;
+            case R.id.layout_item_home_switch:
+                prestenter.updateSwitch(SharedPreferenceDB.SWITCH_HOME);
                 break;
         }
     }
@@ -83,9 +91,15 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
     }
 
     @Override
+    public void updateHomeSwitch(boolean state) {
+        switchHome.setSwitchState(state);
+    }
+
+    @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         ivMetroColor.setImageDrawable(new ColorDrawable(prestenter.getMetroColor()));
         switchLock.updateSwitchTheme();
+        switchHome.updateSwitchTheme();
     }
 }

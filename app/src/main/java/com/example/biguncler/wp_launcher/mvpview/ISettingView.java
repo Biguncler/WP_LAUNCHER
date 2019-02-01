@@ -13,4 +13,5 @@ public interface ISettingView extends IBaseView {
     Activity getActivity();
     void startActivity(Intent intent ,Class cls,int id);
     void updateLockSwitch(boolean state);
+    void updateHomeSwitch(boolean state);
 }

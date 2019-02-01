@@ -13,6 +13,7 @@ import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.fragment.BaseFragment;
 import com.example.biguncler.wp_launcher.fragment.FragmentApps;
+import com.example.biguncler.wp_launcher.fragment.FragmentHome;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.LockScreenUtil;
 import com.example.biguncler.wp_launcher.util.PlayMusicUtils;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements ScreenStateLayout.OnScreenStateChangedListener{
+    public static final String ACTION_hOME_SWITCH = "com.android.launcher.action.HOME_SWITCH";
     private ScreenStateLayout layoutParent;
     private ViewPager viewPager;
     private List<Fragment> fragmentList;
@@ -41,7 +43,9 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         layoutParent = (ScreenStateLayout) findViewById(R.id.activity_main);
 
         fragmentList = new ArrayList<>();
-        //fragmentList.add(new FragmentHome());
+        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_HOME)){
+            fragmentList.add(new FragmentHome());
+        }
         fragmentList.add(new FragmentApps());
 
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);

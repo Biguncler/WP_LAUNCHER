@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.example.biguncler.wp_launcher.activity.MainActivity;
 import com.example.biguncler.wp_launcher.activity.MetroColorActivity;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mvpview.IBaseView;
@@ -48,6 +49,10 @@ public class SettingPresenter implements ISettingPrestenter {
         SharedPreferenceDB.saveBoolean(view.getActivity(),key,!state);
         if(SharedPreferenceDB.SWITCH_LOCK.equals(key)){
             view.updateLockSwitch(!state);
+        }else if(SharedPreferenceDB.SWITCH_HOME.equals(key)){
+            view.updateHomeSwitch(!state);
+            Intent intent=new Intent(MainActivity.ACTION_hOME_SWITCH);
+            view.getActivity().sendBroadcast(intent);
         }
     }
 

@@ -12,6 +12,8 @@ public class SharedPreferenceDB {
 
     public static final String METRO_COLOR="METRO_COLOR";
     public static final String SWITCH_LOCK="switch_lock";
+    public static final String SWITCH_HOME="switch_home";
+
 
 
 
