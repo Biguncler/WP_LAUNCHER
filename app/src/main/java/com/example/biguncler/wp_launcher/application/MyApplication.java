@@ -12,7 +12,6 @@ import com.example.biguncler.wp_launcher.activity.BaseActivity;
 import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
-import com.example.libtheme.ThemeHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,9 +38,9 @@ public class MyApplication extends Application {
         setMap();
         registerReceiver();
 
-        String color=SharedPreferenceDB.get(this,SharedPreferenceDB.METRO_COLOR);
+        String color=SharedPreferenceDB.getString(this,SharedPreferenceDB.METRO_COLOR);
         if(TextUtils.isEmpty(color)){
-            SharedPreferenceDB.save(this,SharedPreferenceDB.METRO_COLOR,String.valueOf(getResources().getColor(R.color.metro_color_1)));
+            SharedPreferenceDB.saveString(this,SharedPreferenceDB.METRO_COLOR,String.valueOf(getResources().getColor(R.color.metro_color_1)));
             metroColor=getResources().getColor(R.color.metro_color_1);
         }else{
             metroColor=Integer.valueOf(color);

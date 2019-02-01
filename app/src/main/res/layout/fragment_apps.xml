@@ -3,68 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.biguncler.wp_launcher.fragment.FragmentSearchApp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp">
-        <FrameLayout
+
+        <com.example.biguncler.wp_launcher.view.AppsLayout
+            android:id="@+id/layout_apps"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
-            >
+            android:paddingTop="7dp" />
 
-            <com.example.biguncler.wp_launcher.view.AppsLayout
-                android:id="@+id/layout_apps"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="7dp"
-                android:paddingTop="7dp"/>
-            <LinearLayout
-                android:id="@+id/layout_colors"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <com.example.biguncler.wp_launcher.view.MetroColorsLayout
-                    android:id="@+id/layout_metro_colors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <com.example.biguncler.wp_launcher.view.ThemeColorsLayout
-                    android:id="@+id/layout_theme_colors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
-            </LinearLayout>
-
-        </FrameLayout>
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <RadioGroup
-                android:id="@+id/view_rg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
-                >
-                <RadioButton
-                    android:id="@+id/view_rbt_apps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="10dp" />
-                <RadioButton
-                    android:id="@+id/view_rbt_colors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp" />
-            </RadioGroup>
+
             <ImageView
                 android:id="@+id/iv_setting"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
-                android:background="@drawable/icon_setting"/>
+                android:background="@drawable/icon_setting" />
 
         </LinearLayout>
 
@@ -73,39 +37,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.example.biguncler.wp_launcher.view.ClickEffectLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true">
-        <Button
-            android:id="@+id/view_bt_search_app"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:textSize="20sp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:paddingLeft="10dp"
-            android:background="@drawable/shape_bt_bg_dark"
-            android:textColor="?attr/th_text_color"
-            android:maxLines="1"
-            />
+
+            <Button
+                android:id="@+id/view_bt_search_app"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_bt_bg_dark"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textColor="?attr/th_text_color"
+                android:textSize="20sp" />
         </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
+
         <com.example.biguncler.wp_launcher.view.InputMethodLayout
             android:id="@+id/layout_ll_input_method"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
             android:layout_alignParentBottom="true"
-             />
-
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" />
 
 
     </RelativeLayout>
-
-
-
 
 
 </FrameLayout>

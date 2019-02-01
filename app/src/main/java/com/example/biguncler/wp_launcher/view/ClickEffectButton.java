@@ -1,25 +1,15 @@
 package com.example.biguncler.wp_launcher.view;
 
-import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
-import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 
 /**
  * Created by Biguncler on 05/29/17.
@@ -56,7 +46,7 @@ public class ClickEffectButton extends Button {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 bgColor= ((ColorDrawable) getBackground()).getColor();
-                setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
+                setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
                 downAnim();
                 break;
             case MotionEvent.ACTION_MOVE:

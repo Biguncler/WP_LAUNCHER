@@ -43,4 +43,10 @@ public class WallpaperUtil {
         }
     }
 
+    public static Bitmap getBlureWallpaper(Context context){
+        Bitmap bitmap= WallpaperUtil.getWallpaper(context);
+        bitmap= BitmapUtil.scaleCompress(bitmap,0.3f);
+        return BitmapUtil.getBlurBitmap(bitmap,80,false);
+    }
+
 }

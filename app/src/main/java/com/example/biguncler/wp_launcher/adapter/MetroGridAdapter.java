@@ -1,9 +1,6 @@
 package com.example.biguncler.wp_launcher.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +13,10 @@ import android.widget.Toast;
 
 
 import com.example.biguncler.wp_launcher.R;
-import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
-import com.hp.hpl.sparta.Text;
 
 import java.util.List;
 
@@ -62,7 +57,7 @@ public class MetroGridAdapter extends BaseAdapter{
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(size,size);
         layoutMetro.setLayoutParams(params);
         // 设置磁贴的颜色
-        layoutMetro.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
+        layoutMetro.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
         // 设置app名称及图标
         TextView tvName= (TextView) layoutMetro.findViewById(R.id.view_tv_item_adapter_name);
         ImageView ivIcon= (ImageView) layoutMetro.findViewById(R.id.view_iv_item_adapter_icon);

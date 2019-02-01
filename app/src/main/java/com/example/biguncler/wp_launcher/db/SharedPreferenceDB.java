@@ -11,13 +11,14 @@ import android.content.SharedPreferences;
 public class SharedPreferenceDB {
 
     public static final String METRO_COLOR="METRO_COLOR";
+    public static final String SWITCH_LOCK="switch_lock";
 
 
 
 
 
 
-    public static void save(Context context, String key,String data){
+    public static void saveString(Context context, String key, String data){
         SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sp.edit();
         editor.putString(key,data);
@@ -25,9 +26,20 @@ public class SharedPreferenceDB {
     }
 
 
-    public static  String get(Context context,String key){
+    public static  String getString(Context context, String key){
         SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
         return sp.getString(key, "");
+    }
 
+    public static void saveBoolean(Context context, String key, boolean data){
+        SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putBoolean(key,data);
+        editor.commit();
+    }
+
+    public static  boolean getBoolean(Context context, String key){
+        SharedPreferences sp=context.getSharedPreferences("Session",Context.MODE_PRIVATE);
+        return sp.getBoolean(key, false);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.libutil;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 
 import net.qiujuer.genius.blur.StackBlur;
 
@@ -250,6 +251,13 @@ public class BitmapUtil {
         //StackBlur.blurNatively()         9ms
         // StackBlur.blurNativelyPixels()  3ms
        return StackBlur.blurNativelyPixels(bitmap,radius,canReuseInBitmap);
+    }
+
+
+    public static Bitmap scaleCompress(Bitmap bitmap ,float scale){
+        Matrix matrix = new Matrix();
+        matrix.setScale(0.5f, 0.5f);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
 }

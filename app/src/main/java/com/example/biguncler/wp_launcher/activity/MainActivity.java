@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
-        MyApplication.metroColor = Integer.valueOf(SharedPreferenceDB.get(this, SharedPreferenceDB.METRO_COLOR));
+        MyApplication.metroColor = Integer.valueOf(SharedPreferenceDB.getString(this, SharedPreferenceDB.METRO_COLOR));
         try {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();
             for (Fragment fragment : fragments) {
@@ -171,12 +171,16 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
 
     @Override
     public void onScreenTurnOff() {
-        PlayMusicUtils.playSound(this,R.raw.lock);
+        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_LOCK)){
+            PlayMusicUtils.playSound(this,R.raw.lock);
+        }
     }
 
     @Override
     protected void onUnlock(Intent intent) {
         super.onUnlock(intent);
-        PlayMusicUtils.playSound(this,R.raw.unlock);
+        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_LOCK)){
+            PlayMusicUtils.playSound(this,R.raw.unlock);
+        }
     }
 }

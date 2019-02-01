@@ -1,13 +1,11 @@
 package com.example.biguncler.wp_launcher.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
-import com.example.biguncler.wp_launcher.util.ScreenUtil;
 
 import java.util.List;
 
@@ -62,7 +59,7 @@ public class AppsGridAdapter extends BaseAdapter{
         }
         tvName.setText(appName);
         ivIcon.setImageDrawable(list.get(i).getIcon());
-        ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.get(context,SharedPreferenceDB.METRO_COLOR)));
+        ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
         initListener(layoutParent,i);
 
         return layoutParent;
