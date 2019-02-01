@@ -1,18 +1,46 @@
 <resources>
 
+    <style name="th_BaseThme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/th_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/th_colorPrimaryDark</item>
+        <item name="colorAccent">@color/th_colorAccent</item>
 
-<style name="th_theme_dark" parent="Theme.AppCompat.NoActionBar">
-    <item name="th_text_color">@color/th_dark_text</item>
-    <item name="th_bg_color">@color/th_dark_bg</item>
-    <item name="th_tint_bg_color">@color/th_dark_tint_bg</item>
-    <item name="th_tint_ic_color">@color/th_dark_tint_ic</item>
-</style>
+        <!--让Activity透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+        <!--设置点击波纹的颜色-->
+        <item name="colorControlHighlight">@color/th_color_press</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/th_animfade</item>
+    </style>
+
+    <!-- 界面切换动画 -->
+    <style name="th_animfade" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/th_slide_in_for_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/th_slide_out_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/th_slide_out_to_right</item>
+        <item name="android:activityCloseEnterAnimation">@anim/th_slide_in_form_left</item>
+    </style>
+
+    <style name="th_theme_dark" parent="th_BaseThme">
+        <item name="th_text_color">@color/th_dark_text</item>
+        <item name="th_bg_color">@color/th_dark_bg</item>
+        <item name="th_tint_bg_color">@color/th_dark_tint_bg</item>
+        <item name="th_tint_ic_color">@color/th_dark_tint_ic</item>
+    </style>
 
 
-<style name="th_theme_light" parent="Theme.AppCompat.NoActionBar">
-    <item name="th_text_color">@color/th_light_text</item>
-    <item name="th_bg_color">@color/th_light_bg</item>
-    <item name="th_tint_bg_color">@color/th_light_tint_bg</item>
-    <item name="th_tint_ic_color">@color/th_light_tint_ic</item>
-</style>
+    <style name="th_theme_light" parent="th_BaseThme">
+        <item name="th_text_color">@color/th_light_text</item>
+        <item name="th_bg_color">@color/th_light_bg</item>
+        <item name="th_tint_bg_color">@color/th_light_tint_bg</item>
+        <item name="th_tint_ic_color">@color/th_light_tint_ic</item>
+    </style>
+
+
+
+
 </resources>

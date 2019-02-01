@@ -41,7 +41,9 @@
                 <ImageView
                     android:id="@+id/iv_metro_color"
                     android:layout_width="25dp"
-                    android:layout_height="25dp" />
+                    android:layout_height="25dp"
+                    android:padding="2dp"
+                    android:background="?attr/th_tint_ic_color"/>
             </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
             <View android:layout_width="match_parent"
                 android:layout_height="1dp"

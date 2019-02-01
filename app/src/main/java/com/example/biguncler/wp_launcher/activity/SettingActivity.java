@@ -2,6 +2,7 @@ package com.example.biguncler.wp_launcher.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -38,7 +39,7 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         itemMetroColor = (LinearLayout) findViewById(R.id.layout_item_metro_color);
         itemMetroColor.setOnClickListener(this);
         ivMetroColor = (ImageView) findViewById(R.id.iv_metro_color);
-        ivMetroColor.setBackgroundColor(prestenter.getMetroColor());
+        ivMetroColor.setImageDrawable(new ColorDrawable(prestenter.getMetroColor()));
 
         itemLockSwitch = (LinearLayout) findViewById(R.id.layout_item_lock_switch);
         itemLockSwitch.setOnClickListener(this);
@@ -84,7 +85,7 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
     @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
-        ivMetroColor.setBackgroundColor(prestenter.getMetroColor());
+        ivMetroColor.setImageDrawable(new ColorDrawable(prestenter.getMetroColor()));
         switchLock.updateSwitchTheme();
     }
 }

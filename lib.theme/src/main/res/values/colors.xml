@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="th_colorPrimary">#3F51B5</color>
+    <color name="th_colorPrimaryDark">#303F9F</color>
+    <color name="th_colorAccent">#FF4081</color>
+
+    <!--全局的点击时的颜色-->
+    <color name="th_color_press">#ff00ff00</color>
+
+
+
+
     <color name="th_dark_text">#000000</color>
     <color name="th_light_text">#ffffff</color>
 
