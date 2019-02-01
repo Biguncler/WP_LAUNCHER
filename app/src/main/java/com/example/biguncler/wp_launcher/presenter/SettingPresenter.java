@@ -43,8 +43,12 @@ public class SettingPresenter implements ISettingPrestenter {
     }
 
     @Override
-    public void updateSwitch(String key,boolean open) {
-        SharedPreferenceDB.saveBoolean(view.getActivity(),key,open);
+    public void updateSwitch(String key) {
+        boolean state=getSwitchState(key);
+        SharedPreferenceDB.saveBoolean(view.getActivity(),key,!state);
+        if(SharedPreferenceDB.SWITCH_LOCK.equals(key)){
+            view.updateLockSwitch(!state);
+        }
     }
 
     @Override

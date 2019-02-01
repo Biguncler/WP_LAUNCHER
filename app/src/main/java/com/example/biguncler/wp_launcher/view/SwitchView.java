@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
@@ -19,13 +18,12 @@ import com.example.libtheme.ThemeHelper;
  * 开关宽50dp 高 22dp  ，开关滑块宽12dp 高22dp ，线宽度2dp
  */
 
-public class SwitchView extends LinearLayout implements View.OnClickListener {
+public class SwitchView extends LinearLayout {
     private Paint paint;
-    private int lineColor =Color.GRAY;
+    private int lineColor = Color.GRAY;
     private int metroColor = Color.YELLOW;
     private boolean open;
     private Context context;
-    private OnSwitchListener listner;
 
     public SwitchView(Context context) {
         super(context);
@@ -48,7 +46,6 @@ public class SwitchView extends LinearLayout implements View.OnClickListener {
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         setLineColor(ThemeHelper.getTextColor(context));
         setMetroColor(Integer.valueOf(SharedPreferenceDB.getString(context, SharedPreferenceDB.METRO_COLOR)));
-        setOnClickListener(this);
     }
 
     @Override
@@ -118,29 +115,14 @@ public class SwitchView extends LinearLayout implements View.OnClickListener {
         this.metroColor = metroColor;
     }
 
-    public void setOnSwitchListener(OnSwitchListener listener){
-        this.listner = listener;
-    }
-
-    public void setSwitchState(boolean state){
-        open=state;
-        invalidate();
-    }
-
-    @Override
-    public void onClick(View view) {
-        open=!open;
-        if(listner!=null){
-            listner.onSwitch(view,open);
+    public void setSwitchState(boolean state) {
+        if (state != open) {
+            open = state;
+            invalidate();
         }
-        invalidate();
     }
 
-    public static interface OnSwitchListener {
-        void onSwitch(View view,boolean isOpen);
-    }
-
-    public void updateSwitchTheme(){
+    public void updateSwitchTheme() {
         setLineColor(ThemeHelper.getTextColor(context));
         setMetroColor(Integer.valueOf(SharedPreferenceDB.getString(context, SharedPreferenceDB.METRO_COLOR)));
         invalidate();

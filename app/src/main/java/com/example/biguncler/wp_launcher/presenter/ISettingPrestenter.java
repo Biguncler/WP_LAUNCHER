@@ -16,6 +16,6 @@ public interface ISettingPrestenter extends IBasePresenter {
     void forwardMetroColorPage();
 
     int getMetroColor();
-    void updateSwitch(String key,boolean open);
+    void updateSwitch(String key);
     boolean getSwitchState(String key);
 }

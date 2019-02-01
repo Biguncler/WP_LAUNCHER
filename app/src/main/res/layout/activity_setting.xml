@@ -43,8 +43,11 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp" />
             </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/th_tint_bg_color"/>
 
-            <LinearLayout
+            <com.example.biguncler.wp_launcher.view.ClickEffectLayout
                 android:id="@+id/layout_item_lock_switch"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -62,7 +65,11 @@
                     android:id="@+id/iv_switch_lock"
                     android:layout_width="50dp"
                     android:layout_height="22dp" />
-            </LinearLayout>
+            </com.example.biguncler.wp_launcher.view.ClickEffectLayout>
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/th_tint_bg_color"/>
+
 
 
         </LinearLayout>

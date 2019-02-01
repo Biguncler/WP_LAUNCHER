@@ -20,9 +20,9 @@ import com.example.biguncler.wp_launcher.view.SwitchView;
  * Created by Biguncler on 2/1/2019.
  */
 
-public class SettingActivity extends BaseActivity implements ISettingView ,View.OnClickListener ,SwitchView.OnSwitchListener{
+public class SettingActivity extends BaseActivity implements ISettingView ,View.OnClickListener{
     private ISettingPrestenter prestenter;
-    private LinearLayout itemMetroColor;
+    private LinearLayout itemMetroColor ,itemLockSwitch;
     private ImageView ivMetroColor;
     private SwitchView switchLock;
     @Override
@@ -35,14 +35,16 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
     }
 
     private void initView() {
-       // getWindow().getDecorView().setBackground(prestenter.getBackgroudDrawable());
         itemMetroColor = (LinearLayout) findViewById(R.id.layout_item_metro_color);
+        itemMetroColor.setOnClickListener(this);
         ivMetroColor = (ImageView) findViewById(R.id.iv_metro_color);
         ivMetroColor.setBackgroundColor(prestenter.getMetroColor());
+
+        itemLockSwitch = (LinearLayout) findViewById(R.id.layout_item_lock_switch);
+        itemLockSwitch.setOnClickListener(this);
         switchLock = (SwitchView) findViewById(R.id.iv_switch_lock);
         switchLock.setSwitchState(prestenter.getSwitchState(SharedPreferenceDB.SWITCH_LOCK));
-        switchLock.setOnSwitchListener(this);
-        itemMetroColor.setOnClickListener(this);
+
     }
 
     @Override
@@ -56,6 +58,9 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         switch (view.getId()){
             case R.id.layout_item_metro_color:
                 prestenter.forwardMetroColorPage();
+                break;
+            case R.id.layout_item_lock_switch:
+                prestenter.updateSwitch(SharedPreferenceDB.SWITCH_LOCK);
                 break;
         }
     }
@@ -72,18 +77,14 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
     }
 
     @Override
+    public void updateLockSwitch(boolean state) {
+        switchLock.setSwitchState(state);
+    }
+
+    @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         ivMetroColor.setBackgroundColor(prestenter.getMetroColor());
         switchLock.updateSwitchTheme();
-    }
-
-    @Override
-    public void onSwitch(View view ,boolean isOpen) {
-        switch (view.getId()){
-            case R.id.iv_switch_lock:
-                prestenter.updateSwitch(SharedPreferenceDB.SWITCH_LOCK ,isOpen);
-                break;
-        }
     }
 }
