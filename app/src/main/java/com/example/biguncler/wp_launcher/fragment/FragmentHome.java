@@ -19,7 +19,9 @@ import android.widget.Toast;
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MetroGridAdapter;
 import com.example.biguncler.wp_launcher.biz.AppManager;
+import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+import com.example.biguncler.wp_launcher.util.PixUtil;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
@@ -36,6 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentHome extends BaseFragment {
     public static final String ACTION_UPDATE_TILE_TRANSPARENCY="action_update_tile_transparency";
+    public static final String ACTION_UPDATE_TILE_SPACIING="action_update_tile_spacing";
     private GridView gridView;
     private MetroGridAdapter gridAdapter;
 
@@ -44,6 +47,7 @@ public class FragmentHome extends BaseFragment {
         super.onCreate(savedInstanceState);
         IntentFilter intentFilter=new IntentFilter();
         intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
+        intentFilter.addAction(ACTION_UPDATE_TILE_SPACIING);
         getActivity().registerReceiver(receiver,intentFilter);
         Observable.interval(3,15, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
             @Override
@@ -67,6 +71,9 @@ public class FragmentHome extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout= (LinearLayout) inflater.inflate(R.layout.fragment_home,container,false);
         gridView= (GridView) layout.findViewById(R.id.view_gv_home);
+        int padding =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_SPACING);
+        padding= PixUtil.dip2px(getActivity(),padding);
+        gridView.setPadding(padding,0,padding,0);
         gridAdapter=new MetroGridAdapter(getActivity(), new AppManager().getHomeApps(getActivity()),3);
         gridView.setAdapter(gridAdapter);
 
@@ -96,6 +103,12 @@ public class FragmentHome extends BaseFragment {
             String action = intent.getAction();
             if(ACTION_UPDATE_TILE_TRANSPARENCY.equals(action)){
                 gridAdapter.notifyDataSetChanged();
+            }else if(ACTION_UPDATE_TILE_SPACIING.equals(action)){
+                int padding =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_SPACING);
+                padding= PixUtil.dip2px(context,padding);
+                gridView.setPadding(padding,0,padding,0);
+                gridAdapter.notifyDataSetChanged();
+
             }
         }
     };

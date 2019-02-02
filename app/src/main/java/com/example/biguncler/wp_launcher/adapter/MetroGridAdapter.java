@@ -17,6 +17,7 @@ import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+import com.example.biguncler.wp_launcher.util.PixUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.example.libutil.ColorUtil;
 
@@ -57,11 +58,16 @@ public class MetroGridAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LinearLayout layoutParent = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.item_adapter_grid_view,null);
-        FrameLayout layoutMetro= (FrameLayout) layoutParent.findViewById(R.id.layout_fl_item__adapter_metro);
+        // 设置磁贴的宽高间距
+        int padding = SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_SPACING);
+        padding= PixUtil.dip2px(context, padding);
         //设置磁贴的宽高
-        int size=ScreenUtil.getScreenWidth(context)/numColumns;
+        int size=(int)((ScreenUtil.getScreenWidth(context)-2*padding)/(float)numColumns);
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(size,size);
-        layoutMetro.setLayoutParams(params);
+        layoutParent.setLayoutParams(params);
+        layoutParent.setPadding(padding,padding,padding,padding);
+
+        FrameLayout layoutMetro= (FrameLayout) layoutParent.findViewById(R.id.layout_fl_item__adapter_metro);
         // 设置磁贴的颜色
         int color= Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR));
         int transparency= 255-(int)(255*SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_TRANSPARENCY)/100f);

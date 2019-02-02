@@ -14,6 +14,8 @@ public class SharedPreferenceDB {
     public static final String SWITCH_LOCK="switch_lock";
     public static final String SWITCH_HOME="switch_home";
     public static final String TILE_TRANSPARENCY = "tile_transparency";
+    public static final String TILE_SPACING = "tile_spacing";
+
 
 
 

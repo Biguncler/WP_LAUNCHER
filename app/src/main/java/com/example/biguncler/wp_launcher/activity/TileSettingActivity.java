@@ -19,8 +19,8 @@ import com.example.biguncler.wp_launcher.fragment.FragmentHome;
  */
 
 public class TileSettingActivity extends BaseActivity {
-    private SeekBar tranSeekBar;
-    private TextView tranProgress;
+    private SeekBar tranSeekBar ,spaceSeekBar;
+    private TextView tranProgress , tvSpace;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +28,10 @@ public class TileSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_tile_setting);
         tranSeekBar = (SeekBar) findViewById(R.id.sb_transparency);
         tranProgress = (TextView) findViewById(R.id.tv_transparency_progress);
+
+        spaceSeekBar = (SeekBar) findViewById(R.id.sb_spacing);
+        tvSpace = (TextView) findViewById(R.id.tv_spacing_progress);
+
         int progress = SharedPreferenceDB.getInt(this,SharedPreferenceDB.TILE_TRANSPARENCY);
         tranSeekBar.setProgress(progress);
         tranProgress.setText(String.valueOf(progress));
@@ -49,12 +53,37 @@ public class TileSettingActivity extends BaseActivity {
             }
         });
         updateSeekbar(tranSeekBar);
+
+        int spacing = SharedPreferenceDB.getInt(this,SharedPreferenceDB.TILE_SPACING);
+        spaceSeekBar.setProgress(spacing);
+        tvSpace.setText(String.valueOf(spacing));
+        spaceSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tvSpace.setText(String.valueOf(i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                SharedPreferenceDB.saveInt(TileSettingActivity.this,SharedPreferenceDB.TILE_SPACING,seekBar.getProgress());
+                sendBroadcast(new Intent(FragmentHome.ACTION_UPDATE_TILE_SPACIING));
+            }
+        });
+        updateSeekbar(spaceSeekBar);
+
+
     }
 
     @Override
     protected void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         updateSeekbar(tranSeekBar);
+        updateSeekbar(spaceSeekBar);
     }
 
     private void updateSeekbar(SeekBar seekBar){
