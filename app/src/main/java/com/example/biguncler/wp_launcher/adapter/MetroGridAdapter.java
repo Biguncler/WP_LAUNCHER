@@ -1,6 +1,7 @@
 package com.example.biguncler.wp_launcher.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,10 @@ import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
 import com.example.libutil.ColorUtil;
 
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Biguncler on 11/29/16.
@@ -34,6 +38,7 @@ public class MetroGridAdapter extends BaseAdapter{
     }
 
     private List<AppMode> list;
+    private Map<Integer ,WeakReference<View>> viewMap=new HashMap<>();
     @Override
     public int getCount() {
         return list.size();
@@ -67,6 +72,7 @@ public class MetroGridAdapter extends BaseAdapter{
         tvName.setText(list.get(i).getAppName().toUpperCase());
         ivIcon.setImageDrawable(list.get(i).getIcon());
         initListener(layoutParent,i);
+        viewMap.put(i,new WeakReference<View>(layoutParent));
         return layoutParent;
     }
 
@@ -101,6 +107,10 @@ public class MetroGridAdapter extends BaseAdapter{
                 return true;
             }
         });
+    }
+
+    public Map<Integer,WeakReference<View>> getViewMap(){
+        return viewMap;
     }
 
 }

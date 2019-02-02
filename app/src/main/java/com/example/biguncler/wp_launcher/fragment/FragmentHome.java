@@ -1,9 +1,11 @@
 package com.example.biguncler.wp_launcher.fragment;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.icu.util.TimeUnit;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,6 +20,15 @@ import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MetroGridAdapter;
 import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+
+import java.lang.ref.WeakReference;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Biguncler on 06/03/2017.
@@ -34,6 +45,22 @@ public class FragmentHome extends BaseFragment {
         IntentFilter intentFilter=new IntentFilter();
         intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
         getActivity().registerReceiver(receiver,intentFilter);
+        Observable.interval(3,15, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
+            @Override
+            public void accept(Long aLong) throws Exception {
+                if(gridAdapter!=null){
+                    Map<Integer,WeakReference<View>> map= gridAdapter.getViewMap();
+                    if(!map.isEmpty()){
+                        int postion=(int)(Math.random()*(map.size()));
+                        View view=map.get(postion).get();
+                        if(view!=null){
+                            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", 0, 360);
+                            animator.setDuration(2000).start();
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
