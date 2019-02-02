@@ -19,8 +19,8 @@ import com.example.biguncler.wp_launcher.fragment.FragmentHome;
  */
 
 public class TileSettingActivity extends BaseActivity {
-    private SeekBar tranSeekBar ,spaceSeekBar;
-    private TextView tranProgress , tvSpace;
+    private SeekBar tranSeekBar ,spaceSeekBar ,columnSeekBar;
+    private TextView tranProgress , tvSpace ,tvColumn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +31,10 @@ public class TileSettingActivity extends BaseActivity {
 
         spaceSeekBar = (SeekBar) findViewById(R.id.sb_spacing);
         tvSpace = (TextView) findViewById(R.id.tv_spacing_progress);
+
+        columnSeekBar = (SeekBar) findViewById(R.id.sb_column);
+        tvColumn = (TextView) findViewById(R.id.tv_column_progress);
+
 
         int progress = SharedPreferenceDB.getInt(this,SharedPreferenceDB.TILE_TRANSPARENCY);
         tranSeekBar.setProgress(progress);
@@ -75,6 +79,29 @@ public class TileSettingActivity extends BaseActivity {
             }
         });
         updateSeekbar(spaceSeekBar);
+
+        int column = SharedPreferenceDB.getInt(this,SharedPreferenceDB.TILE_COLUMN);
+        columnSeekBar.setProgress(column);
+        tvColumn.setText(String.valueOf(column));
+        columnSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                tvColumn.setText(String.valueOf(i));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                SharedPreferenceDB.saveInt(TileSettingActivity.this,SharedPreferenceDB.TILE_COLUMN,seekBar.getProgress());
+                sendBroadcast(new Intent(FragmentHome.ACTION_UPDATE_TILE_COLUMN));
+            }
+        });
+        updateSeekbar(columnSeekBar);
+
 
 
     }

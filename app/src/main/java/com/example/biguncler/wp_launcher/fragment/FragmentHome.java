@@ -39,6 +39,8 @@ import io.reactivex.schedulers.Schedulers;
 public class FragmentHome extends BaseFragment {
     public static final String ACTION_UPDATE_TILE_TRANSPARENCY="action_update_tile_transparency";
     public static final String ACTION_UPDATE_TILE_SPACIING="action_update_tile_spacing";
+    public static final String ACTION_UPDATE_TILE_COLUMN="action_update_tile_column";
+
     private GridView gridView;
     private MetroGridAdapter gridAdapter;
 
@@ -48,6 +50,7 @@ public class FragmentHome extends BaseFragment {
         IntentFilter intentFilter=new IntentFilter();
         intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
         intentFilter.addAction(ACTION_UPDATE_TILE_SPACIING);
+        intentFilter.addAction(ACTION_UPDATE_TILE_COLUMN);
         getActivity().registerReceiver(receiver,intentFilter);
         Observable.interval(3,15, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
             @Override
@@ -74,7 +77,11 @@ public class FragmentHome extends BaseFragment {
         int padding =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_SPACING);
         padding= PixUtil.dip2px(getActivity(),padding);
         gridView.setPadding(padding,0,padding,0);
-        gridAdapter=new MetroGridAdapter(getActivity(), new AppManager().getHomeApps(getActivity()),3);
+        int column =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_COLUMN);
+        if(column==0) column=3;
+        SharedPreferenceDB.saveInt(getActivity(),SharedPreferenceDB.TILE_COLUMN,column);
+       // gridView.setNumColumns(column);
+        gridAdapter=new MetroGridAdapter(getActivity(), new AppManager().getHomeApps(getActivity()));
         gridView.setAdapter(gridAdapter);
 
         initListener();
@@ -109,6 +116,10 @@ public class FragmentHome extends BaseFragment {
                 gridView.setPadding(padding,0,padding,0);
                 gridAdapter.notifyDataSetChanged();
 
+            }else if(ACTION_UPDATE_TILE_COLUMN.equals(action)){
+                int column =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_COLUMN);
+                gridView.setNumColumns(column);
+                gridAdapter.notifyDataSetChanged();
             }
         }
     };

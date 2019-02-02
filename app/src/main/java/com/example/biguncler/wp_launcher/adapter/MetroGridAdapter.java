@@ -32,7 +32,6 @@ import java.util.Map;
 
 public class MetroGridAdapter extends BaseAdapter{
     private Context context;
-    private int numColumns=3;
 
     public List<AppMode> getList() {
         return list;
@@ -62,7 +61,8 @@ public class MetroGridAdapter extends BaseAdapter{
         int padding = SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_SPACING);
         padding= PixUtil.dip2px(context, padding);
         //设置磁贴的宽高
-        int size=(int)((ScreenUtil.getScreenWidth(context)-2*padding)/(float)numColumns);
+        int column =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_COLUMN);
+        int size=(int)((ScreenUtil.getScreenWidth(context)-2*padding)/(float)column);
         LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(size,size);
         layoutParent.setLayoutParams(params);
         layoutParent.setPadding(padding,padding,padding,padding);
@@ -82,10 +82,9 @@ public class MetroGridAdapter extends BaseAdapter{
         return layoutParent;
     }
 
-    public MetroGridAdapter(Context context, List<AppMode> list, int numColumns) {
+    public MetroGridAdapter(Context context, List<AppMode> list) {
         this.context = context;
         this.list = list;
-        this.numColumns=numColumns;
     }
 
     public MetroGridAdapter(Context context) {
