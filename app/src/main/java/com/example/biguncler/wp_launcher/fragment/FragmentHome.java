@@ -2,12 +2,17 @@ package com.example.biguncler.wp_launcher.fragment;
 
 import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.icu.util.TimeUnit;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +22,24 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.biguncler.wp_launcher.R;
+import com.example.biguncler.wp_launcher.adapter.CellLayoutAdapter;
 import com.example.biguncler.wp_launcher.adapter.MetroGridAdapter;
+import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.biz.AppManager;
+import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
+import com.example.biguncler.wp_launcher.mode.AppMode;
+import com.example.biguncler.wp_launcher.mode.CellInfo;
+import com.example.biguncler.wp_launcher.mode.GalleryCellInfo;
+import com.example.biguncler.wp_launcher.mode.IconCellInfo;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.PixUtil;
+import com.example.biguncler.wp_launcher.view.CellLayout;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -41,8 +57,11 @@ public class FragmentHome extends BaseFragment {
     public static final String ACTION_UPDATE_TILE_SPACIING="action_update_tile_spacing";
     public static final String ACTION_UPDATE_TILE_COLUMN="action_update_tile_column";
 
-    private GridView gridView;
-    private MetroGridAdapter gridAdapter;
+    /*private GridView gridView;
+    private MetroGridAdapter gridAdapter;*/
+
+    private CellLayout cellLayout;
+    private CellLayoutAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,44 +71,65 @@ public class FragmentHome extends BaseFragment {
         intentFilter.addAction(ACTION_UPDATE_TILE_SPACIING);
         intentFilter.addAction(ACTION_UPDATE_TILE_COLUMN);
         getActivity().registerReceiver(receiver,intentFilter);
-        Observable.interval(3,15, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
-            @Override
-            public void accept(Long aLong) throws Exception {
-                if(gridAdapter!=null){
-                    Map<Integer,WeakReference<View>> map= gridAdapter.getViewMap();
-                    if(!map.isEmpty()){
-                        int postion=(int)(Math.random()*(map.size()));
-                        View view=map.get(postion).get();
-                        if(view!=null){
-                            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", 0, 360);
-                            animator.setDuration(2000).start();
-                        }
-                    }
-                }
-            }
-        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout= (LinearLayout) inflater.inflate(R.layout.fragment_home,container,false);
-        gridView= (GridView) layout.findViewById(R.id.view_gv_home);
+        cellLayout = (CellLayout) layout.findViewById(R.id.view_cell_layout);
+
+        adapter=new CellLayoutAdapter(getActivity(),getData());
+        cellLayout.setAdapter(adapter);
         int padding =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_SPACING);
         padding= PixUtil.dip2px(getActivity(),padding);
-        gridView.setPadding(padding,0,padding,0);
-        int column =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_COLUMN);
-        if(column==0) column=3;
-        SharedPreferenceDB.saveInt(getActivity(),SharedPreferenceDB.TILE_COLUMN,column);
-       // gridView.setNumColumns(column);
-        gridAdapter=new MetroGridAdapter(getActivity(), new AppManager().getHomeApps(getActivity()));
-        gridView.setAdapter(gridAdapter);
-
+        cellLayout.setSpace(padding);
         initListener();
         return layout;
     }
 
-    private void initListener() {
+    private List<CellInfo> getData(){
+        List<CellInfo> data=new ArrayList<>();
+        List<AppMode> appModes=new AppManager().getHomeApps(getActivity());
+        VoiceTextManager voiceTextManager=new VoiceTextManager(getContext());
+        for(AppMode appMode:appModes){
+            String gallery=MyApplication.appMap.get(voiceTextManager.transfer("相册"));
+            if(TextUtils.equals(gallery,appMode.getPackageName())){
+                GalleryCellInfo galleryCellInfo=new GalleryCellInfo();
+                galleryCellInfo.setType(CellLayoutAdapter.TYPE_GALLERY);
+                galleryCellInfo.setMode(appMode);
+                data.add(galleryCellInfo);
+                continue;
+            }
 
+            String calender=MyApplication.appMap.get(voiceTextManager.transfer("日历"));
+            if(TextUtils.equals(calender,appMode.getPackageName())){
+                CellInfo dateCell=new CellInfo();
+                dateCell.setType(CellLayoutAdapter.TYPE_DATE);
+                dateCell.setMode(appMode);
+                data.add(dateCell);
+                continue;
+            }
+
+           IconCellInfo iconCellInfo= new IconCellInfo();
+            iconCellInfo.setType(CellLayoutAdapter.TYPE_ICON);
+            iconCellInfo.setMode(appMode);
+            data.add(iconCellInfo);
+        }
+        return data;
+    }
+
+    private void initListener() {
+        cellLayout.setOnItemClickListener(new CellLayout.OnItemClickListener() {
+            @Override
+            public void onItemClick(ViewGroup parent, View view, int position, long id) {
+                CellInfo cellInfo= (CellInfo) adapter.getItem(position);
+                String pn=cellInfo.getMode().getPackageName();
+                boolean result= AppUtil.luanchApp(getActivity(),pn,view);
+                if(!result){
+                    Toast.makeText(getActivity(),"启动失败",Toast.LENGTH_SHORT).show();;
+                }
+            }
+        });
     }
 
     @Override
@@ -101,7 +141,7 @@ public class FragmentHome extends BaseFragment {
     @Override
     public void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
-        gridAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
     }
 
     private BroadcastReceiver receiver=new BroadcastReceiver() {
@@ -109,17 +149,16 @@ public class FragmentHome extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if(ACTION_UPDATE_TILE_TRANSPARENCY.equals(action)){
-                gridAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }else if(ACTION_UPDATE_TILE_SPACIING.equals(action)){
                 int padding =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_SPACING);
                 padding= PixUtil.dip2px(context,padding);
-                gridView.setPadding(padding,0,padding,0);
-                gridAdapter.notifyDataSetChanged();
-
+                cellLayout.setSpace(padding);
+                adapter.notifyDataSetChanged();
             }else if(ACTION_UPDATE_TILE_COLUMN.equals(action)){
                 int column =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_COLUMN);
-                gridView.setNumColumns(column);
-                gridAdapter.notifyDataSetChanged();
+                cellLayout.setColumCount(column);
+                adapter.notifyDataSetChanged();
             }
         }
     };

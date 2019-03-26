@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CellLayout">
+        <!--各自之间的间隙-->
+        <attr name="cellSpace" format="dimension"/>
+        <!--列数-->
+        <attr name="columCount" format="integer"/>
+    </declare-styleable>
+</resources>

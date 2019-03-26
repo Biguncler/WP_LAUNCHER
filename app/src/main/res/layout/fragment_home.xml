@@ -2,18 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.biguncler.wp_launcher.fragment.FragmentHome">
 
-
-    <com.example.biguncler.wp_launcher.view.ReboundGridView
-        android:id="@+id/view_gv_home"
+    <com.example.biguncler.wp_launcher.view.ReboundScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fadeScrollbars="false"
         android:scrollbars="none"
-        android:numColumns="3"
+        android:overScrollMode="never">
+    <com.example.biguncler.wp_launcher.view.CellLayout
+        android:paddingTop="22dp"
+        android:id="@+id/view_cell_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cellSpace="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        app:columCount="3"
         >
 
-    </com.example.biguncler.wp_launcher.view.ReboundGridView>
+    </com.example.biguncler.wp_launcher.view.CellLayout>
+    </com.example.biguncler.wp_launcher.view.ReboundScrollView>
 
 
 </LinearLayout>

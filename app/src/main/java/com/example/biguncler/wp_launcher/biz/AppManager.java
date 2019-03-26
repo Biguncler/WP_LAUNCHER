@@ -84,6 +84,8 @@ public class AppManager {
 
     public List<AppMode> getHomeApps(Context context){
         List<AppMode> list = new ArrayList<>();
+        AppMode calendar=new AppMode(MyApplication.appMap.get("calendar".toUpperCase()),"calendar", context.getDrawable(R.drawable.icon_white_weather));
+        AppMode weather=new AppMode(MyApplication.appMap.get("weather".toUpperCase()),"weather", context.getDrawable(R.drawable.icon_white_weather));
         AppMode phone=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_phone));
         AppMode people=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"people", context.getDrawable(R.drawable.icon_white_contact));
         AppMode message=new AppMode(MyApplication.appMap.get("messages".toUpperCase()),"messages", context.getDrawable(R.drawable.icon_white_message));
@@ -98,8 +100,9 @@ public class AppManager {
         AppMode setting=new AppMode(MyApplication.appMap.get("settings".toUpperCase()),"settings", context.getDrawable(R.drawable.icon_white_setting));
         AppMode qq=new AppMode(MyApplication.appMap.get("qq".toUpperCase()),"qq", context.getDrawable(R.drawable.icon_white_qq));
         AppMode wechat=new AppMode(MyApplication.appMap.get("wechat".toUpperCase()),"wechat", context.getDrawable(R.drawable.icon_white_wechat));
-        AppMode weather=new AppMode(MyApplication.appMap.get("weather".toUpperCase()),"weather", context.getDrawable(R.drawable.icon_white_weather));
 
+        list.add(calendar);
+        list.add(weather);
         list.add(phone);
         list.add(people);
         list.add(message);
@@ -114,7 +117,7 @@ public class AppManager {
         list.add(setting);
         list.add(qq);
         list.add(wechat);
-        list.add(weather);
+
 
 
 return list;

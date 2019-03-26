@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.biguncler.wp_launcher.activity.MainActivity">
-    <ImageView
-        android:id="@+id/view_iv_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="22dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_viewpager"
