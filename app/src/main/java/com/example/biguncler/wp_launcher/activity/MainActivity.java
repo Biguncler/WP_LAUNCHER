@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
@@ -32,10 +33,40 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("wjs","oncreate");
         setContentView(R.layout.activity_main);
         initView();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("wjs","onStart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("wjs","onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("wjs","onResume");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("wjs","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i("wjs","onDestroy");
+    }
 
     private void initView() {
         getWindow().getDecorView().setBackground(new BitmapDrawable(WallpaperUtil.getWallpaper(this)));
