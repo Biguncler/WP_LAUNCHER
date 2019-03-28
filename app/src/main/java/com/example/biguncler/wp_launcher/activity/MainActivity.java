@@ -1,11 +1,14 @@
 package com.example.biguncler.wp_launcher.activity;
 
+import android.app.WallpaperManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
@@ -41,6 +44,11 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onStart() {
         super.onStart();
+        if(forceOpaqueBackground(this)){
+            updateWallpaperVisibility(false);
+        }else{
+            updateWallpaperVisibility(true);
+        }
         Log.i("wjs","onStart");
     }
 
@@ -69,7 +77,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     }
 
     private void initView() {
-        getWindow().getDecorView().setBackground(new BitmapDrawable(WallpaperUtil.getWallpaper(this)));
+       // getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         layoutParent = (ScreenStateLayout) findViewById(R.id.activity_main);
 
@@ -218,4 +226,20 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
             PlayMusicUtils.playSound(this,R.raw.unlock);
         }
     }
+
+    private void updateWallpaperVisibility(boolean visible) {
+int wpflags = visible ? WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER : 0;
+ int curflags = getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER;
+ if (wpflags != curflags) {
+ getWindow().setFlags(wpflags, WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
+}
+}
+
+
+public static boolean forceOpaqueBackground(Context context) {
+ return WallpaperManager.getInstance(context).getWallpaperInfo() != null;
+
+ }
+
+
 }

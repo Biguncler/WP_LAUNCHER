@@ -1,15 +1,22 @@
 package com.example.biguncler.wp_launcher.view;
 
+import android.animation.ValueAnimator;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,6 +35,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class GalleryCellView extends ImageView {
     private List<String> imageUrls;
+    private int height=-1;
 
     public GalleryCellView(Context context) {
         super(context);
@@ -59,7 +67,7 @@ public class GalleryCellView extends ImageView {
 
     public void start(){
         imageUrls=getSystemPhotoList(getContext());
-        Observable.interval(0,15, TimeUnit.SECONDS)
+        Observable.interval(0,20, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override
@@ -67,7 +75,27 @@ public class GalleryCellView extends ImageView {
                         String url=imageUrls.get((int)(aLong%imageUrls.size()));
                         Glide.with(getContext().getApplicationContext())
                                 .load(url)
-                                .into(GalleryCellView.this);
+                                .into(new SimpleTarget<GlideDrawable>() {
+                                    @Override
+                                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                                       // 保存imageview的初始高度
+                                        if(height<0){
+                                           height=getHeight();
+                                       }
+                                       // 重置topMargin
+                                        LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)getLayoutParams();
+                                        params.topMargin=0;
+                                        setLayoutParams(params);
+
+                                        setImageDrawable(resource);
+                                        Rect rect=resource.getBounds();
+                                        //用初始高度计算移动的margin
+                                        float scale=rect.height()*1f/rect.width();
+                                        int magin= (int) (scale*getWidth()-height);
+                                        startAnimator(-magin);
+                                    }
+                                });
+
                     }
                 });
     }
@@ -94,6 +122,23 @@ public class GalleryCellView extends ImageView {
         }
 
         return result ;
+    }
+
+    private void startAnimator(int margin){
+        ValueAnimator animator=ValueAnimator.ofInt(0,margin);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                int value= (int) valueAnimator.getAnimatedValue();
+                LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)getLayoutParams();
+                params.topMargin=value;
+                setLayoutParams(params);
+            }
+        });
+        animator.setDuration(15000);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.setTarget(this);
+        animator.start();
     }
 
 }
