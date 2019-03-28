@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,7 +54,6 @@ public class CellLayout extends ViewGroup {
         setPadding(space,getPaddingTop(),space,0);
         columCount = typedArray.getInteger(R.styleable.CellLayout_columCount, 3);
         typedArray.recycle();
-        init();
     }
 
     private void init(){
