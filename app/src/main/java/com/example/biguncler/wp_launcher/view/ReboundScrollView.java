@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
+import com.example.biguncler.wp_launcher.util.PixUtil;
+
 /**
  * Created by Biguncler on 05/29/17.
  */
@@ -21,7 +23,7 @@ public class ReboundScrollView extends ScrollView {
     private static final float MOVE_FACTOR = 0.5f;
 
     //松开手指后, 界面回到正常位置需要的动画时间
-    private static final int ANIM_TIME = 300;
+    private static final int ANIM_TIME = 150;
 
     //ScrollView的子View， 也是ScrollView的唯一一个子View
     private View contentView;
@@ -41,6 +43,8 @@ public class ReboundScrollView extends ScrollView {
 
     //在手指滑动的过程中记录是否移动了布局
     private boolean isMoved = false;
+
+    private float startY2;
 
     public ReboundScrollView(Context context) {
         super(context);
@@ -152,6 +156,24 @@ public class ReboundScrollView extends ScrollView {
         return super.dispatchTouchEvent(ev);
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                startY2=ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+            case MotionEvent.ACTION_UP:
+                if(Math.abs(ev.getY()-startY2)> PixUtil.dip2px(getContext(),20)){
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
 
     /**
      * 判断是否滚动到顶部

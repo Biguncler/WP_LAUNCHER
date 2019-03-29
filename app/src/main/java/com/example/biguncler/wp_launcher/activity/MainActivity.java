@@ -27,7 +27,7 @@ import com.example.biguncler.wp_launcher.view.ScreenStateLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements ScreenStateLayout.OnScreenStateChangedListener{
+public class MainActivity extends BaseActivity implements ScreenStateLayout.OnScreenStateChangedListener {
     public static final String ACTION_hOME_SWITCH = "com.android.launcher.action.HOME_SWITCH";
     private ScreenStateLayout layoutParent;
     private ViewPager viewPager;
@@ -36,7 +36,6 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("wjs","oncreate");
         setContentView(R.layout.activity_main);
         initView();
     }
@@ -44,45 +43,21 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onStart() {
         super.onStart();
-        if(forceOpaqueBackground(this)){
+        // 设置背景透明，显示桌面壁纸
+        if (forceOpaqueBackground(this)) {
             updateWallpaperVisibility(false);
-        }else{
+        } else {
             updateWallpaperVisibility(true);
         }
-        Log.i("wjs","onStart");
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("wjs","onPause");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("wjs","onResume");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("wjs","onStop");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i("wjs","onDestroy");
-    }
 
     private void initView() {
-       // getWindow().getDecorView().setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         layoutParent = (ScreenStateLayout) findViewById(R.id.activity_main);
 
         fragmentList = new ArrayList<>();
-        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_HOME)){
+        if (SharedPreferenceDB.getBoolean(this, SharedPreferenceDB.SWITCH_HOME)) {
             fragmentList.add(new FragmentHome());
         }
         fragmentList.add(new FragmentApps());
@@ -134,8 +109,6 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //
-        getWindow().getDecorView().setBackground(new BitmapDrawable(WallpaperUtil.getWallpaper(this)));
 
     }
 
@@ -193,7 +166,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     @Override
     protected void onFloatGestureDown(Intent intent) {
         super.onFloatGestureDown(intent);
-        AppUtil.luanchApp(this,MyApplication.appMap.get(new VoiceTextManager(this).transfer("小爱同学")));
+        AppUtil.luanchApp(this, MyApplication.appMap.get(new VoiceTextManager(this).transfer("小爱同学")));
     }
 
     @Override
@@ -214,32 +187,32 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
 
     @Override
     public void onScreenTurnOff() {
-        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_LOCK)){
-            PlayMusicUtils.playSound(this,R.raw.lock);
+        if (SharedPreferenceDB.getBoolean(this, SharedPreferenceDB.SWITCH_LOCK)) {
+            PlayMusicUtils.playSound(this, R.raw.lock);
         }
     }
 
     @Override
     protected void onUnlock(Intent intent) {
         super.onUnlock(intent);
-        if(SharedPreferenceDB.getBoolean(this,SharedPreferenceDB.SWITCH_LOCK)){
-            PlayMusicUtils.playSound(this,R.raw.unlock);
+        if (SharedPreferenceDB.getBoolean(this, SharedPreferenceDB.SWITCH_LOCK)) {
+            PlayMusicUtils.playSound(this, R.raw.unlock);
         }
     }
 
     private void updateWallpaperVisibility(boolean visible) {
-int wpflags = visible ? WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER : 0;
- int curflags = getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER;
- if (wpflags != curflags) {
- getWindow().setFlags(wpflags, WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
-}
-}
+        int wpflags = visible ? WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER : 0;
+        int curflags = getWindow().getAttributes().flags & WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER;
+        if (wpflags != curflags) {
+            getWindow().setFlags(wpflags, WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
+        }
+    }
 
 
-public static boolean forceOpaqueBackground(Context context) {
- return WallpaperManager.getInstance(context).getWallpaperInfo() != null;
+    public static boolean forceOpaqueBackground(Context context) {
+        return WallpaperManager.getInstance(context).getWallpaperInfo() != null;
 
- }
+    }
 
 
 }

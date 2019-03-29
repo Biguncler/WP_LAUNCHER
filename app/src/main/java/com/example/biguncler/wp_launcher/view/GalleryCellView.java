@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -35,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class GalleryCellView extends ImageView {
     private List<String> imageUrls;
-    private int height=-1;
+    private Rect rect;
 
     public GalleryCellView(Context context) {
         super(context);
@@ -79,19 +78,17 @@ public class GalleryCellView extends ImageView {
                                     @Override
                                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                                        // 保存imageview的初始高度
-                                        if(height<0){
-                                           height=getHeight();
+                                        if(rect==null){
+                                            rect=new Rect(getLeft(),getTop(),getRight(),getBottom());
                                        }
                                        // 重置topMargin
-                                        LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)getLayoutParams();
-                                        params.topMargin=0;
-                                        setLayoutParams(params);
+                                        layout(rect.left,rect.top,rect.right,rect.bottom);
 
                                         setImageDrawable(resource);
-                                        Rect rect=resource.getBounds();
+                                        Rect bounds=resource.getBounds();
                                         //用初始高度计算移动的margin
-                                        float scale=rect.height()*1f/rect.width();
-                                        int magin= (int) (scale*getWidth()-height);
+                                        float scale=bounds.height()*1f/bounds.width();
+                                        int magin= (int) (scale*getWidth()-rect.height());
                                         startAnimator(-magin);
                                     }
                                 });
@@ -124,15 +121,17 @@ public class GalleryCellView extends ImageView {
         return result ;
     }
 
-    private void startAnimator(int margin){
+    private void startAnimator(final int margin){
         ValueAnimator animator=ValueAnimator.ofInt(0,margin);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 int value= (int) valueAnimator.getAnimatedValue();
-                LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)getLayoutParams();
+
+                layout(rect.left,rect.top+value,rect.right,rect.bottom);
+                /*LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)getLayoutParams();
                 params.topMargin=value;
-                setLayoutParams(params);
+                setLayoutParams(params);*/
             }
         });
         animator.setDuration(15000);
