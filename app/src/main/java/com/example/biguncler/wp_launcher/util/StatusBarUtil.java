@@ -3,6 +3,7 @@ package com.example.biguncler.wp_launcher.util;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -95,6 +96,22 @@ public class StatusBarUtil {
             //根据资源ID获取响应的尺寸值
             statusBarHeight = context.getResources().getDimensionPixelSize(resourceId);
         }
+        Log.i("wjsss","sh1="+PixUtil.px2dip(context,statusBarHeight));
+        return statusBarHeight;
+    }
+
+    public static int getStatusBarHeight2(Context context) {
+        int statusBarHeight = 0;
+        try {
+            Class<?> c = Class.forName("com.android.internal.R$dimen");
+            Object o = c.newInstance();
+            Field field = c.getField("status_bar_height");
+            int x = (Integer) field.get(o);
+            statusBarHeight = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.i("wjsss","sh2="+PixUtil.px2dip(context,statusBarHeight));
         return statusBarHeight;
     }
 

@@ -34,6 +34,7 @@ import com.example.biguncler.wp_launcher.mode.GalleryCellInfo;
 import com.example.biguncler.wp_launcher.mode.IconCellInfo;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.PixUtil;
+import com.example.biguncler.wp_launcher.util.StatusBarUtil;
 import com.example.biguncler.wp_launcher.view.CellLayout;
 
 import java.io.File;
@@ -77,12 +78,14 @@ public class FragmentHome extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout layout= (LinearLayout) inflater.inflate(R.layout.fragment_home,container,false);
         cellLayout = (CellLayout) layout.findViewById(R.id.view_cell_layout);
-
+        // 设置布局和状态栏的关系
+        cellLayout.setPadding(cellLayout.getPaddingLeft(),cellLayout.getPaddingTop()+ StatusBarUtil.getStatusBarHeight(getActivity()),cellLayout.getPaddingRight(),cellLayout.getPaddingBottom());
         adapter=new CellLayoutAdapter(getActivity(),getData());
         cellLayout.setAdapter(adapter);
         int padding =SharedPreferenceDB.getInt(getActivity(),SharedPreferenceDB.TILE_SPACING);
         padding= PixUtil.dip2px(getActivity(),padding);
         cellLayout.setSpace(padding);
+
         initListener();
         return layout;
     }

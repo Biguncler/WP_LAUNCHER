@@ -4,8 +4,10 @@ import android.animation.ValueAnimator;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -100,7 +102,7 @@ public class GalleryCellView extends ImageView {
     public static List<String> getSystemPhotoList(Context context)
     {
         List<String> result = new ArrayList<String>();
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        /*Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
         ContentResolver contentResolver = context.getContentResolver();
         Cursor cursor = contentResolver.query(uri, null, null, null, null);
@@ -114,6 +116,19 @@ public class GalleryCellView extends ImageView {
             if (file.exists())
             {
                 result.add(path);
+                if(result.size()>5) break;
+            }
+        }*/
+
+        String dirPath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/aibizhi/portrait";
+        File dir=new File(dirPath);
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+        File[] files=dir.listFiles();
+        for(File f:files){
+            if(f.isFile() && isImageFile(f.getPath())){
+                result.add(f.getAbsolutePath());
                 if(result.size()>5) break;
             }
         }
@@ -138,6 +153,16 @@ public class GalleryCellView extends ImageView {
         animator.setInterpolator(new AccelerateInterpolator());
         animator.setTarget(this);
         animator.start();
+    }
+
+    public static boolean isImageFile(String filePath) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filePath, options);
+        if (options.outWidth == -1) {
+            return false;
+        }
+        return true;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.biguncler.wp_launcher.fragment;
 
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,7 @@ import com.example.biguncler.wp_launcher.util.AnimatorUtil;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.PixUtil;
 import com.example.biguncler.wp_launcher.util.ScreenUtil;
+import com.example.biguncler.wp_launcher.util.StatusBarUtil;
 import com.example.libtheme.ThemeHelper;
 import com.example.libutil.BitmapUtil;
 import com.example.libutil.WallpaperUtil;
@@ -44,18 +47,23 @@ public class FragmentApps extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FrameLayout layout= (FrameLayout) inflater.inflate(R.layout.fragment_apps,container,false);
+        // 设置布局和状态栏的关系
+        layout.setPadding(layout.getPaddingLeft(),layout.getPaddingTop()+StatusBarUtil.getStatusBarHeight(getActivity()),layout.getPaddingRight(),layout.getPaddingBottom());
         btText= (Button) layout.findViewById(R.id.view_bt_search_app);
         inputLayout= (InputMethodLayout) layout.findViewById(R.id.layout_ll_input_method);
         appsLayout= (AppsLayout) layout.findViewById(R.id.layout_apps);
         ivSetting = (ImageView) layout.findViewById(R.id.iv_setting);
         initListener();
         setBtTextTheme();
-        inputLayout.setVisibility(View.GONE);
-        setInputLayoutTheme();
+        inputLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                setInputLayoutTheme();
+                inputLayout.setVisibility(View.GONE);
+            }
+        });
         setViewBG(ivSetting);
-
         //new FloatBallManager(getActivity()).showFloatBall();
-
         return layout;
     }
 
@@ -200,11 +208,12 @@ public class FragmentApps extends BaseFragment {
     private void showInputLayout(AnimatorListenerAdapter listenerAdapter){
         if(inputLayout.getVisibility()==View.GONE){
             inputLayout.setVisibility(View.VISIBLE);
-            int startY2= ScreenUtil.getScreenHeight(getActivity());
+
+            int startY2= ((ViewGroup)inputLayout.getParent()).getHeight();;
             // 200+22 22为状态栏高度
-            int endY2=startY2- PixUtil.dip2px(getActivity(),200-40);
+            int endY2=startY2- inputLayout.getHeight();
             int pivotX2=0;
-            int pivotY2=ScreenUtil.getScreenHeight(getActivity());
+            int pivotY2=startY2;
             AnimatorUtil.getInstance().startAnimator(inputLayout,AnimatorUtil.TRANSLATION_Y,startY2,endY2,pivotX2,pivotY2,250,null,listenerAdapter);
         }
 
@@ -212,10 +221,10 @@ public class FragmentApps extends BaseFragment {
 
     private void dismissInputLayout(AnimatorListenerAdapter listenerAdapter) {
         if (inputLayout.getVisibility() == View.VISIBLE) {
-            int endY2 = ScreenUtil.getScreenHeight(getActivity());
-            int startY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 200-40);
+            int endY2 = ((ViewGroup)inputLayout.getParent()).getHeight();
+            int startY2 = endY2 - inputLayout.getHeight();
             int pivotX2 = 0;
-            int pivotY2 = ScreenUtil.getScreenHeight(getActivity()) - PixUtil.dip2px(getActivity(), 200-40);
+            int pivotY2 =startY2;
             AnimatorUtil.getInstance().startAnimator(inputLayout, AnimatorUtil.TRANSLATION_Y, startY2, endY2, pivotX2, pivotY2, 250, null, listenerAdapter);
             inputLayout.postDelayed(new Runnable() {
                 @Override
@@ -257,15 +266,14 @@ public class FragmentApps extends BaseFragment {
 
     private Bitmap getInputMethodBG(){
         try{
-            int screenWidth=ScreenUtil.getScreenWidth(getActivity());
-            int screenHeight=ScreenUtil.getScreenHeight(getActivity());
-            int height=PixUtil.dip2px(getActivity(),200-35);
-            Bitmap bitmap=BitmapUtil.cropBitmap(WallpaperUtil.getWallpaper(getActivity()),0,screenHeight-height,screenWidth,height);
+            Bitmap bitmap=WallpaperUtil.getBlureWallpaper(getActivity());
+            float scale=bitmap.getWidth()*1f/ScreenUtil.getScreenWidth(getActivity());
+            int inputlayoutHeight= (int) (inputLayout.getHeight()*scale);
+            bitmap=BitmapUtil.cropBitmap(bitmap,0,bitmap.getHeight()-inputlayoutHeight,bitmap.getWidth(),inputlayoutHeight);
             return BitmapUtil.getBlurBitmap(bitmap,150,false);
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
-
 }
