@@ -121,4 +121,10 @@ public class TileSettingActivity extends BaseActivity {
             layerDrawable.setDrawableByLayerId(android.R.id.progress,drawable);
         }
     }
+
+    @Override
+    protected void onPressHome(Intent intent) {
+        super.onPressHome(intent);
+        finish();
+    }
 }

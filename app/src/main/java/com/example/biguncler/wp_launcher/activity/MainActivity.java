@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     private ScreenStateLayout layoutParent;
     private ViewPager viewPager;
     private List<Fragment> fragmentList;
+    private MyViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,8 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         fragmentList.add(new FragmentApps());
 
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);
-        viewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList));
+        adapter =new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        viewPager.setAdapter(adapter);
         viewPager.setOverScrollMode(ViewPager.OVER_SCROLL_NEVER);
 
         layoutParent.setOnScreenStateChangedListener(this);
@@ -96,6 +98,13 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         } catch (Exception e) {
             e.printStackTrace();
         }
+        int currentItem=viewPager.getCurrentItem();
+        int items= adapter.getCount();
+        int item=currentItem-1;
+        if(item<0){
+            item=items-1;
+        }
+        viewPager.setCurrentItem(item);
     }
 
     @Override

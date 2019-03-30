@@ -109,4 +109,10 @@ public class SettingActivity extends BaseActivity implements ISettingView ,View.
         switchLock.updateSwitchTheme();
         switchHome.updateSwitchTheme();
     }
+
+    @Override
+    protected void onPressHome(Intent intent) {
+        super.onPressHome(intent);
+        finish();
+    }
 }

@@ -185,7 +185,6 @@ public class BaseActivity extends FragmentActivity {
                     //表示按了home键
                     onPressHome(intent);
                 }else if(TextUtils.equals(reason, SYSTEM_HOME_KEY_LONG)){
-                    Log.i("weijunshu","weijunshugg/lognpress");
                     //表示长按home键
                     onLongPressHome(intent);
                 }
