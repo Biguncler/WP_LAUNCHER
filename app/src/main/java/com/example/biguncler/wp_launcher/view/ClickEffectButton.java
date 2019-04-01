@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.widget.Button;
 
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
+import com.example.libutil.ColorUtil;
 
 /**
  * Created by Biguncler on 05/29/17.
@@ -46,7 +47,10 @@ public class ClickEffectButton extends Button {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 bgColor= ((ColorDrawable) getBackground()).getColor();
-                setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
+                int color= Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR));
+                int transparency= 255-(int)(255*SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_TRANSPARENCY)/100f);
+                color= ColorUtil.setColorAlpha(color,transparency);
+                setBackgroundColor(color);
                 downAnim();
                 break;
             case MotionEvent.ACTION_MOVE:

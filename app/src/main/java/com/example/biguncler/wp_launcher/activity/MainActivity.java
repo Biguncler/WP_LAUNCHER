@@ -161,6 +161,20 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         }
     }
 
+
+    @Override
+    protected void onTileTransparency(Intent intent) {
+        super.onTileTransparency(intent);
+        try {
+            List<Fragment> fragments = getSupportFragmentManager().getFragments();
+            for (Fragment fragment : fragments) {
+                ((BaseFragment) fragment).onTileTransparency(intent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void onPageSelected(int position) {
         try {
             List<Fragment> fragments = getSupportFragmentManager().getFragments();

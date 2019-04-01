@@ -85,7 +85,6 @@ public class AppManager {
     public List<AppMode> getHomeApps(Context context){
         List<AppMode> list = new ArrayList<>();
         AppMode calendar=new AppMode(MyApplication.appMap.get("calendar".toUpperCase()),"calendar", context.getDrawable(R.drawable.icon_white_weather));
-        AppMode weather=new AppMode(MyApplication.appMap.get("weather".toUpperCase()),"weather", context.getDrawable(R.drawable.icon_white_weather));
         AppMode phone=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"phone", context.getDrawable(R.drawable.icon_white_phone));
         AppMode people=new AppMode(MyApplication.appMap.get("phone".toUpperCase()),"people", context.getDrawable(R.drawable.icon_white_contact));
         String messagePn= MyApplication.appMap.get("messages".toUpperCase());
@@ -99,14 +98,17 @@ public class AppManager {
         AppMode camera=new AppMode(MyApplication.appMap.get("camera".toUpperCase()),"camera", context.getDrawable(R.drawable.icon_white_camera));
         AppMode gallery=new AppMode(MyApplication.appMap.get("gallery".toUpperCase()),"gallery", context.getDrawable(R.drawable.icon_white_gallery));
         AppMode map=new AppMode(MyApplication.appMap.get("amap".toUpperCase()),"map", context.getDrawable(R.drawable.icon_white_map));
+        AppMode weather=new AppMode(MyApplication.appMap.get("weather".toUpperCase()),"weather", context.getDrawable(R.drawable.icon_white_weather));
+
         AppMode music=new AppMode(MyApplication.appMap.get("kgyl".toUpperCase()),"music", context.getDrawable(R.drawable.icon_white_music));
         AppMode store=new AppMode(MyApplication.appMap.get("wdj".toUpperCase()),"store", context.getDrawable(R.drawable.icon_white_store));
         AppMode setting=new AppMode(MyApplication.appMap.get("settings".toUpperCase()),"settings", context.getDrawable(R.drawable.icon_white_setting));
         AppMode qq=new AppMode(MyApplication.appMap.get("qq".toUpperCase()),"qq", context.getDrawable(R.drawable.icon_white_qq));
         AppMode wechat=new AppMode(MyApplication.appMap.get("wechat".toUpperCase()),"wechat", context.getDrawable(R.drawable.icon_white_wechat));
+        AppMode alipay=new AppMode(MyApplication.appMap.get("alipay".toUpperCase()),"alipay", context.getDrawable(R.drawable.icon_white_alipay));
+        AppMode weibo=new AppMode(MyApplication.appMap.get("weibo".toUpperCase()),"weibo", context.getDrawable(R.drawable.icon_white_weibo));
 
         list.add(calendar);
-        list.add(weather);
         list.add(phone);
         list.add(people);
         list.add(message);
@@ -115,12 +117,19 @@ public class AppManager {
         list.add(fileManager);
         list.add(camera);
         list.add(gallery);
-        list.add(map);
-        list.add(music);
-        list.add(store);
-        list.add(setting);
-        list.add(qq);
         list.add(wechat);
+        list.add(music);
+        list.add(setting);
+        list.add(store);
+        list.add(map);
+        list.add(qq);
+        list.add(weibo);
+        list.add(alipay);
+        list.add(weather);
+
+
+
+
 
 
 

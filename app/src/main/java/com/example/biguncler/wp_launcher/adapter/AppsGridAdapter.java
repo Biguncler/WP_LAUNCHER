@@ -16,6 +16,7 @@ import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
+import com.example.libutil.ColorUtil;
 
 import java.util.List;
 
@@ -59,7 +60,10 @@ public class AppsGridAdapter extends BaseAdapter{
         }
         tvName.setText(appName);
         ivIcon.setImageDrawable(list.get(i).getIcon());
-        ivIcon.setBackgroundColor(Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR)));
+        int color= Integer.valueOf(SharedPreferenceDB.getString(context,SharedPreferenceDB.METRO_COLOR));
+        int transparency= 255-(int)(255*SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_TRANSPARENCY)/100f);
+        color= ColorUtil.setColorAlpha(color,transparency);
+        ivIcon.setBackgroundColor(color);
         initListener(layoutParent,i);
 
         return layoutParent;

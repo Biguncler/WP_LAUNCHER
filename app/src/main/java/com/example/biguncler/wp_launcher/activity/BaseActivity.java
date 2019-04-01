@@ -39,6 +39,7 @@ public class BaseActivity extends FragmentActivity {
     public static final String ACTION_WALLPEPER_UPDATED="com.biguncler.wp_launcher.wallpaper_updated";
     public static final String ACTION_ADD_SHORTCUT = "com.android.launcher.action.INSTALL_SHORTCUT";
     public static final String ACTION_METRO_COLOR_CHANGED = "com.biguncler.wp_launcher.action.METRO_COLOR_CHANGED";
+    public static final String ACTION_UPDATE_TILE_TRANSPARENCY="action_update_tile_transparency";
     private BroadcastReceiver receiver;
 
 
@@ -67,7 +68,9 @@ public class BaseActivity extends FragmentActivity {
     }
 
     protected  void onWallpaperChanged(Intent intent){
-        recreate();
+        //recreate();   recreate()在小米9系统上，recreate后，测量控件高度为0，其他手机是ok的，暂时以如下方法recreate
+        finish();
+        startActivity(new Intent(this,this.getClass()));
     }
 
     protected void onAppInstalled(Intent intent){
@@ -123,6 +126,10 @@ public class BaseActivity extends FragmentActivity {
 
     }
 
+    protected void onTileTransparency(Intent intent){
+
+    }
+
 
 
 
@@ -147,6 +154,7 @@ public class BaseActivity extends FragmentActivity {
        // intentFilter.addAction(Intent.ACTION_DATE_CHANGED);
         //intentFilter.addAction(Intent.ACTION_TIME_TICK);
        // intentFilter.addAction(ACTION_ADD_SHORTCUT);
+        intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
         registerReceiver(receiver, intentFilter);
 
 
@@ -219,6 +227,8 @@ public class BaseActivity extends FragmentActivity {
                 onFloatGestureRight(intent);
             }else if(action.equals(Intent.ACTION_USER_PRESENT)){
                 onUnlock(intent);
+            }else if(action.equals(ACTION_UPDATE_TILE_TRANSPARENCY)){
+                onTileTransparency(intent);
             }
         }
     }

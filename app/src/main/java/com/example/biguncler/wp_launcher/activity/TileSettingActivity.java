@@ -53,7 +53,7 @@ public class TileSettingActivity extends BaseActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 SharedPreferenceDB.saveInt(TileSettingActivity.this,SharedPreferenceDB.TILE_TRANSPARENCY,seekBar.getProgress());
-                sendBroadcast(new Intent(FragmentHome.ACTION_UPDATE_TILE_TRANSPARENCY));
+                sendBroadcast(new Intent(BaseActivity.ACTION_UPDATE_TILE_TRANSPARENCY));
             }
         });
         updateSeekbar(tranSeekBar);

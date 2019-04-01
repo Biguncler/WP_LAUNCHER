@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.biguncler.wp_launcher.view.ClickEffectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.example.biguncler.wp_launcher.view.BatteryCellView
+        android:layout_width="70dp"
+        android:layout_height="70dp" />
+</com.example.biguncler.wp_launcher.view.ClickEffectLayout>

@@ -86,11 +86,12 @@ public class CellLayout extends ViewGroup {
             View child = getChildAt(i);
             LayoutParams layoutParams = child.getLayoutParams();
             int scale = layoutParams.width / layoutParams.height;
+            Log.i("wjss","scale="+scale+"/index="+i+"w="+layoutParams.width+"/h="+layoutParams.height);
             if (scale < 1) scale = 1;
             if (scale > columCount) scale = columCount;
             layoutParams.height = cellHeight;
             layoutParams.width = layoutParams.height * scale + space * (scale - 1);
-
+            Log.i("wjss","w="+layoutParams.width+"/h="+layoutParams.height+"/index="+i);
             // 显示不下时，换行
             int b = cell % columCount;
             if (b != 0 && (b + scale) > columCount) {

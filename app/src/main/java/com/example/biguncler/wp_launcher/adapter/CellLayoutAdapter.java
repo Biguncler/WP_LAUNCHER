@@ -27,7 +27,8 @@ public class CellLayoutAdapter extends BaseAdapter {
     public final static int TYPE_ICON = 0;
     public final static int TYPE_DATE = TYPE_ICON + 1;
     public final static int TYPE_GALLERY = TYPE_DATE + 1;
-    public final static int TYPE_COUNT = TYPE_GALLERY+1;
+    public final static int TYPE_BATTERY = TYPE_GALLERY + 1;
+    public final static int TYPE_COUNT = TYPE_BATTERY+1;
 
     private Context context;
     private List<CellInfo> data =new ArrayList<>();
@@ -80,6 +81,9 @@ public class CellLayoutAdapter extends BaseAdapter {
                     break;
                 case TYPE_GALLERY:
                     view = LayoutInflater.from(context).inflate(R.layout.cell_item_gallery, viewGroup,false);
+                    break;
+                case TYPE_BATTERY:
+                    view = LayoutInflater.from(context).inflate(R.layout.cell_item_battery, viewGroup,false);
                     break;
             }
         }

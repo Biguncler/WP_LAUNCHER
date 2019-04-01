@@ -73,6 +73,7 @@ public class GalleryCellView extends ImageView {
                 .subscribe(new Consumer<Long>() {
                     @Override
                     public void accept(Long aLong) throws Exception {
+                        if(imageUrls.isEmpty()) return;
                         String url=imageUrls.get((int)(aLong%imageUrls.size()));
                         Glide.with(getContext().getApplicationContext())
                                 .load(url)
@@ -126,13 +127,14 @@ public class GalleryCellView extends ImageView {
             dir.mkdir();
         }
         File[] files=dir.listFiles();
-        for(File f:files){
-            if(f.isFile() && isImageFile(f.getPath())){
-                result.add(f.getAbsolutePath());
-                if(result.size()>5) break;
+        if(files!=null && files.length>0){
+            for(File f:files){
+                if(f.isFile() && isImageFile(f.getPath())){
+                    result.add(f.getAbsolutePath());
+                    if(result.size()>5) break;
+                }
             }
         }
-
         return result ;
     }
 

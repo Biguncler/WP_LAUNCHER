@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_fl_item__adapter_metro"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <com.example.biguncler.wp_launcher.view.WaveView
+
+            android:id="@+id/wave_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:isCircle="true"
+            app:period="1"
+            app:wave1Color="#7effffff"
+            app:wave2Color="#7effffff"
+            app:waveHeightPercent="0.5"
+            app:waveRange="3dp"
+            app:waveSpeed="1"
+            app:waveStrokeWidth="3dp">
+
+        </com.example.biguncler.wp_launcher.view.WaveView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:maxLines="1"
+        android:textColor="@android:color/white"
+        android:textSize="35sp" />
+
+</FrameLayout>

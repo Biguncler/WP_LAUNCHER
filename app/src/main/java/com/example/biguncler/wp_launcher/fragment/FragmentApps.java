@@ -184,6 +184,12 @@ public class FragmentApps extends BaseFragment {
     }
 
     @Override
+    public void onTileTransparency(Intent intent) {
+        super.onTileTransparency(intent);
+        appsLayout.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
     public void onPageSelected(int position) {
         super.onPageSelected(position);
         // 1为该fragment在viewpager中的下标

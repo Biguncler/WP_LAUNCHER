@@ -24,6 +24,10 @@ public class BaseFragment extends Fragment {
 
     }
 
+    public void onTileTransparency(Intent intent){
+
+    }
+
     public void onPressHome(Intent intent){
 
     }

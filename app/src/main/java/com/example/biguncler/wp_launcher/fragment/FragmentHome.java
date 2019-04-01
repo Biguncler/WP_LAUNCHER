@@ -29,6 +29,7 @@ import com.example.biguncler.wp_launcher.biz.AppManager;
 import com.example.biguncler.wp_launcher.biz.VoiceTextManager;
 import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
+import com.example.biguncler.wp_launcher.mode.BatteryCellInfo;
 import com.example.biguncler.wp_launcher.mode.CellInfo;
 import com.example.biguncler.wp_launcher.mode.GalleryCellInfo;
 import com.example.biguncler.wp_launcher.mode.IconCellInfo;
@@ -54,7 +55,6 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class FragmentHome extends BaseFragment {
-    public static final String ACTION_UPDATE_TILE_TRANSPARENCY="action_update_tile_transparency";
     public static final String ACTION_UPDATE_TILE_SPACIING="action_update_tile_spacing";
     public static final String ACTION_UPDATE_TILE_COLUMN="action_update_tile_column";
 
@@ -68,7 +68,6 @@ public class FragmentHome extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         IntentFilter intentFilter=new IntentFilter();
-        intentFilter.addAction(ACTION_UPDATE_TILE_TRANSPARENCY);
         intentFilter.addAction(ACTION_UPDATE_TILE_SPACIING);
         intentFilter.addAction(ACTION_UPDATE_TILE_COLUMN);
         getActivity().registerReceiver(receiver,intentFilter);
@@ -118,6 +117,10 @@ public class FragmentHome extends BaseFragment {
             iconCellInfo.setMode(appMode);
             data.add(iconCellInfo);
         }
+        BatteryCellInfo batteryCellInfo=new BatteryCellInfo();
+        batteryCellInfo.setType(CellLayoutAdapter.TYPE_BATTERY);
+        data.add(1,batteryCellInfo);
+
         return data;
     }
 
@@ -125,11 +128,15 @@ public class FragmentHome extends BaseFragment {
         cellLayout.setOnItemClickListener(new CellLayout.OnItemClickListener() {
             @Override
             public void onItemClick(ViewGroup parent, View view, int position, long id) {
-                CellInfo cellInfo= (CellInfo) adapter.getItem(position);
-                String pn=cellInfo.getMode().getPackageName();
-                boolean result= AppUtil.luanchApp(getActivity(),pn,view);
-                if(!result){
-                    Toast.makeText(getActivity(),"启动失败",Toast.LENGTH_SHORT).show();;
+                try{
+                    CellInfo cellInfo= (CellInfo) adapter.getItem(position);
+                    String pn=cellInfo.getMode().getPackageName();
+                    boolean result= AppUtil.luanchApp(getActivity(),pn,view);
+                    if(!result){
+                        Toast.makeText(getActivity(),"启动失败",Toast.LENGTH_SHORT).show();;
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
@@ -142,6 +149,12 @@ public class FragmentHome extends BaseFragment {
     }
 
     @Override
+    public void onTileTransparency(Intent intent) {
+        super.onTileTransparency(intent);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onMetroColorChanged(Intent intent) {
         super.onMetroColorChanged(intent);
         adapter.notifyDataSetChanged();
@@ -151,9 +164,7 @@ public class FragmentHome extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(ACTION_UPDATE_TILE_TRANSPARENCY.equals(action)){
-                adapter.notifyDataSetChanged();
-            }else if(ACTION_UPDATE_TILE_SPACIING.equals(action)){
+            if(ACTION_UPDATE_TILE_SPACIING.equals(action)){
                 int padding =SharedPreferenceDB.getInt(context,SharedPreferenceDB.TILE_SPACING);
                 padding= PixUtil.dip2px(context,padding);
                 cellLayout.setSpace(padding);
