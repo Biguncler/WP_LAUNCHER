@@ -68,8 +68,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         }
         fragmentList.add(new FragmentApps());
         iv= (ImageView) findViewById(R.id.iv_bg);
-        Bitmap bitmap = BitmapUtil.getBlurBitmap( BitmapUtil.scaleCompress(WallpaperUtil.getWallpaper(this),0.5f),65,false);
-        iv.setBackground(new BitmapDrawable(bitmap));
+        iv.setBackground(new BitmapDrawable(WallpaperUtil.getBlureWallpaper(this)));
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);
         adapter =new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);

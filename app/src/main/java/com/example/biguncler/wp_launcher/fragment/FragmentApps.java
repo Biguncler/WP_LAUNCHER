@@ -276,7 +276,7 @@ public class FragmentApps extends BaseFragment {
             float scale=bitmap.getWidth()*1f/ScreenUtil.getScreenWidth(getActivity());
             int inputlayoutHeight= (int) (inputLayout.getHeight()*scale);
             bitmap=BitmapUtil.cropBitmap(bitmap,0,bitmap.getHeight()-inputlayoutHeight,bitmap.getWidth(),inputlayoutHeight);
-            return BitmapUtil.getBlurBitmap(bitmap,150,false);
+            return bitmap;
         }catch (Exception e){
             e.printStackTrace();
         }

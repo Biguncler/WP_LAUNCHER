@@ -54,7 +54,7 @@ public class GalleryCellView extends ImageView {
     }
 
     private void init(){
-        setAlpha(0.5f);
+        setAlpha(0.7f);
         start();
     }
 
