@@ -3,12 +3,15 @@ package com.example.biguncler.wp_launcher.activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.example.biguncler.wp_launcher.R;
 import com.example.biguncler.wp_launcher.adapter.MyViewPagerAdapter;
@@ -21,6 +24,7 @@ import com.example.biguncler.wp_launcher.fragment.FragmentHome;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.LockScreenUtil;
 import com.example.biguncler.wp_launcher.util.PlayMusicUtils;
+import com.example.libutil.BitmapUtil;
 import com.example.libutil.WallpaperUtil;
 import com.example.biguncler.wp_launcher.view.ScreenStateLayout;
 
@@ -33,6 +37,7 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     private ViewPager viewPager;
     private List<Fragment> fragmentList;
     private MyViewPagerAdapter adapter;
+    private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,9 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
             fragmentList.add(new FragmentHome());
         }
         fragmentList.add(new FragmentApps());
-
+        iv= (ImageView) findViewById(R.id.iv_bg);
+        Bitmap bitmap = BitmapUtil.getBlurBitmap( BitmapUtil.scaleCompress(WallpaperUtil.getWallpaper(this),0.5f),65,false);
+        iv.setBackground(new BitmapDrawable(bitmap));
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);
         adapter =new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
@@ -71,19 +78,34 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         layoutParent.setOnScreenStateChangedListener(this);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            private float alpha=viewPager.getAlpha();
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if(positionOffset==0) return;
+                if(positionOffset>0.99){
+                    positionOffset=1;
+                }
+                float ap=0;
+                if(alpha==1){
+                    ap=Math.abs(alpha-positionOffset);
+                }else{
+                   ap=Math.abs(1-positionOffset);
+                }
+                iv.setAlpha(ap);
 
             }
 
             @Override
             public void onPageSelected(int position) {
                 MainActivity.this.onPageSelected(position);
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                if(state==0){
+                    alpha= iv.getAlpha();
+                }
             }
         });
     }
