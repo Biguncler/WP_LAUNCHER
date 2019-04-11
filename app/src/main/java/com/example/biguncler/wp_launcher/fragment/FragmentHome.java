@@ -31,6 +31,7 @@ import com.example.biguncler.wp_launcher.db.SharedPreferenceDB;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.mode.BatteryCellInfo;
 import com.example.biguncler.wp_launcher.mode.CellInfo;
+import com.example.biguncler.wp_launcher.mode.ContactCellInfo;
 import com.example.biguncler.wp_launcher.mode.GalleryCellInfo;
 import com.example.biguncler.wp_launcher.mode.IconCellInfo;
 import com.example.biguncler.wp_launcher.util.AppUtil;
@@ -100,6 +101,15 @@ public class FragmentHome extends BaseFragment {
                 galleryCellInfo.setType(CellLayoutAdapter.TYPE_GALLERY);
                 galleryCellInfo.setMode(appMode);
                 data.add(galleryCellInfo);
+                continue;
+            }
+
+            String contact=MyApplication.appMap.get(voiceTextManager.transfer("联系人"));
+            if(TextUtils.equals(contact,appMode.getPackageName())){
+                ContactCellInfo contactCellInfo=new ContactCellInfo();
+                contactCellInfo.setType(CellLayoutAdapter.TYPE_CONTACT);
+                contactCellInfo.setMode(appMode);
+                data.add(contactCellInfo);
                 continue;
             }
 

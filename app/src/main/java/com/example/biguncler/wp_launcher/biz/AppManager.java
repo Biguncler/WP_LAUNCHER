@@ -109,7 +109,7 @@ public class AppManager {
         AppMode weibo=new AppMode(MyApplication.appMap.get("weibo".toUpperCase()),"weibo", context.getDrawable(R.drawable.icon_white_weibo));
 
         list.add(calendar);
-        list.add(phone);
+        //list.add(phone);
         list.add(people);
         list.add(message);
         list.add(clock);

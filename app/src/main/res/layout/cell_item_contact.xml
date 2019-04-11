@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.biguncler.wp_launcher.view.ClickEffectLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="2dp"
+    android:layout_height="1dp">
+    <com.example.biguncler.wp_launcher.view.ContactCellView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.example.biguncler.wp_launcher.view.ContactCellView>
+
+</com.example.biguncler.wp_launcher.view.ClickEffectLayout>

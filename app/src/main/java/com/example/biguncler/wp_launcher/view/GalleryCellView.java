@@ -122,7 +122,7 @@ public class GalleryCellView extends ImageView {
             }
         }*/
 
-        String dirPath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/aibizhi/portrait";
+        String dirPath=Environment.getExternalStorageDirectory().getAbsolutePath()+"/aibizhi/example";
         File dir=new File(dirPath);
         if(!dir.exists()){
             dir.mkdir();

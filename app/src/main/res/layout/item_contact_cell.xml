@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.biguncler.wp_launcher.view.SquareFramelayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_bbg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:rotation="180"
+        android:visibility="invisible"
+        />
+    <ImageView
+        android:id="@+id/iv_fbg"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="match_parent" />
+</com.example.biguncler.wp_launcher.view.SquareFramelayout>
