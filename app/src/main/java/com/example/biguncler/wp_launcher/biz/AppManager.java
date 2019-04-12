@@ -122,10 +122,11 @@ public class AppManager {
         list.add(setting);
         list.add(store);
         list.add(map);
-        list.add(qq);
+        list.add(weather);
         list.add(weibo);
         list.add(alipay);
-        list.add(weather);
+        list.add(qq);
+
 
 
 

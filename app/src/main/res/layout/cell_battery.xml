@@ -35,6 +35,7 @@
         android:layout_gravity="center"
         android:maxLines="1"
         android:textColor="@android:color/white"
-        android:textSize="35sp" />
+        android:fontFamily="sans-serif-light"
+        android:textSize="40sp" />
 
 </FrameLayout>
