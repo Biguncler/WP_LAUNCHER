@@ -2,22 +2,22 @@ package com.example.biguncler.wp_launcher.mode;
 
 
 public class ContactCellInfo extends CellInfo {
-    public int getFbgId() {
-        return fbgId;
+    public String getBbgText() {
+        return bbgText;
     }
 
-    public void setFbgId(int fbgId) {
-        this.fbgId = fbgId;
+    public void setBbgText(String bbgText) {
+        this.bbgText = bbgText;
     }
 
-    public int getBbgId() {
-        return bbgId;
+    public String getFbgText() {
+        return fbgText;
     }
 
-    public void setBbgId(int bbgId) {
-        this.bbgId = bbgId;
+    public void setFbgText(String fbgText) {
+        this.fbgText = fbgText;
     }
 
-    int fbgId;
-    int bbgId;
+    private String bbgText;
+    private String fbgText;
 }

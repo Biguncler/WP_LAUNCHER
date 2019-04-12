@@ -103,8 +103,9 @@ public class ContactCellView extends LinearLayout {
         List<ContactCellInfo> list=new ArrayList<>();
         for(int i=0;i<18;i++){
             ContactCellInfo info=new ContactCellInfo();
-            info.setBbgId(R.drawable.icon_white_camera);
-            info.setFbgId(R.drawable.icon_white_gallery);
+            int index=i*2;
+            info.setFbgText(contacts[index]);
+            info.setBbgText(contacts[index+1]);
             list.add(info);
         }
         return list;
@@ -114,4 +115,9 @@ public class ContactCellView extends LinearLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return true;
     }
+
+    private String[] contacts=new String[]{"魏","黄","王","赵","钟","朱","刘","温","陈","徐",
+        "唐","李","余","廖","杨","曾","郑","周","宋","秦",
+    "何","张","曹","金","欧","胡","林","叶","程","赖",
+    "杜","梁","岳","孙","沈","吴"};
 }

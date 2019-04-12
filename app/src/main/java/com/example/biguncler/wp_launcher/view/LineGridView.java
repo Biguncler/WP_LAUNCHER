@@ -31,7 +31,7 @@ public class LineGridView extends GridView {
         Paint localPaint;
         localPaint = new Paint();
         localPaint.setStyle(Paint.Style.STROKE);
-        localPaint.setColor(Color.WHITE);
+        localPaint.setColor(Color.parseColor("#77ffffff"));
         for (int i = 0; i < childCount; i++) {
             View cellView = getChildAt(i);
             if ((i + 1) % column == 0) {

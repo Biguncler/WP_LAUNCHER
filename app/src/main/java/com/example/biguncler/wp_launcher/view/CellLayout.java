@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.BaseAdapter;
 
 import com.example.biguncler.wp_launcher.R;
@@ -57,7 +58,7 @@ public class CellLayout extends ViewGroup {
     }
 
     private void init(){
-        Observable.interval(3,15, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
+        Observable.interval(3,10, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
             @Override
             public void accept(Long aLong) throws Exception {
                     int count = getChildCount();
@@ -65,8 +66,9 @@ public class CellLayout extends ViewGroup {
                         int postion=(int)(Math.random()*(count));
                         View view=getChildAt(postion);
                         if(view!=null){
-                            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", 0, 360);
-                            animator.setDuration(2000).start();
+                            ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", 180, 360);
+                            animator.setInterpolator(new AnticipateOvershootInterpolator());
+                            animator.setDuration(1000).start();
                         }
                     }
                 }

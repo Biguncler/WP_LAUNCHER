@@ -110,8 +110,8 @@ public class AppManager {
 
         list.add(calendar);
         //list.add(phone);
-        list.add(people);
         list.add(message);
+        list.add(people);
         list.add(clock);
         list.add(chrome);
         list.add(fileManager);
