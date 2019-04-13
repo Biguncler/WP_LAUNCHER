@@ -63,7 +63,12 @@ public class ContactCellView extends LinearLayout {
                     int postion=(int)(Math.random()*(count));
                     final ViewGroup view= (ViewGroup) gridView.getChildAt(postion);
                     if(view!=null){
-                        final float startRotaioin=view.getRotationX()%360==0?0:view.getRotationX();
+                        float rotaion=view.getRotationX();
+                        float temp=rotaion%360;
+                        if(rotaion==0){
+                            view.setRotationX(rotaion);
+                        }
+                        final float startRotaioin=view.getRotationX();
                         float endRotation=startRotaioin+180;
                         final ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", startRotaioin, endRotation);
                         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
