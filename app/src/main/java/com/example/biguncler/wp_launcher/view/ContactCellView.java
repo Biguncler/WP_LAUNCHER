@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import com.example.biguncler.wp_launcher.mode.ContactCellInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,12 +52,14 @@ public class ContactCellView extends LinearLayout {
         FrameLayout.LayoutParams params=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
         addView(gridView,params);
         gridView.setNumColumns(6);
+        gridView.setScrollbarFadingEnabled(false);
+        gridView.setVerticalScrollBarEnabled(false);
         adapter = new ContactCellAdapter(getContext());
         gridView.setAdapter(adapter);
 
         setData(getDatas());
 
-        Observable.interval(3,4, java.util.concurrent.TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
+        Observable.interval(3,4, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Consumer<Long>() {
             @Override
             public void accept(final Long aLong) throws Exception {
                 int count = gridView.getChildCount();
@@ -64,18 +68,15 @@ public class ContactCellView extends LinearLayout {
                     final ViewGroup view= (ViewGroup) gridView.getChildAt(postion);
                     if(view!=null){
                         float rotaion=view.getRotationX();
-                        float temp=rotaion%360;
-                        if(rotaion==0){
-                            view.setRotationX(rotaion);
-                        }
-                        final float startRotaioin=view.getRotationX();
-                        float endRotation=startRotaioin+180;
-                        final ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", startRotaioin, endRotation);
+                        Log.i("ContactCellView","rotaion="+rotaion);
+                        final ObjectAnimator animator = ObjectAnimator.ofFloat(view, "rotationX", 180, 360);
+                        animator.setInterpolator(new AnticipateOvershootInterpolator());
                         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                             @Override
                             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                                float value= (float) valueAnimator.getAnimatedValue();
-                                if(startRotaioin+88<value&&value<93+startRotaioin){
+                                if(180+84<value&&value<96+180){
+                                    Log.i("ContactCellView","-------value="+value);
                                     for(int i=0;i<view.getChildCount();i++){
                                         View child=view.getChildAt(i);
                                         if(child.getVisibility()==View.VISIBLE){
