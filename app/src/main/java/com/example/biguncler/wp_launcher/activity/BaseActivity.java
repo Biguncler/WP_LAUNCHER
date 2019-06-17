@@ -137,7 +137,7 @@ public class BaseActivity extends FragmentActivity {
      *注册广播
      */
     private void registerReceiver() {
-        receiver = new MainActivity.MyReceiver();
+        receiver = new MyReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ACTION_APP_INSTALLED);
         intentFilter.addAction(ACTION_APP_UNINSTALLED);

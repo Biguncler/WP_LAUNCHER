@@ -1,8 +1,10 @@
 package com.example.biguncler.wp_launcher.activity;
 
 import android.app.WallpaperManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,6 +26,7 @@ import com.example.biguncler.wp_launcher.fragment.FragmentHome;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.LockScreenUtil;
 import com.example.biguncler.wp_launcher.util.PlayMusicUtils;
+import com.example.floatball.Constant;
 import com.example.libutil.BitmapUtil;
 import com.example.libutil.WallpaperUtil;
 import com.example.biguncler.wp_launcher.view.ScreenStateLayout;
@@ -38,11 +41,13 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     private List<Fragment> fragmentList;
     private MyViewPagerAdapter adapter;
     private ImageView iv;
+    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        registerReceiver();
         initView();
     }
 
@@ -67,46 +72,54 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
             fragmentList.add(new FragmentHome());
         }
         fragmentList.add(new FragmentApps());
-        iv= (ImageView) findViewById(R.id.iv_bg);
-        iv.setBackground(new BitmapDrawable(WallpaperUtil.getBlureWallpaper(this)));
+        iv = (ImageView) findViewById(R.id.iv_bg);
         viewPager = (ViewPager) findViewById(R.id.view_viewpager);
-        adapter =new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        adapter = new MyViewPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(adapter);
         viewPager.setOverScrollMode(ViewPager.OVER_SCROLL_NEVER);
 
         layoutParent.setOnScreenStateChangedListener(this);
+        if (adapter.getCount() > 1) {
+            iv.setBackground(new BitmapDrawable(WallpaperUtil.getBlureWallpaper(this)));
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                private float alpha = viewPager.getAlpha();
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            private float alpha=viewPager.getAlpha();
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(positionOffset==0) return;
-                if(positionOffset>0.99){
-                    positionOffset=1;
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if (positionOffset == 0) return;
+                    if (positionOffset > 0.99) {
+                        positionOffset = 1;
+                    }
+                    float ap = 0;
+                    if (alpha == 1) {
+                        ap = Math.abs(alpha - positionOffset);
+                    } else {
+                        ap = Math.abs(1 - positionOffset);
+                    }
+                    iv.setAlpha(ap);
+
                 }
-                float ap=0;
-                if(alpha==1){
-                    ap=Math.abs(alpha-positionOffset);
-                }else{
-                   ap=Math.abs(1-positionOffset);
+
+                @Override
+                public void onPageSelected(int position) {
+                    MainActivity.this.onPageSelected(position);
+
                 }
-                iv.setAlpha(ap);
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                MainActivity.this.onPageSelected(position);
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                if(state==0){
-                    alpha= iv.getAlpha();
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    if (state == 0) {
+                        alpha = iv.getAlpha();
+                    }
                 }
-            }
-        });
+            });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver();
     }
 
     @Override
@@ -119,11 +132,11 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int currentItem=viewPager.getCurrentItem();
-        int items= adapter.getCount();
-        int item=currentItem-1;
-        if(item<0){
-            item=items-1;
+        int currentItem = viewPager.getCurrentItem();
+        int items = adapter.getCount();
+        int item = currentItem - 1;
+        if (item < 0) {
+            item = items - 1;
         }
         viewPager.setCurrentItem(item);
     }
@@ -259,4 +272,23 @@ public class MainActivity extends BaseActivity implements ScreenStateLayout.OnSc
     }
 
 
+    private void registerReceiver() {
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getAction();
+                if (ACTION_hOME_SWITCH.equals(action)) {
+                    finish();
+                    startActivity(new Intent(MainActivity.this,MainActivity.class));
+                }
+            }
+        };
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ACTION_hOME_SWITCH);
+        registerReceiver(receiver, intentFilter);
+
+    }
+    private void unregisterReceiver() {
+        unregisterReceiver(receiver);
+    }
 }
