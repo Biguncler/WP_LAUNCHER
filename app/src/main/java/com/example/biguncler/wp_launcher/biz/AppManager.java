@@ -2,8 +2,11 @@ package com.example.biguncler.wp_launcher.biz;
 
 import android.content.Context;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +17,7 @@ import com.example.biguncler.wp_launcher.application.MyApplication;
 import com.example.biguncler.wp_launcher.mode.AppMode;
 import com.example.biguncler.wp_launcher.util.AppUtil;
 import com.example.biguncler.wp_launcher.util.CharUtil;
+import com.example.libutil.BitmapUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +74,16 @@ public class AppManager {
             }
             appName=appName.toUpperCase();
             // 设置图片
-            Drawable icon =icon = resolveInfo.activityInfo.loadIcon(context.getPackageManager());
-
+            Drawable icon = resolveInfo.activityInfo.loadIcon(context.getPackageManager());
+            // 小米手机图标去除边缘透明部分
+            if(Build.BRAND.toUpperCase().contains("XIAOMI")){
+               Bitmap bitmap=((BitmapDrawable)icon).getBitmap();
+                int startx= (int) (bitmap.getWidth()*0.08f);
+                int starty= (int) (bitmap.getHeight()*0.08f);
+                int w=bitmap.getWidth()-2*startx;
+                int h=bitmap.getHeight()-2*starty;
+                icon=new BitmapDrawable(BitmapUtil.cropBitmap(bitmap,startx,starty,w,h));
+            }
             AppMode appMode = new AppMode(pakageName, appName, icon);
             apps.add(appMode);
 
