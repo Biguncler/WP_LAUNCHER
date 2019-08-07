@@ -96,7 +96,7 @@ public class FragmentHome extends BaseFragment {
         VoiceTextManager voiceTextManager=new VoiceTextManager(getContext());
         for(AppMode appMode:appModes){
             String gallery=MyApplication.appMap.get(voiceTextManager.transfer("相册"));
-            if(TextUtils.equals(gallery,appMode.getPackageName())){
+            if(!TextUtils.isEmpty(gallery) &&TextUtils.equals(gallery,appMode.getPackageName())){
                 GalleryCellInfo galleryCellInfo=new GalleryCellInfo();
                 galleryCellInfo.setType(CellLayoutAdapter.TYPE_GALLERY);
                 galleryCellInfo.setMode(appMode);
@@ -104,8 +104,8 @@ public class FragmentHome extends BaseFragment {
                 continue;
             }
 
-            String contact=MyApplication.appMap.get(voiceTextManager.transfer("联系人"));
-            if(TextUtils.equals(contact,appMode.getPackageName())){
+            String contact=MyApplication.appMap.get(voiceTextManager.transfer("PHONE"));
+            if(!TextUtils.isEmpty(contact) &&TextUtils.equals(contact,appMode.getPackageName())){
                 ContactCellInfo contactCellInfo=new ContactCellInfo();
                 contactCellInfo.setType(CellLayoutAdapter.TYPE_CONTACT);
                 contactCellInfo.setMode(appMode);
@@ -114,7 +114,7 @@ public class FragmentHome extends BaseFragment {
             }
 
             String calender=MyApplication.appMap.get(voiceTextManager.transfer("日历"));
-            if(TextUtils.equals(calender,appMode.getPackageName())){
+            if(!TextUtils.isEmpty(calender) &&TextUtils.equals(calender,appMode.getPackageName())){
                 CellInfo dateCell=new CellInfo();
                 dateCell.setType(CellLayoutAdapter.TYPE_DATE);
                 dateCell.setMode(appMode);
