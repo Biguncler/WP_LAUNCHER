@@ -2,24 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.biguncler.wp_launcher.fragment.FragmentSearchApp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="34dp">
 
-        <com.example.biguncler.wp_launcher.view.AppsLayout
-            android:id="@+id/layout_apps"
+        <me.qinc.lib.edgetranslucent.EdgeTransparentView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="7dp"
             android:layout_weight="1"
-            android:paddingTop="7dp" />
+            app:edge_width="30dp"
+            app:edge_position="top|bottom">
+
+            <com.example.biguncler.wp_launcher.view.AppsLayout
+                android:id="@+id/layout_apps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp" />
+
+        </me.qinc.lib.edgetranslucent.EdgeTransparentView>
+
 
         <LinearLayout
             android:layout_width="50dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <com.example.biguncler.wp_launcher.view.ClickEffectLayout

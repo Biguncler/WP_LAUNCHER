@@ -34,6 +34,8 @@ dependencies {
     compile project(':floatball')
     compile project(':lib.theme')
     compile project(':lib.util')
+    compile 'ren.qinc.edgetranslucent:lib:0.0.3'
+
 }
 repositories {
     flatDir {
